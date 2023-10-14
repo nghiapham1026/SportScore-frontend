@@ -4,20 +4,28 @@ import axios from 'axios';
 function App() {
     const [fixtures, setFixtures] = useState([]);
     const [error, setError] = useState(null);
+    const [selectedDate, setSelectedDate] = useState(new Date().toISOString().split('T')[0]); // Default to today
   
     useEffect(() => {
       const fetchFixtures = async () => {
         try {
-          const response = await axios.get('https://sportscore-a1cf52e3ff48.herokuapp.com/fixtures/db/getFixtures', {
-            params: { date: '2023-10-05' }
+          const response = await axios.get('https://sportscore-a1cf52e3ff48.herokuapp.com/fixtures/getFixtures', {
+            params: { date: selectedDate }
           });
-          setFixtures(response.data.allFixtures);
+          setFixtures(response.data);
         } catch (err) {
           setError(err.message);
         }
       };
       fetchFixtures();
-    }, []);
+    }, [selectedDate]); // Re-run effect when selectedDate changes
+  
+    const handleDateChange = (event) => {
+      setSelectedDate(event.target.value);
+    };
+
+    const minDate = new Date(Date.now() - 14 * 24 * 60 * 60 * 1000).toISOString().split('T')[0];
+    const maxDate = new Date(Date.now() + 14 * 24 * 60 * 60 * 1000).toISOString().split('T')[0];
   
     if (error) {
       return <p>Error: {error}</p>;
@@ -26,6 +34,16 @@ function App() {
     return (
       <div>
         <h1>Fixtures</h1>
+        <label>
+          Select date: 
+          <input 
+            type="date" 
+            value={selectedDate} 
+            onChange={handleDateChange} 
+            min={minDate}
+            max={maxDate}
+          />
+        </label>
         <ul>
           {fixtures.map((fixture, index) => (
             <li key={index}>
@@ -38,6 +56,6 @@ function App() {
         </ul>
       </div>
     );
-  };
+};
 
 export default App;
