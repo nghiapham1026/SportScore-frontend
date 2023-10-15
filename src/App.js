@@ -9,10 +9,10 @@ function App() {
     useEffect(() => {
       const fetchFixtures = async () => {
         try {
-          const response = await axios.get('https://sportscore-a1cf52e3ff48.herokuapp.com/fixtures/getFixtures', {
+          const response = await axios.get('https://sportscore-a1cf52e3ff48.herokuapp.com/fixtures/db/getFixtures', {
             params: { date: selectedDate }
           });
-          setFixtures(response.data);
+          setFixtures(response.data.allFixtures);
         } catch (err) {
           setError(err.message);
         }
