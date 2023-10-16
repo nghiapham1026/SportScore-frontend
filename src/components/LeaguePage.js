@@ -1,34 +1,64 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
 import axios from 'axios';
+import { useParams } from 'react-router-dom';
 
 function LeaguePage() {
     const { leagueId } = useParams();
-
+    const [seasons, setSeasons] = useState([]);
+    const [selectedSeason, setSelectedSeason] = useState(null);
+    const [leagueData, setLeagueData] = useState(null);
     const [standings, setStandings] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
 
     useEffect(() => {
-        const fetchStandings = async () => {
+        const fetchLeagueData = async () => {
             try {
-                const response = await axios.get(`https://sportscore-a1cf52e3ff48.herokuapp.com/standings/db/getStandings?league=${leagueId}&season=2022`);
-                console.log("API Response:", response.data);
-                setStandings(response.data.standings[0]);
-                setLoading(false);
+                const response = await axios.get(`https://sportscore-a1cf52e3ff48.herokuapp.com/leagues/db/getLeagues`);
+                const league = response.data.allLeagues.find(l => l.league.id === parseInt(leagueId));
+                if (league) {
+                    setLeagueData(league);
+                    setSeasons(league.seasons);
+                    const currentSeason = league.seasons.find(s => s.current) || league.seasons[league.seasons.length - 1];
+                    setSelectedSeason(currentSeason);
+                }
             } catch (err) {
-                setError(err.message);
-                setLoading(false);
+                console.error("Error fetching league data:", err);
             }
         };
-        fetchStandings();
+        fetchLeagueData();
     }, [leagueId]);
 
-    if (loading) return <p>Loading...</p>;
-    if (error) return <p>Error: {error}</p>;
+    useEffect(() => {
+        if (selectedSeason) {
+            // Fetch standings data for the selected season
+            const fetchStandings = async () => {
+                try {
+                    const response = await axios.get(`https://sportscore-a1cf52e3ff48.herokuapp.com/standings/db/getStandings?league=${leagueId}&season=${selectedSeason.year}`);
+                    setStandings(response.data.standings[0]);
+                } catch (err) {
+                    console.error("Error fetching standings data:", err);
+                }
+            };
+            fetchStandings();
+        }
+    }, [selectedSeason]);
 
     return (
         <div>
+            <h2>{leagueData?.league.name}</h2>
+            <select
+                value={selectedSeason?._id}
+                onChange={(e) => {
+                    const season = seasons.find(s => s._id === e.target.value);
+                    setSelectedSeason(season);
+                }}
+            >
+                {seasons.map(season => (
+                    <option key={season._id} value={season._id}>
+                        {season.year}
+                    </option>
+                ))}
+            </select>
+            
             <h1>{standings.league?.name}</h1>
             <img src={standings.league?.logo} alt={standings.league?.name} />
             <table>
