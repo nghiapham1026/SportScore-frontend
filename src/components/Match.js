@@ -29,15 +29,53 @@ function Match() {
         return <p>Loading...</p>;
     }
 
+    const styles = {
+        container: {
+            display: 'flex',  // Set the container to be a flex container
+            justifyContent: 'space-between',  // Space out the team sections
+            padding: '20px',
+            backgroundColor: '#f7f9fc',
+            fontFamily: "'Arial', sans-serif",
+        },
+        teamSection: {
+            flex: '0 0 48%',  // Each team section takes up 48% of the container width
+            border: '1px solid #ccc',
+            borderRadius: '5px',
+            padding: '20px',
+            margin: '20px 0',
+            backgroundColor: '#fff',
+            boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)',
+        },
+        teamName: {
+            fontSize: '24px',
+            textAlign: 'center',
+            margin: '20px 0',
+        },
+        teamLogo: {
+            display: 'block',
+            margin: '0 auto',
+            width: '100px',
+            height: '100px',
+        },
+        statsList: {
+            listStyleType: 'none',
+            paddingLeft: '0',
+        },
+        statItem: {
+            padding: '10px 0',
+            borderBottom: '1px solid #eee',
+        }
+    };
+
     return (
-        <div>
+        <div style={styles.container}>
             {statistics.map((teamStats) => (
-                <div key={teamStats.team.id}>
-                    <h2>{teamStats.team.name}</h2>
-                    <img src={teamStats.team.logo} alt={`${teamStats.team.name} logo`} />
-                    <ul>
+                <div key={teamStats.team.id} style={styles.teamSection}>
+                    <h2 style={styles.teamName}>{teamStats.team.name}</h2>
+                    <img src={teamStats.team.logo} alt={`${teamStats.team.name} logo`} style={styles.teamLogo} />
+                    <ul style={styles.statsList}>
                         {teamStats.statistics.map((stat, index) => (
-                            <li key={index}>
+                            <li key={index} style={styles.statItem}>
                                 {stat.type}: {stat.value}
                             </li>
                         ))}
@@ -49,3 +87,4 @@ function Match() {
 }
 
 export default Match;
+

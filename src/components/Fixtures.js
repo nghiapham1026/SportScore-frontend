@@ -119,16 +119,14 @@ function Fixtures() {
                 {leagueName}
             </h2>
             {expandedLeagues[leagueName] && groupedFixtures[leagueName].map((fixture, index) => (
-                <Link to={`/match/${fixture.fixture.id}`} key={index}>
-                    <li style={styles.listItem}>
-                        <h3 style={{cursor: 'pointer'}}>
-                            <img src={fixture.teams.home.logo} alt={`${fixture.teams.home.name} logo`} style={styles.teamLogo} />
-                            {fixture.teams.home.name} {fixture.goals.home}-{fixture.goals.away} {fixture.teams.away.name}
-                            <img src={fixture.teams.away.logo} alt={`${fixture.teams.away.name} logo`} style={styles.teamLogo} />
-                        
-                        </h3>
-                        {expandedFixtures[fixture.fixture.id] && (
-                            <div>
+                <li key={index} style={styles.listItem}>
+                    <h3 style={{cursor: 'pointer'}}>
+                        <img src={fixture.teams.home.logo} alt={`${fixture.teams.home.name} logo`} style={styles.teamLogo} />
+                        {fixture.teams.home.name} {fixture.goals.home}-{fixture.goals.away} {fixture.teams.away.name}
+                        <img src={fixture.teams.away.logo} alt={`${fixture.teams.away.name} logo`} style={styles.teamLogo} />
+                    </h3>
+                    {expandedFixtures[fixture.fixture.id] && (
+                        <div>
                         <p>Date & Time: {new Date(fixture.fixture.date).toLocaleString()} ({fixture.fixture.timezone})</p>
                 <p>Venue: {fixture.fixture.venue.name}, {fixture.fixture.venue.city}</p>
                 <p>Referee: {fixture.fixture.referee}</p>
@@ -138,10 +136,22 @@ function Fixtures() {
                 <p>Score (Fulltime): {fixture.score.fulltime.home} - {fixture.score.fulltime.away}</p>
                 <p>Score (Extra time): {fixture.score.extratime.home} - {fixture.score.extratime.away}</p>
                 <p>Score (Penalty): {fixture.score.penalty.home} - {fixture.score.penalty.away}</p>
-                  </div>
-                        )}
-                    </li>
-                </Link>
+                </div>
+                    )}
+                    <Link to={`/match/${fixture.fixture.id}`}>
+                        <button style={{
+                            padding: '10px 15px',
+                            backgroundColor: '#007BFF',
+                            color: 'white',
+                            border: 'none',
+                            borderRadius: '5px',
+                            cursor: 'pointer',
+                            marginTop: '10px'
+                        }}>
+                            Match Center
+                        </button>
+                    </Link>
+                </li>
             ))}
         </React.Fragment>
     ))}
