@@ -3,6 +3,9 @@ import axios from 'axios';
 import { BrowserRouter as Router, Route, Link, Routes } from 'react-router-dom';
 import FixturePage from './Fixtures';
 import Match from './Match';
+import LeaguePage from './LeaguePage';  // Adjust the path if necessary
+
+
 
 function Navbar() {
     return (
@@ -49,17 +52,19 @@ function LeagueLogos() {
 
     return (
         <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}>
-            {leagues.map((leagueData) => (
-                <div key={leagueData.league.id}>
-                    <img 
-                        src={leagueData.league.logo} 
-                        alt={leagueData.league.name} 
-                        style={logoStyle}
-                        onMouseOver={(e) => e.currentTarget.style.transform = 'scale(1.1)'}
-                        onMouseOut={(e) => e.currentTarget.style.transform = 'scale(1)'}
-                    />
-                </div>
-            ))}
+{leagues.map((leagueData) => (
+    <div key={leagueData.league.id}>
+        <Link to={`/league/${leagueData.league.id}`}>
+            <img 
+                src={leagueData.league.logo} 
+                alt={leagueData.league.name} 
+                style={logoStyle}
+                onMouseOver={(e) => e.currentTarget.style.transform = 'scale(1.1)'}
+                onMouseOut={(e) => e.currentTarget.style.transform = 'scale(1)'}
+            />
+        </Link>
+    </div>
+))}
         </div>
     );
 }
@@ -72,6 +77,7 @@ function App() {
                 <Route path="/" element={<LeagueLogos />} />
                 <Route path="/fixtures" element={<FixturePage />} />
                 <Route path="/match/:fixtureId" element={<Match />} />
+                <Route path="/league/:leagueId" element={<LeaguePage />} />
                 {/* Add more routes as needed */}
             </Routes>
         </Router>
