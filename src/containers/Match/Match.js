@@ -2,7 +2,12 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
 import { useParams, useLocation } from 'react-router-dom';
+
 import './Match.css';  // Import the new CSS file
+import MatchScore from './MatchScore';
+import MatchStatistics from './MatchStatistics';
+import HeadToHead from './HeadToHead';
+import { fetchData } from '../../utils/fetchData';
 
 function Match() {
     const { fixtureId } = useParams();
@@ -28,15 +33,15 @@ function Match() {
                     params: { fixture: fixtureId }
                 });
                 setStatistics(response.data.allFixtureStatistics);
-
+                        
                 const h2hResponse = await axios.get(`https://sportscore-a1cf52e3ff48.herokuapp.com/fixtures/db/getHeadToHead?h2h=${team1Id}-${team2Id}`);
                 setHeadToHeadData(h2hResponse.data.allHeadToHeadFixtures);
                 console.log(team1Id, team2Id);
-
+        
             } catch (err) {
                 setError(err.message);
             }
-        };
+        };        
         fetchStatistics();
     }, [fixtureId]);
 
@@ -50,49 +55,19 @@ function Match() {
 
     return (
         <div>
-            <div className="team-score-container">
-    <img src={team1Logo} alt="Team 1 Logo" className="team-logo" />
-    <span className="score">
-        {team1Score !== 'null' && team2Score !== 'null' ? `${team1Score} - ${team2Score}` : ' - '}
-    </span>
-    <img src={team2Logo} alt="Team 2 Logo" className="team-logo" />
-</div>
+            <MatchScore 
+                team1Logo={team1Logo} 
+                team2Logo={team2Logo} 
+                team1Score={team1Score} 
+                team2Score={team2Score} 
+            />
             <div className="container">
                 <div className="teamsContainer">
                     {statistics.map((teamStats) => (
-                        <div key={teamStats.team.id} className="teamSection">
-                            <h2 className="teamName">{teamStats.team.name}</h2>
-                            <img src={teamStats.team.logo} alt={`${teamStats.team.name} logo`} className="teamLogo" />
-                            <ul className="statsList">
-                                {teamStats.statistics.map((stat, index) => (
-                                    <li key={index} className="statItem">
-                                        {stat.type}: {stat.value}
-                                    </li>
-                                ))}
-                            </ul>
-                        </div>
+                        <MatchStatistics key={teamStats.team.id} teamStats={teamStats} />
                     ))}
                 </div>
-                <div>
-                    <h2>Head-to-Head Data</h2>
-                    <ul>
-                        {headToHeadData.sort((a, b) => new Date(b.fixture.date) - new Date(a.fixture.date)).map((match, idx) => (
-                            <li key={idx}>
-                                <strong>Date:</strong> {new Date(match.fixture.date).toLocaleDateString()}
-                                <br />
-                                <strong>Score:</strong> {match.goals.home} - {match.goals.away}
-                                <br />
-                                <strong>Venue:</strong> {match.fixture.venue.name}
-                                <br />
-                                <strong>Status:</strong> {match.fixture.status.long}
-                                <br />
-                                <strong>Referee:</strong> {match.fixture.referee}
-                                <br />
-                                <hr />
-                            </li>
-                        ))}
-                    </ul>
-                </div>
+                <HeadToHead headToHeadData={headToHeadData} />
             </div>
         </div>
     );    
