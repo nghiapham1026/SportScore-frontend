@@ -1,0 +1,11 @@
+/* Home.css */
+.logoStyle {
+    width: 100px;
+    margin: 10px;
+    transition: transform 0.2s;
+    cursor: pointer;
+}
+
+.logoStyle:hover {
+    transform: scale(1.1);
+}

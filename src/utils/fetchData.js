@@ -1,8 +1,11 @@
 import axios from 'axios';
 
-export const fetchData = async (url, params = {}) => {
+const { API_URL } = require("./constants");
+
+export const fetchData = async (endpoint) => {
     try {
-        const response = await axios.get(url, { params });
+        const response = await axios.get(`${API_URL}${endpoint}`);
+        console.log(response.data);
         return response.data;
     } catch (err) {
         throw err;
