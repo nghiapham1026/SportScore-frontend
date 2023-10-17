@@ -5,7 +5,7 @@ import { fetchData } from '../../utils/fetchData';
 import LeagueTable from './LeagueTable';  // Adjust the path
 import LeagueSelector from './LeagueSelector';  // Adjust the path
 
-function LeaguePage() {
+function League() {
     const { leagueId } = useParams();
     const [seasons, setSeasons] = useState([]);
     const [selectedSeason, setSelectedSeason] = useState(null);
@@ -81,4 +81,4 @@ function LeaguePage() {
     );
 }
 
-export default LeaguePage;
+export default League;

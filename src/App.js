@@ -4,7 +4,7 @@ import Navbar from './components/Navbar';
 import Home from './containers/Home/Home';
 import FixturePage from './containers/Fixtures/Fixtures';
 import Match from './containers/Match/Match';
-import LeaguePage from './containers/League/LeaguePage';
+import League from './containers/League/League';
 
 function App() {
     return (
@@ -14,7 +14,7 @@ function App() {
                 <Route path="/" element={<Home />} />
                 <Route path="/fixtures" element={<FixturePage />} />
                 <Route path="/match/:fixtureId" element={<Match />} />
-                <Route path="/league/:leagueId" element={<LeaguePage />} />
+                <Route path="/league/:leagueId" element={<League />} />
                 {/* Add more routes as needed */}
             </Routes>
         </Router>

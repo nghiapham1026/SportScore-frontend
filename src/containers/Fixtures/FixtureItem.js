@@ -12,13 +12,13 @@ function FixtureItem({ fixture, toggleFixture, expandedFixtures }) {
             {expandedFixtures[fixture.fixture.id] && (
                 <div className="fixtureDetails">
                     <p>Date & Time: {new Date(fixture.fixture.date).toLocaleString()} ({fixture.fixture.timezone})</p>
-                                        <p>Venue: {fixture.fixture.venue.name}, {fixture.fixture.venue.city}</p>
-                                        <p>Referee: {fixture.fixture.referee}</p>
-                                        <p>Status: {fixture.fixture.status.long} ({fixture.fixture.status.short}) - {fixture.fixture.status.elapsed} mins elapsed</p>
-                                        <p>Score (Halftime): {fixture.score.halftime.home} - {fixture.score.halftime.away}</p>
-                                        <p>Score (Fulltime): {fixture.score.fulltime.home} - {fixture.score.fulltime.away}</p>
-                                        <p>Score (Extra time): {fixture.score.extratime.home} - {fixture.score.extratime.away}</p>
-                                        <p>Score (Penalty): {fixture.score.penalty.home} - {fixture.score.penalty.away}</p>
+                    <p>Venue: {fixture.fixture.venue.name}, {fixture.fixture.venue.city}</p>
+                    <p>Referee: {fixture.fixture.referee}</p>
+                    <p>Status: {fixture.fixture.status.long} ({fixture.fixture.status.short}) - {fixture.fixture.status.elapsed} mins elapsed</p>
+                    <p>Score (Halftime): {fixture.score.halftime.home} - {fixture.score.halftime.away}</p>
+                    <p>Score (Fulltime): {fixture.score.fulltime.home} - {fixture.score.fulltime.away}</p>
+                    <p>Score (Extra time): {fixture.score.extratime.home} - {fixture.score.extratime.away}</p>
+                    <p>Score (Penalty): {fixture.score.penalty.home} - {fixture.score.penalty.away}</p>
                 </div>
             )}
             <Link to={`/match/${fixture.fixture.id}?team1=${fixture.teams.home.id}&team2=${fixture.teams.away.id}&team1Logo=${fixture.teams.home.logo}&team2Logo=${fixture.teams.away.logo}&team1Score=${fixture.goals.home}&team2Score=${fixture.goals.away}`}>
