@@ -29,6 +29,10 @@ function LeaguePage() {
 
     useEffect(() => {
         if (selectedSeason) {
+            if (leagueId === '5' && selectedSeason.year === 2018) {
+                console.log("Fetching for league 5 in season 2018 is skipped.");
+                return; // Exit the useEffect without fetching
+            }
             // Fetch standings data for the selected season
             const fetchStandings = async () => {
                 try {
@@ -98,15 +102,19 @@ function LeaguePage() {
             </select>
             
             {console.log("Rendering standings:", standings)}
-            {Array.isArray(standings) && standings[0] instanceof Array ? 
-                standings.map((group, groupIndex) => (
-                    <div key={groupIndex}>
-                        <h3>{group[0]?.group}</h3>
-                        {renderTable(group)}
-                    </div>
-                ))
+            {Array.isArray(standings) && standings.length > 0 ? 
+                (standings[0] instanceof Array ? 
+                    standings.map((group, groupIndex) => (
+                        <div key={groupIndex}>
+                            <h3>{group[0]?.group}</h3>
+                            {renderTable(group)}
+                        </div>
+                    ))
+                    :
+                    renderTable(standings)
+                )
                 :
-                renderTable(standings)
+                console.log("No valid table data.")
             }
         </div>
     );
