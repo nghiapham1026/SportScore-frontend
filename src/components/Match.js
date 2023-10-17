@@ -1,9 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
+import { useParams, useLocation } from 'react-router-dom';
 
 function Match() {
     const { fixtureId } = useParams();
+    const location = useLocation();
+
+    // Extract team IDs from the query parameters
+    const searchParams = new URLSearchParams(location.search);
+    const team1Id = searchParams.get('team1');
+    const team2Id = searchParams.get('team2');
+    
     const [statistics, setStatistics] = useState(null);
     const [headToHeadData, setHeadToHeadData] = useState([]);
     const [error, setError] = useState(null);
@@ -15,10 +22,6 @@ function Match() {
                     params: { fixture: fixtureId }
                 });
                 setStatistics(response.data.allFixtureStatistics);
-
-                // Assuming the statistics data contains team IDs
-                const team1Id = response.data.allFixtureStatistics[0].team.id;
-                const team2Id = response.data.allFixtureStatistics[1].team.id;
 
                 const h2hResponse = await axios.get(`https://sportscore-a1cf52e3ff48.herokuapp.com/fixtures/db/getHeadToHead?h2h=${team1Id}-${team2Id}`);
                 setHeadToHeadData(h2hResponse.data.allHeadToHeadFixtures);

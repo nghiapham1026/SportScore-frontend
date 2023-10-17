@@ -137,7 +137,7 @@ function Fixtures() {
                                         <p>Score (Penalty): {fixture.score.penalty.home} - {fixture.score.penalty.away}</p>
                                     </div>
                                 )}
-                                <Link to={`/match/${fixture.fixture.id}`}>
+                                <Link to={`/match/${fixture.fixture.id}?team1=${fixture.teams.home.id}&team2=${fixture.teams.away.id}`}>
                                     <button style={{
                                         padding: '10px 15px',
                                         backgroundColor: '#007BFF',
