@@ -10,6 +10,10 @@ function Match() {
     const searchParams = new URLSearchParams(location.search);
     const team1Id = searchParams.get('team1');
     const team2Id = searchParams.get('team2');
+    const team1Logo = searchParams.get('team1Logo');
+    const team2Logo = searchParams.get('team2Logo');
+    const team1Score = searchParams.get('team1Score');
+    const team2Score = searchParams.get('team2Score');
     
     const [statistics, setStatistics] = useState(null);
     const [headToHeadData, setHeadToHeadData] = useState([]);
@@ -86,44 +90,53 @@ function Match() {
     };
 
     return (
-        <div style={styles.container}>
-            <div style={styles.teamsContainer}>
-                {statistics.map((teamStats) => (
-                    <div key={teamStats.team.id} style={styles.teamSection}>
-                        <h2 style={styles.teamName}>{teamStats.team.name}</h2>
-                        <img src={teamStats.team.logo} alt={`${teamStats.team.name} logo`} style={styles.teamLogo} />
-                        <ul style={styles.statsList}>
-                            {teamStats.statistics.map((stat, index) => (
-                                <li key={index} style={styles.statItem}>
-                                    {stat.type}: {stat.value}
+        <div>
+            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginBottom: '20px' }}>
+                <img src={team1Logo} alt="Team 1 Logo" style={{ width: '120px', height: '120px', marginRight: '10px' }} />
+                <span style={{ fontSize: '24px', margin: '0 10px' }}>
+                    {team1Score !== 'null' && team2Score !== 'null' ? `${team1Score} - ${team2Score}` : ' - '}
+                </span>
+                <img src={team2Logo} alt="Team 2 Logo" style={{ width: '120px', height: '120px', marginLeft: '10px' }} />
+            </div>
+            <div style={styles.container}>
+                <div style={styles.teamsContainer}>
+                    {statistics.map((teamStats) => (
+                        <div key={teamStats.team.id} style={styles.teamSection}>
+                            <h2 style={styles.teamName}>{teamStats.team.name}</h2>
+                            <img src={teamStats.team.logo} alt={`${teamStats.team.name} logo`} style={styles.teamLogo} />
+                            <ul style={styles.statsList}>
+                                {teamStats.statistics.map((stat, index) => (
+                                    <li key={index} style={styles.statItem}>
+                                        {stat.type}: {stat.value}
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+                    ))}
+                </div>
+                    <div>
+                        <h2>Head-to-Head Data</h2>
+                        <ul>
+                            {headToHeadData.sort((a, b) => new Date(b.fixture.date) - new Date(a.fixture.date)).map((match, idx) => (
+                                <li key={idx}>
+                                    <strong>Date:</strong> {new Date(match.fixture.date).toLocaleDateString()}
+                                    <br />
+                                    <strong>Score:</strong> {match.goals.home} - {match.goals.away}
+                                    <br />
+                                    <strong>Venue:</strong> {match.fixture.venue.name}
+                                    <br />
+                                    <strong>Status:</strong> {match.fixture.status.long}
+                                    <br />
+                                    <strong>Referee:</strong> {match.fixture.referee}
+                                    <br />
+                                    <hr />
                                 </li>
                             ))}
                         </ul>
-                    </div>
-                ))}
-            </div>
-            <div>
-                <h2>Head-to-Head Data</h2>
-                <ul>
-                    {headToHeadData.map((match, idx) => (
-                        <li key={idx}>
-                            <strong>Date:</strong> {new Date(match.fixture.date).toLocaleDateString()}
-                            <br />
-                            <strong>Score:</strong> {match.goals.home} - {match.goals.away}
-                            <br />
-                            <strong>Venue:</strong> {match.fixture.venue.name}
-                            <br />
-                            <strong>Status:</strong> {match.fixture.status.long}
-                            <br />
-                            <strong>Referee:</strong> {match.fixture.referee}
-                            <br />
-                            <hr />
-                        </li>
-                    ))}
-                </ul>
+                </div>
             </div>
         </div>
-    );
+    );    
 }
 
 export default Match;
