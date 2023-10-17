@@ -1,0 +1,48 @@
+.container {
+    font-family: 'Arial', sans-serif;
+    padding: 20px;
+    background-color: #f7f9fc;
+}
+
+.header {
+    margin-bottom: 20px;
+}
+
+.dateInput {
+    margin: 20px 0;
+}
+
+.listItem {
+    background-color: #fff;
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s;
+}
+
+.listItem:hover {
+    transform: scale(1.02);
+}
+
+.teamLogo {
+    width: 50px;
+    height: 50px;
+    margin-right: 10px;
+}
+
+.leagueLogo {
+    width: 30px;
+    height: 30px;
+    margin-right: 10px;
+}
+
+button {
+    padding: 10px 15px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+}

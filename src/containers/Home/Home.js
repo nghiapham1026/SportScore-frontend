@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+
 import { fetchData } from '../../utils/fetchData';  // Adjust the path if necessary
-import './Home.css';  // Import the CSS file
+import './Home.css';
 
 function Home() {
     const [leagues, setLeagues] = useState([]);
@@ -11,8 +12,8 @@ function Home() {
     useEffect(() => {
         const getLeagues = async () => {
             try {
-                const leaguesData = await fetchData('/leagues/db/getLeagues');  // Provide the endpoint as an argument
-                setLeagues(leaguesData.allLeagues);  // Adjust according to the response structure
+                const leaguesData = await fetchData('/leagues/db/getLeagues');  // Default is GET request
+                setLeagues(leaguesData.allLeagues);
                 setLoading(false);
             } catch (err) {
                 setError(err.message);
