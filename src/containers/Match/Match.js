@@ -29,19 +29,19 @@ function Match() {
     useEffect(() => {
         const fetchStatistics = async () => {
             try {
-                const response = await axios.get(`https://sportscore-a1cf52e3ff48.herokuapp.com/fixtures/db/getStatistics`, {
-                    params: { fixture: fixtureId }
-                });
-                setStatistics(response.data.allFixtureStatistics);
-                        
-                const h2hResponse = await axios.get(`https://sportscore-a1cf52e3ff48.herokuapp.com/fixtures/db/getHeadToHead?h2h=${team1Id}-${team2Id}`);
-                setHeadToHeadData(h2hResponse.data.allHeadToHeadFixtures);
+                const response = await fetchData(`/fixtures/db/getStatistics`, 'GET', null, { fixture: fixtureId });
+                setStatistics(response.allFixtureStatistics);
+                console.log(response.data);
+        
+                const h2hResponse = await fetchData(`/fixtures/db/getHeadToHead`, 'GET', null, { h2h: `${team1Id}-${team2Id}` });
+                setHeadToHeadData(h2hResponse.allHeadToHeadFixtures);
                 console.log(team1Id, team2Id);
+                console.log(h2hResponse.data);
         
             } catch (err) {
                 setError(err.message);
             }
-        };        
+        };         
         fetchStatistics();
     }, [fixtureId]);
 
