@@ -99,63 +99,62 @@ function Fixtures() {
 
     return (
         <div style={styles.container}>
-          <h1 style={styles.header}>Fixtures</h1>
-          <label style={styles.dateInput}>
-            Select date: 
-            <input 
-              type="date" 
-              value={selectedDate} 
-              onChange={handleDateChange}
-              min={minDate}
-              max={maxDate}
-            />
-          </label>
-          <ul>
-    {Object.keys(groupedFixtures).map(leagueName => (
-        <React.Fragment key={leagueName}>
-            <h2 style={{marginTop: '20px', borderBottom: '2px solid #ccc', paddingBottom: '10px', cursor: 'pointer'}}
-                onClick={() => toggleLeague(leagueName)}>
-                <img src={groupedFixtures[leagueName][0].league.logo} alt={`${leagueName} logo`} style={styles.leagueLogo} />
-                {leagueName}
-            </h2>
-            {expandedLeagues[leagueName] && groupedFixtures[leagueName].map((fixture, index) => (
-                <li key={index} style={styles.listItem}>
-                    <h3 style={{cursor: 'pointer'}}>
-                        <img src={fixture.teams.home.logo} alt={`${fixture.teams.home.name} logo`} style={styles.teamLogo} />
-                        {fixture.teams.home.name} {fixture.goals.home}-{fixture.goals.away} {fixture.teams.away.name}
-                        <img src={fixture.teams.away.logo} alt={`${fixture.teams.away.name} logo`} style={styles.teamLogo} />
-                    </h3>
-                    {expandedFixtures[fixture.fixture.id] && (
-                        <div>
-                        <p>Date & Time: {new Date(fixture.fixture.date).toLocaleString()} ({fixture.fixture.timezone})</p>
-                <p>Venue: {fixture.fixture.venue.name}, {fixture.fixture.venue.city}</p>
-                <p>Referee: {fixture.fixture.referee}</p>
-                <p>Status: {fixture.fixture.status.long} ({fixture.fixture.status.short}) - {fixture.fixture.status.elapsed} mins elapsed</p>
-  
-                <p>Score (Halftime): {fixture.score.halftime.home} - {fixture.score.halftime.away}</p>
-                <p>Score (Fulltime): {fixture.score.fulltime.home} - {fixture.score.fulltime.away}</p>
-                <p>Score (Extra time): {fixture.score.extratime.home} - {fixture.score.extratime.away}</p>
-                <p>Score (Penalty): {fixture.score.penalty.home} - {fixture.score.penalty.away}</p>
-                </div>
-                    )}
-                    <Link to={`/match/${fixture.fixture.id}`}>
-                        <button style={{
-                            padding: '10px 15px',
-                            backgroundColor: '#007BFF',
-                            color: 'white',
-                            border: 'none',
-                            borderRadius: '5px',
-                            cursor: 'pointer',
-                            marginTop: '10px'
-                        }}>
-                            Match Center
-                        </button>
-                    </Link>
-                </li>
-            ))}
-        </React.Fragment>
-    ))}
-</ul>
+            <h1 style={styles.header}>Fixtures</h1>
+            <label style={styles.dateInput}>
+                Select date: 
+                <input 
+                    type="date" 
+                    value={selectedDate} 
+                    onChange={handleDateChange}
+                    min={minDate}
+                    max={maxDate}
+                />
+            </label>
+            <ul>
+                {Object.keys(groupedFixtures).map(leagueName => (
+                    <React.Fragment key={leagueName}>
+                        <h2 style={{marginTop: '20px', borderBottom: '2px solid #ccc', paddingBottom: '10px', cursor: 'pointer'}}
+                            onClick={() => toggleLeague(leagueName)}>
+                            <img src={groupedFixtures[leagueName][0].league.logo} alt={`${leagueName} logo`} style={styles.leagueLogo} />
+                            {leagueName}
+                        </h2>
+                        {expandedLeagues[leagueName] && groupedFixtures[leagueName].map((fixture, index) => (
+                            <li key={index} style={styles.listItem}>
+                                <h3 style={{cursor: 'pointer'}} onClick={() => toggleFixture(fixture.fixture.id)}>
+                                    <img src={fixture.teams.home.logo} alt={`${fixture.teams.home.name} logo`} style={styles.teamLogo} />
+                                    {fixture.teams.home.name} {fixture.goals.home}-{fixture.goals.away} {fixture.teams.away.name}
+                                    <img src={fixture.teams.away.logo} alt={`${fixture.teams.away.name} logo`} style={styles.teamLogo} />
+                                </h3>
+                                {expandedFixtures[fixture.fixture.id] && (
+                                    <div>
+                                        <p>Date & Time: {new Date(fixture.fixture.date).toLocaleString()} ({fixture.fixture.timezone})</p>
+                                        <p>Venue: {fixture.fixture.venue.name}, {fixture.fixture.venue.city}</p>
+                                        <p>Referee: {fixture.fixture.referee}</p>
+                                        <p>Status: {fixture.fixture.status.long} ({fixture.fixture.status.short}) - {fixture.fixture.status.elapsed} mins elapsed</p>
+                                        <p>Score (Halftime): {fixture.score.halftime.home} - {fixture.score.halftime.away}</p>
+                                        <p>Score (Fulltime): {fixture.score.fulltime.home} - {fixture.score.fulltime.away}</p>
+                                        <p>Score (Extra time): {fixture.score.extratime.home} - {fixture.score.extratime.away}</p>
+                                        <p>Score (Penalty): {fixture.score.penalty.home} - {fixture.score.penalty.away}</p>
+                                    </div>
+                                )}
+                                <Link to={`/match/${fixture.fixture.id}`}>
+                                    <button style={{
+                                        padding: '10px 15px',
+                                        backgroundColor: '#007BFF',
+                                        color: 'white',
+                                        border: 'none',
+                                        borderRadius: '5px',
+                                        cursor: 'pointer',
+                                        marginTop: '10px'
+                                    }}>
+                                        Match Center
+                                    </button>
+                                </Link>
+                            </li>
+                        ))}
+                    </React.Fragment>
+                ))}
+            </ul>
         </div>
     );
 };

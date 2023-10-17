@@ -5,6 +5,7 @@ import { useParams } from 'react-router-dom';
 function Match() {
     const { fixtureId } = useParams();
     const [statistics, setStatistics] = useState(null);
+    const [headToHeadData, setHeadToHeadData] = useState([]);
     const [error, setError] = useState(null);
 
     useEffect(() => {
@@ -14,6 +15,15 @@ function Match() {
                     params: { fixture: fixtureId }
                 });
                 setStatistics(response.data.allFixtureStatistics);
+
+                // Assuming the statistics data contains team IDs
+                const team1Id = response.data.allFixtureStatistics[0].team.id;
+                const team2Id = response.data.allFixtureStatistics[1].team.id;
+
+                const h2hResponse = await axios.get(`https://sportscore-a1cf52e3ff48.herokuapp.com/fixtures/db/getHeadToHead?h2h=${team1Id}-${team2Id}`);
+                setHeadToHeadData(h2hResponse.data.allHeadToHeadFixtures);
+                console.log(team1Id, team2Id);
+
             } catch (err) {
                 setError(err.message);
             }
@@ -32,10 +42,15 @@ function Match() {
     const styles = {
         container: {
             display: 'flex',  // Set the container to be a flex container
-            justifyContent: 'space-between',  // Space out the team sections
+            flexDirection: 'column',  // Change direction to column
             padding: '20px',
             backgroundColor: '#f7f9fc',
             fontFamily: "'Arial', sans-serif",
+        },
+        teamsContainer: {
+            display: 'flex',
+            justifyContent: 'space-between',
+            marginBottom: '20px',  // Add some margin to separate from head-to-head data
         },
         teamSection: {
             flex: '0 0 48%',  // Each team section takes up 48% of the container width
@@ -69,22 +84,43 @@ function Match() {
 
     return (
         <div style={styles.container}>
-            {statistics.map((teamStats) => (
-                <div key={teamStats.team.id} style={styles.teamSection}>
-                    <h2 style={styles.teamName}>{teamStats.team.name}</h2>
-                    <img src={teamStats.team.logo} alt={`${teamStats.team.name} logo`} style={styles.teamLogo} />
-                    <ul style={styles.statsList}>
-                        {teamStats.statistics.map((stat, index) => (
-                            <li key={index} style={styles.statItem}>
-                                {stat.type}: {stat.value}
-                            </li>
-                        ))}
-                    </ul>
-                </div>
-            ))}
+            <div style={styles.teamsContainer}>
+                {statistics.map((teamStats) => (
+                    <div key={teamStats.team.id} style={styles.teamSection}>
+                        <h2 style={styles.teamName}>{teamStats.team.name}</h2>
+                        <img src={teamStats.team.logo} alt={`${teamStats.team.name} logo`} style={styles.teamLogo} />
+                        <ul style={styles.statsList}>
+                            {teamStats.statistics.map((stat, index) => (
+                                <li key={index} style={styles.statItem}>
+                                    {stat.type}: {stat.value}
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+                ))}
+            </div>
+            <div>
+                <h2>Head-to-Head Data</h2>
+                <ul>
+                    {headToHeadData.map((match, idx) => (
+                        <li key={idx}>
+                            <strong>Date:</strong> {new Date(match.fixture.date).toLocaleDateString()}
+                            <br />
+                            <strong>Score:</strong> {match.goals.home} - {match.goals.away}
+                            <br />
+                            <strong>Venue:</strong> {match.fixture.venue.name}
+                            <br />
+                            <strong>Status:</strong> {match.fixture.status.long}
+                            <br />
+                            <strong>Referee:</strong> {match.fixture.referee}
+                            <br />
+                            <hr />
+                        </li>
+                    ))}
+                </ul>
+            </div>
         </div>
     );
 }
 
 export default Match;
-
