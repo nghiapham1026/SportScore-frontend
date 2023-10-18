@@ -5,6 +5,7 @@ import { getLeagues, getStandings, fetchFixtures } from '../../utils/dataControl
 import { handleSeasonChange, RenderStandings } from './helpers/LeagueUtils';
 import LeagueSelector from './LeagueSelector';  // Adjust the path
 import LeagueResults from './LeagueResults';
+import LeagueFixtures from './LeagueFixtures';  // Adjust the path if needed
 
 function League() {
     const { leagueId } = useParams();
@@ -12,6 +13,7 @@ function League() {
     const [selectedSeason, setSelectedSeason] = useState(null);
     const [leagueData, setLeagueData] = useState(null);
     const [results, setResults] = useState([]);
+    const [fixtures, setFixtures] = useState([]);
     const [standings, setStandings] = useState([]);
 
     useEffect(() => {
@@ -50,7 +52,9 @@ function League() {
             const fetchResults = async () => {
                 try {
                     const leagueResults = await fetchFixtures({ league: leagueId, season: selectedSeason.year, status: 'FT-AET-PEN'});
+                    const leagueFixtures = await fetchFixtures({ league: leagueId, season: selectedSeason.year, status: 'NS'});
                     setResults(leagueResults);
+                    setFixtures(leagueFixtures);
                 } catch (err) {
                     console.error("Error fetching fixtures data:", err);
                 }
@@ -73,8 +77,8 @@ function League() {
             />
             
             <RenderStandings standings={standings} />
-
             <LeagueResults results={results} />
+            {<LeagueFixtures fixtures={fixtures} />}
         </div>
     );
 }
