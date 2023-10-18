@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
-import { fetchData } from '../../utils/fetchData';
+import { getLeagues, getStandings } from '../../utils/dataController';
 import LeagueTable from './LeagueTable';  // Adjust the path
 import LeagueSelector from './LeagueSelector';  // Adjust the path
 
@@ -15,8 +15,8 @@ function League() {
     useEffect(() => {
         const fetchLeagueData = async () => {
             try {
-                const response = await fetchData('/leagues/db/getLeagues');
-                const league = response.allLeagues.find(l => l.league.id === parseInt(leagueId));
+                const leagues = await getLeagues();
+                const league = leagues.find(l => l.league.id === parseInt(leagueId));
                 if (league) {
                     setLeagueData(league);
                     setSeasons(league.seasons);
@@ -36,19 +36,18 @@ function League() {
                 console.log("Fetching for league 5 in season 2018 is skipped.");
                 return; // Exit the useEffect without fetching
             }
-            // Fetch standings data for the selected season
-            const fetchStandingsData = async () => {
+            const fetchLeagueStandings = async () => {
                 try {
-                    const response = await fetchData(`/standings/db/getStandings`, 'GET', null, { league: leagueId, season: selectedSeason.year });
-                    setStandings(response.standings);
-                    console.log("Fetched standings:", response);
+                    const leagueStandings = await getStandings({ league: leagueId, season: selectedSeason.year });
+                    setStandings(leagueStandings);
+                    console.log("Fetched standings:", leagueStandings);
                 } catch (err) {
                     console.error("Error fetching standings data:", err);
                 }
             };
-            fetchStandingsData();
+            fetchLeagueStandings();
         }
-    }, [selectedSeason]);
+    }, [selectedSeason, leagueId]);
 
     return (
         <div>

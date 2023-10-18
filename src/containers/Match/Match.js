@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 
 import { useParams, useLocation } from 'react-router-dom';
 
@@ -7,7 +6,7 @@ import './Match.css';  // Import the new CSS file
 import MatchScore from './MatchScore';
 import MatchStatistics from './MatchStatistics';
 import HeadToHead from './HeadToHead';
-import { fetchData } from '../../utils/fetchData';
+import { fetchStatistics, fetchHeadToHead } from '../../utils/dataController';
 
 function Match() {
     const { fixtureId } = useParams();
@@ -27,23 +26,18 @@ function Match() {
     const [error, setError] = useState(null);
 
     useEffect(() => {
-        const fetchStatistics = async () => {
+        const getData = async () => {
             try {
-                const response = await fetchData(`/fixtures/db/getStatistics`, 'GET', null, { fixture: fixtureId });
-                setStatistics(response.allFixtureStatistics);
-                console.log(response.data);
-        
-                const h2hResponse = await fetchData(`/fixtures/db/getHeadToHead`, 'GET', null, { h2h: `${team1Id}-${team2Id}` });
-                setHeadToHeadData(h2hResponse.allHeadToHeadFixtures);
-                console.log(team1Id, team2Id);
-                console.log(h2hResponse.data);
-        
+                const stats = await fetchStatistics({ fixture: fixtureId });
+                setStatistics(stats);
+                const h2h = await fetchHeadToHead({ h2h: `${team1Id}-${team2Id}` });
+                setHeadToHeadData(h2h);
             } catch (err) {
                 setError(err.message);
             }
         };         
-        fetchStatistics();
-    }, [fixtureId]);
+        getData();
+    }, [fixtureId, team1Id, team2Id]);
 
     if (error) {
         return <p>Error: {error}</p>;

@@ -2,10 +2,10 @@ import React, { useState, useEffect } from 'react';
 
 import './Fixtures.css';
 import { groupByProperty, toggleProperty } from '../../utils/objectUtils';
-import { fetchData } from '../../utils/fetchData';
 import DateSelector from './DateSelector';
 import LeagueHeader from './LeagueHeader';
 import FixtureItem from './FixtureItem';
+import { fetchFixtures } from '../../utils/dataController';
 
 function Fixtures() {
     const [fixtures, setFixtures] = useState([]);
@@ -16,18 +16,16 @@ function Fixtures() {
     const [expandedFixtures, setExpandedFixtures] = useState({});
   
     useEffect(() => {
-      const fetchFixtures = async () => {
-        try {
-          const endpoint = `/fixtures/db/getFixtures`;
-          const params = { date: selectedDate };
-          const response = await fetchData(endpoint, 'GET', null, params);
-          setFixtures(response.allFixtures);
-        } catch (err) {
-          setError(err.message);
-        }
-      };
-      fetchFixtures();
-    }, [selectedDate]); // Re-run effect when selectedDate changes
+        const getFixtures = async () => {
+          try {
+            const fixturesData = await fetchFixtures({ date: selectedDate });
+            setFixtures(fixturesData);
+          } catch (err) {
+            setError(err.message);
+          }
+        };
+        getFixtures();
+      }, [selectedDate]);
 
     const groupedFixtures = groupByProperty(fixtures, 'league.name');
 

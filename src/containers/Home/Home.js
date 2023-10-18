@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
-import { fetchData } from '../../utils/fetchData';  // Adjust the path if necessary
 import './Home.css';
+import { getLeagues } from '../../utils/dataController';  // Adjust the path to dataController.js if necessary
 
 function Home() {
     const [leagues, setLeagues] = useState([]);
@@ -10,17 +10,17 @@ function Home() {
     const [error, setError] = useState(null);
 
     useEffect(() => {
-        const getLeagues = async () => {
+        const fetchLeagues = async () => {
             try {
-                const leaguesData = await fetchData('/leagues/db/getLeagues');  // Default is GET request
-                setLeagues(leaguesData.allLeagues);
+                const leaguesData = await getLeagues();  // Using the function from dataController.js
+                setLeagues(leaguesData);
                 setLoading(false);
             } catch (err) {
                 setError(err.message);
                 setLoading(false);
             }
         };
-        getLeagues();
+        fetchLeagues();
     }, []);
 
     if (loading) return <p>Loading...</p>;
