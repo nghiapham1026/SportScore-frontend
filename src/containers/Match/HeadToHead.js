@@ -10,9 +10,10 @@ function HeadToHead({ headToHeadData }) {
                     <li key={idx}>
                         <strong>Date:</strong> {new Date(match.fixture.date).toLocaleDateString()}
                         <br />
-                        <strong>Score:</strong> {match.goals.home} - {match.goals.away}
                         <br />
-                        <strong>Venue:</strong> {match.fixture.venue.name}
+                        <strong>Score:</strong> {match.teams.home.name} {match.goals.home} - {match.goals.away} {match.teams.away.name}
+                        <br />
+                        <strong>Venue:</strong> {match.fixture.venue.name}, {match.fixture.venue.city}
                         <br />
                         <strong>Status:</strong> {match.fixture.status.long}
                         <br />
