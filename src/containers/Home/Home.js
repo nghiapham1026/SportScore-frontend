@@ -27,7 +27,7 @@ function Home() {
     if (error) return <p>Error: {error}</p>;
 
     return (
-        <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}>
+        <div className='homeContainer'>
             {leagues.map((leagueData) => (
                 <div key={leagueData.league.id}>
                     <Link to={`/league/${leagueData.league.id}`}>

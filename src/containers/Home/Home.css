@@ -9,3 +9,9 @@
 .logoStyle:hover {
     transform: scale(1.1);
 }
+
+.homeContainer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}

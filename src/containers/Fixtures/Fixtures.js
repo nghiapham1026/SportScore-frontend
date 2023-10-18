@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 import './Fixtures.css';
-import { groupByProperty, toggleProperty } from '../../utils/objectUtils';
+import { groupByProperty, toggleProperty } from './helpers/FixturesUtils';
 import DateSelector from './DateSelector';
 import LeagueHeader from './LeagueHeader';
 import FixtureItem from './FixtureItem';

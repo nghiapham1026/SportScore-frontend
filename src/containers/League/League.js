@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
 import { getLeagues, getStandings, fetchFixtures } from '../../utils/dataController';
-import LeagueTable from './LeagueTable';  // Adjust the path
+import { handleSeasonChange, RenderStandings } from './helpers/LeagueUtils';
 import LeagueSelector from './LeagueSelector';  // Adjust the path
 import LeagueResults from './LeagueResults';
 
@@ -67,26 +67,12 @@ function League() {
                 seasons={seasons} 
                 selectedSeason={selectedSeason} 
                 onSeasonChange={(seasonId) => {
-                    const season = seasons.find(s => s._id === seasonId);
+                    const season = handleSeasonChange(seasons, seasonId);
                     setSelectedSeason(season);
                 }}
             />
             
-            {console.log("Rendering standings:", standings)}
-            {Array.isArray(standings) && standings.length > 0 ? 
-                (standings[0] instanceof Array ? 
-                    standings.map((group, groupIndex) => (
-                        <div key={groupIndex}>
-                            <h3>{group[0]?.group}</h3>
-                            <LeagueTable tableData={group} />
-                        </div>
-                    ))
-                    :
-                    <LeagueTable tableData={standings} />
-                )
-                :
-                console.log("No valid table data.")
-            }
+            <RenderStandings standings={standings} />
 
             <LeagueResults results={results} />
         </div>
