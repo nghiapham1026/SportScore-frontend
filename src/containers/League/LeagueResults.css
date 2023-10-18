@@ -1,0 +1,43 @@
+.resultsContainer {
+    padding: 20px;
+}
+
+.roundSelector {
+    margin-top: 20px;
+}
+
+.resultItem {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.resultItemTeam {
+    flex: 1;
+}
+
+.resultItemTeam-left {
+    text-align: right;
+}
+
+.resultItemTeam-right {
+    text-align: left;
+}
+
+.teamLogo {
+    margin-right: 10px;
+}
+
+.teamLogo-right {
+    margin-left: 10px;
+}
+
+.scoreMain {
+    font-size: 24px;
+}
+
+.scorePenalty {
+    font-size: 14px;
+    margin-top: 5px;
+}

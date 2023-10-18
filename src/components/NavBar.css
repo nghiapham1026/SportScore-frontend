@@ -1,0 +1,22 @@
+.navbarContainer {
+    background-color: #333;
+    padding: 10px 0;
+    margin-bottom: 20px;
+}
+
+.navbarList {
+    list-style-type: none;
+    display: flex;
+    justify-content: center;
+}
+
+.navbarList li a {
+    margin: 0 15px;
+    color: white;
+    text-decoration: none;
+}
+
+.navbarList li a:hover {
+    /* Add hover effect if needed, e.g.: */
+    text-decoration: underline;
+}

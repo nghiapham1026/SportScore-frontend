@@ -1,13 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import './NavBar.css';
 
 function Navbar() {
     return (
-        <nav style={{ backgroundColor: '#333', padding: '10px 0', marginBottom: '20px' }}>
-            <ul style={{ listStyleType: 'none', display: 'flex', justifyContent: 'center' }}>
+        <nav className="navbarContainer">
+            <ul className="navbarList">
                 <li>
-                    <Link to="/" style={{ margin: '0 15px', color: 'white', textDecoration: 'none' }}>Home</Link>
-                    <Link to="/fixtures" style={{ margin: '0 15px', color: 'white', textDecoration: 'none' }}>Fixtures</Link>
+                    <Link to="/" className="navbarLink">Home</Link>
+                    <Link to="/fixtures" className="navbarLink">Fixtures</Link>
                 </li>
                 {/* Add more navigation links as needed */}
             </ul>
