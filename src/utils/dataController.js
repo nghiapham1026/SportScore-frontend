@@ -50,3 +50,13 @@ export const getStandings = async (queryParams) => {
         throw err;
     }
 };
+
+export const getEvents = async (queryParams) => {
+    try {
+        const endpoint = `/fixtures/db/getEvents`;
+        const response = await fetchData(endpoint, 'GET', null, queryParams);
+        return response.allFixtureEvents;
+    } catch (err) {
+        throw err;
+    }
+};
