@@ -21,7 +21,7 @@ function FixtureItem({ fixture, toggleFixture, expandedFixtures }) {
                     <p>Score (Penalty): {fixture.score.penalty.home} - {fixture.score.penalty.away}</p>
                 </div>
             )}
-            <Link to={`/match/${fixture.fixture.id}?team1=${fixture.teams.home.id}&team2=${fixture.teams.away.id}&team1Logo=${fixture.teams.home.logo}&team2Logo=${fixture.teams.away.logo}&team1Score=${fixture.goals.home}&team2Score=${fixture.goals.away}`}>
+            <Link to={`/match/${fixture.fixture.id}`}>
                 <button className="matchCenterButton">
                     Match Center
                 </button>
