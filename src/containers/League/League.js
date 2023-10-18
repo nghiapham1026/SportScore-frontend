@@ -1,15 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
-import { getLeagues, getStandings } from '../../utils/dataController';
+import { getLeagues, getStandings, fetchFixtures } from '../../utils/dataController';
 import LeagueTable from './LeagueTable';  // Adjust the path
 import LeagueSelector from './LeagueSelector';  // Adjust the path
+import LeagueResults from './LeagueResults';
 
 function League() {
     const { leagueId } = useParams();
     const [seasons, setSeasons] = useState([]);
     const [selectedSeason, setSelectedSeason] = useState(null);
     const [leagueData, setLeagueData] = useState(null);
+    const [results, setResults] = useState([]);
     const [standings, setStandings] = useState([]);
 
     useEffect(() => {
@@ -45,6 +47,15 @@ function League() {
                     console.error("Error fetching standings data:", err);
                 }
             };
+            const fetchResults = async () => {
+                try {
+                    const leagueResults = await fetchFixtures({ league: leagueId, season: selectedSeason.year, status: 'FT-AET-PEN'});
+                    setResults(leagueResults);
+                } catch (err) {
+                    console.error("Error fetching fixtures data:", err);
+                }
+            };
+            fetchResults();
             fetchLeagueStandings();
         }
     }, [selectedSeason, leagueId]);
@@ -76,6 +87,8 @@ function League() {
                 :
                 console.log("No valid table data.")
             }
+
+            <LeagueResults results={results} />
         </div>
     );
 }

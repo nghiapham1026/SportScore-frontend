@@ -26,3 +26,34 @@
     color: rgb(8, 3, 3);
     text-align: center;
 }
+
+.timeline-container {
+    margin-top: 20px;
+    position: relative;
+    border-left: 2px solid #ddd;
+}
+
+.timeline-event {
+    position: relative;
+    padding: 10px;
+}
+
+.timeline-event.left .event-details {
+    padding-right: 10px;
+    text-align: right;
+}
+
+.timeline-event.right .event-details {
+    padding-left: 10px;
+}
+
+.event-circle {
+    width: 10px;
+    height: 10px;
+    background-color: #ddd;
+    border-radius: 50%;
+    position: absolute;
+    left: -5px;
+    top: 50%;
+    transform: translateY(-50%);
+}
