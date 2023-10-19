@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 import './Fixtures.css';
 import { groupByProperty, toggleProperty } from './helpers/FixturesUtils';
-import DateSelector from './DateSelector';
+import DateSelector from './helpers/DateSelector';
 import LeagueHeader from './LeagueHeader';
 import FixtureItem from './FixtureItem';
 import { fetchFixtures } from '../../utils/dataController';

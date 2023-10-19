@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 
 import { getLeagues, getStandings, fetchFixtures } from '../../utils/dataController';
 import { handleSeasonChange, RenderStandings } from './helpers/LeagueUtils';
-import LeagueSelector from './LeagueSelector';  // Adjust the path
+import LeagueSelector from './helpers/LeagueSelector';  // Adjust the path
 import LeagueResults from './LeagueResults';
 import LeagueFixtures from './LeagueFixtures';  // Adjust the path if needed
 

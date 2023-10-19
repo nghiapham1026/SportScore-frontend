@@ -30,6 +30,15 @@ const LeagueFixtures = ({ fixtures }) => {
             <div>
                 {filteredFixtures.map((fixture, index) => (
                     <div key={index} className="fixtureItem">
+                        <div className="fixtureHeader">
+                            <img className="leagueLogo" src={fixture.league.logo} alt={fixture.league.name} />
+                            <span>{fixture.league.name} - {fixture.league.country}</span>
+                            <img className="countryFlag" src={fixture.league.flag} alt={fixture.league.country} />
+                        </div>
+                        <div className="fixtureDate">
+                            {new Date(fixture.fixture.date).toLocaleDateString()} {new Date(fixture.fixture.date).toLocaleTimeString()}
+                        </div>
+                        <div className="fixtureVenue">{fixture.fixture.venue.name}, {fixture.fixture.venue.city}</div>
                         <div className="fixtureItemTeam fixtureItemTeam-left">
                             <img className="teamLogo" src={fixture.teams.home.logo} alt={fixture.teams.home.name} />
                             <span>{fixture.teams.home.name}</span>

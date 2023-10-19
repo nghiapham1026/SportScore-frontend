@@ -12,10 +12,48 @@
 
 .resultItem {
     display: flex;
-    justify-content: center;
     align-items: center;
+    justify-content: space-between;
+    width: 100%; /* Take the full width */
+    border-bottom: 1px solid #e0e0e0; /* Optional: Adds a bottom border for separation */
+    padding: 10px 0;
     margin-bottom: 15px;
-    width: 100%;
+}
+
+.fixtureHeader {
+    display: flex;
+    align-items: center;
+    width: 100%; /* Take the full width */
+    margin-bottom: 10px;
+    justify-content: center; /* Center the header content */
+}
+
+.leagueLogo {
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
+}
+
+.countryFlag {
+    width: 30px;
+    height: 20px;
+    margin-left: 10px;
+}
+
+.fixtureDate {
+    font-size: 14px;
+    color: #777;
+    margin-bottom: 5px;
+    text-align: center; /* Center the date */
+    width: 100%; /* Take the full width */
+}
+
+.fixtureVenue {
+    font-size: 12px;
+    color: #999;
+    margin-bottom: 10px;
+    text-align: center; /* Center the venue */
+    width: 100%; /* Take the full width */
 }
 
 .resultItemTeam {
@@ -25,28 +63,24 @@
 }
 
 .resultItemTeam-left {
-    text-align: right;
-    padding-right: 10px;
+    justify-content: flex-end; /* Align content to the right */
 }
 
 .resultItemTeam-right {
-    text-align: left;
-    padding-left: 10px;
+    justify-content: flex-start; /* Align content to the left */
 }
 
 .teamLogo {
-    width: 50px; /* Adjust as needed */
-    height: 50px; /* Adjust as needed */
-    margin-right: 10px;
-}
-
-.teamLogo-right {
-    margin-left: 10px;
+    width: 50px;
+    height: 50px;
+    margin: 0 10px;
 }
 
 .scoreMain {
-    font-size: 26px; /* Slightly larger for better visibility */
-    margin: 0 20px; /* Adds space around the scores */
+    font-size: 24px;
+    margin: 0 20px;
+    width: 80px; /* Set a fixed width for the score */
+    text-align: center; /* Center the score within the allocated width */
 }
 
 .scorePenalty {
@@ -54,8 +88,7 @@
     margin-top: 5px;
 }
 
-/* Optional: Style team names */
 .teamName {
-    font-size: 16px; /* Adjust based on your preference */
-    margin: 0 10px; /* Adds space around the team name */
+    font-size: 16px;
+    margin: 0 10px;
 }

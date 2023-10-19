@@ -25,6 +25,15 @@ const LeagueResults = ({ results }) => {
             <div>
                 {filteredResults.map((result, index) => (
                     <div key={index} className="resultItem">
+                        <div className="fixtureHeader">
+                            <img className="leagueLogo" src={result.league.logo} alt={result.league.name} />
+                            <span>{result.league.name} - {result.league.country}</span>
+                            <img className="countryFlag" src={result.league.flag} alt={result.league.country} />
+                        </div>
+                        <div className="fixtureDate">
+                            {new Date(result.fixture.date).toLocaleDateString()} {new Date(result.fixture.date).toLocaleTimeString()}
+                        </div>
+                        <div className="fixtureVenue">{result.fixture.venue.name}, {result.fixture.venue.city}</div>
                         <div className="resultItemTeam resultItemTeam-left">
                             <img className="teamLogo" src={result.teams.home.logo} alt={result.teams.home.name} />
                             <span>{result.teams.home.name}</span>
