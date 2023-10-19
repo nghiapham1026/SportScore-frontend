@@ -11,6 +11,11 @@ const LeagueFixtures = ({ fixtures }) => {
 
     const filteredFixtures = fixtures.filter(fixture => fixture.league.round === selectedRound);
 
+    // If there are no fixtures, return null
+    if (!fixtures || fixtures.length === 0) {
+        return null;
+    }
+
     return (
         <div className="fixturesContainer">
             <h3>Upcoming Fixtures</h3>
