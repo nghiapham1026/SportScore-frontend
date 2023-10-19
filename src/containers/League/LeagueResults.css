@@ -1,0 +1,61 @@
+.resultsContainer {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.roundSelector {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.resultItem {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 15px;
+    width: 100%;
+}
+
+.resultItemTeam {
+    flex: 1;
+    display: flex;
+    align-items: center;
+}
+
+.resultItemTeam-left {
+    text-align: right;
+    padding-right: 10px;
+}
+
+.resultItemTeam-right {
+    text-align: left;
+    padding-left: 10px;
+}
+
+.teamLogo {
+    width: 50px; /* Adjust as needed */
+    height: 50px; /* Adjust as needed */
+    margin-right: 10px;
+}
+
+.teamLogo-right {
+    margin-left: 10px;
+}
+
+.scoreMain {
+    font-size: 26px; /* Slightly larger for better visibility */
+    margin: 0 20px; /* Adds space around the scores */
+}
+
+.scorePenalty {
+    font-size: 14px;
+    margin-top: 5px;
+}
+
+/* Optional: Style team names */
+.teamName {
+    font-size: 16px; /* Adjust based on your preference */
+    margin: 0 10px; /* Adds space around the team name */
+}

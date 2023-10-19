@@ -1,0 +1,64 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    background-color: #f7f9fc;
+    font-family: 'Arial', sans-serif;
+}
+
+.teamsContainer {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.teamSection {
+    flex: 0 0 48%;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 20px;
+    margin: 20px 0;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.teamName {
+    font-size: 24px;
+    text-align: center;
+    margin: 20px 0;
+}
+
+.teamLogo {
+    display: block;
+    margin: 0 auto;
+    width: 100px;
+    height: 100px;
+}
+
+.statsList {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.statItem {
+    padding: 10px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.team-score-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.team-logo {
+    width: 120px;
+    height: 120px;
+    margin: 0 10px;
+}
+
+.score {
+    font-size: 24px;
+    margin: 0 10px;
+}

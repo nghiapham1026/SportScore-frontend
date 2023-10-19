@@ -1,0 +1,50 @@
+.fixturesContainer {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.roundSelector {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.fixtureItem {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.fixtureItemTeam {
+    flex: 1;
+    display: flex;
+    align-items: center;
+}
+
+.fixtureItemTeam-left {
+    text-align: right;
+    padding-right: 10px;
+}
+
+.fixtureItemTeam-right {
+    text-align: left;
+    padding-left: 10px;
+}
+
+.teamLogo {
+    width: 50px; /* Adjust based on your preference */
+    height: 50px; /* Adjust based on your preference */
+}
+
+.fixtureVersus {
+    font-size: 24px;
+    margin: 0 20px; /* Adds space around the "VS" text */
+}
+
+/* Optional: Style team names */
+.teamName {
+    font-size: 16px; /* Adjust based on your preference */
+    margin: 0 10px; /* Adds space around the team name */
+}
