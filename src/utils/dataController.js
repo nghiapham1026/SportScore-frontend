@@ -60,3 +60,13 @@ export const getEvents = async (queryParams) => {
         throw err;
     }
 };
+
+export const getTeams = async (queryParams) => {
+    try {
+        const endpoint = `/teams/db/getTeams`;
+        const response = await fetchData(endpoint, 'GET', null, queryParams);
+        return response.allTeams;
+    } catch (err) {
+        throw err;
+    }
+};

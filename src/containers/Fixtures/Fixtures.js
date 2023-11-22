@@ -41,7 +41,6 @@ function Fixtures() {
       setSelectedDate(event.target.value);
     };
 
-    const minDate = new Date(Date.now() - 14 * 24 * 60 * 60 * 1000).toISOString().split('T')[0];
     const maxDate = new Date(Date.now() + 14 * 24 * 60 * 60 * 1000).toISOString().split('T')[0];
   
     if (error) {
@@ -54,7 +53,6 @@ function Fixtures() {
             <DateSelector 
                 selectedDate={selectedDate} 
                 handleDateChange={handleDateChange} 
-                minDate={minDate} 
                 maxDate={maxDate} 
             />
             <ul>
