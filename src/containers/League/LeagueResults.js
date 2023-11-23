@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './LeagueResults.css';
+import { Link } from 'react-router-dom';
 
 const LeagueResults = ({ results }) => {
     const [selectedRound, setSelectedRound] = useState('');
@@ -35,8 +36,8 @@ const LeagueResults = ({ results }) => {
                         </div>
                         <div className="fixtureVenue">{result.fixture.venue.name}, {result.fixture.venue.city}</div>
                         <div className="resultItemTeam resultItemTeam-left">
-                            <img className="teamLogo" src={result.teams.home.logo} alt={result.teams.home.name} />
-                            <span>{result.teams.home.name}</span>
+                        <Link to={`/team/${result.teams.home.id}`}><img className="teamLogo" src={result.teams.home.logo} alt={result.teams.home.name} />
+                            <span>{result.teams.home.name}</span></Link>
                         </div>
                         <div className="resultItemTeam">
                             <span className="scoreMain">{result.goals.home} - {result.goals.away}</span>
@@ -47,8 +48,8 @@ const LeagueResults = ({ results }) => {
                             )}
                         </div>
                         <div className="resultItemTeam resultItemTeam-right">
-                            <span>{result.teams.away.name}</span>
-                            <img className="teamLogo teamLogo-right" src={result.teams.away.logo} alt={result.teams.away.name} />
+                            <Link to={`/team/${result.teams.home.id}`}><span>{result.teams.away.name}</span>
+                            <img className="teamLogo teamLogo-right" src={result.teams.away.logo} alt={result.teams.away.name} /></Link>
                         </div>
                     </div>
                 ))}

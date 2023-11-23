@@ -13,7 +13,7 @@ const Team = () => {
             try {
                 const teams = await getTeams({ id: teamId });
                 if (teams && teams.length > 0) {
-                    setTeamDetails(teams[0]); // Accessing the first team in the array
+                    setTeamDetails(teams[0]);
                 } else {
                     setError('No team data found');
                 }
@@ -35,18 +35,28 @@ const Team = () => {
     const { team, venue } = teamDetails;
 
     return (
-        <div>
-            <h1>{team.name}</h1>
-            <img src={team.logo} alt={team.name} />
-            <p>Code: {team.code}</p>
-            <p>Country: {team.country}</p>
-            <p>Founded: {team.founded}</p>
+        <div className="team-container">
+            <div className="team-header">
+                <img src={team.logo} alt={team.name} className="team-logo" />
+                <h1>{team.name}</h1>
+                <div className="info-row">
+                    <p>Code: {team.code}</p>
+                    <p>Country: {team.country}</p>
+                    <p>Founded: {team.founded}</p>
+                </div>
+            </div>
 
-            <h2>Venue: {venue.name}</h2>
-            <img src={venue.image} alt={venue.name} />
-            <p>Address: {venue.address}, {venue.city}</p>
-            <p>Capacity: {venue.capacity}</p>
-            <p>Surface: {venue.surface}</p>
+            <div className="venue-info">
+                <div className="venue-header">
+                    <img src={venue.image} alt={venue.name} className="venue-image" />
+                    <h2>Venue: {venue.name}</h2>
+                </div>
+                <div className="info-row">
+                    <p>Address: {venue.address}, {venue.city}</p>
+                    <p>Capacity: {venue.capacity}</p>
+                    <p>Surface: {venue.surface}</p>
+                </div>
+            </div>
         </div>
     );
 };

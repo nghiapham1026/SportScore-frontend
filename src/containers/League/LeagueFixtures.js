@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './LeagueFixtures.css'; // Create and style accordingly
+import { Link } from 'react-router-dom';
 
 const LeagueFixtures = ({ fixtures }) => {
     const [selectedRound, setSelectedRound] = useState('');
@@ -40,15 +41,15 @@ const LeagueFixtures = ({ fixtures }) => {
                         </div>
                         <div className="fixtureVenue">{fixture.fixture.venue.name}, {fixture.fixture.venue.city}</div>
                         <div className="fixtureItemTeam fixtureItemTeam-left">
-                            <img className="teamLogo" src={fixture.teams.home.logo} alt={fixture.teams.home.name} />
-                            <span>{fixture.teams.home.name}</span>
+                        <Link to={`/team/${fixture.teams.home.id}`}><img className="teamLogo" src={fixture.teams.home.logo} alt={fixture.teams.home.name} />
+                            <span>{fixture.teams.home.name}</span></Link>
                         </div>
                         <div className="fixtureItemTeam">
                             <span className="fixtureVersus">vs</span>
                         </div>
                         <div className="fixtureItemTeam fixtureItemTeam-right">
-                            <span>{fixture.teams.away.name}</span>
-                            <img className="teamLogo teamLogo-right" src={fixture.teams.away.logo} alt={fixture.teams.away.name} />
+                            <Link to={`/team/${fixture.teams.home.id}`}><span>{fixture.teams.away.name}</span>
+                            <img className="teamLogo teamLogo-right" src={fixture.teams.away.logo} alt={fixture.teams.away.name} /></Link>
                         </div>
                     </div>
                 ))}

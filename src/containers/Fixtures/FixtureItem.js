@@ -5,9 +5,9 @@ function FixtureItem({ fixture, toggleFixture, expandedFixtures }) {
     return (
         <li className="listItem">
             <h3 className="fixtureHeader" onClick={() => toggleFixture(fixture.fixture.id)}>
-                <img src={fixture.teams.home.logo} alt={`${fixture.teams.home.name} logo`} className="teamLogo" />
+            <Link to={`/team/${fixture.teams.home.id}`}><img src={fixture.teams.home.logo} alt={`${fixture.teams.home.name} logo`} className="teamLogo" /></Link>
                 {fixture.teams.home.name} {fixture.goals.home}-{fixture.goals.away} {fixture.teams.away.name}
-                <img src={fixture.teams.away.logo} alt={`${fixture.teams.away.name} logo`} className="teamLogo" />
+                <Link to={`/team/${fixture.teams.away.id}`}><img src={fixture.teams.away.logo} alt={`${fixture.teams.away.name} logo`} className="teamLogo" /></Link>
             </h3>
             {expandedFixtures[fixture.fixture.id] && (
                 <div className="fixtureDetails">
