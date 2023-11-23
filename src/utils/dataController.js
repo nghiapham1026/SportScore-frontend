@@ -80,3 +80,23 @@ export const getSquads = async (queryParams) => {
         throw err;
     }
 };
+
+export const getTopScorers = async (queryParams) => {
+    try {
+        const endpoint = `/players/db/getTopScorers`;
+        const response = await fetchData(endpoint, 'GET', null, queryParams);
+        return response.topScorers;
+    } catch (err) {
+        throw err;
+    }
+};
+
+export const getTopAssists = async (queryParams) => {
+    try {
+        const endpoint = `/players/db/getTopAssists`;
+        const response = await fetchData(endpoint, 'GET', null, queryParams);
+        return response.allAssists;
+    } catch (err) {
+        throw err;
+    }
+};

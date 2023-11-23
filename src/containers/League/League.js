@@ -6,6 +6,8 @@ import { handleSeasonChange, RenderStandings } from './helpers/LeagueUtils';
 import LeagueSelector from './helpers/LeagueSelector';  // Adjust the path
 import LeagueResults from './LeagueResults';
 import LeagueFixtures from './LeagueFixtures';  // Adjust the path if needed
+import LeagueScorers from './LeagueScorers';
+import LeagueAssists from './LeagueAssists';
 
 function League() {
     const { leagueId } = useParams();
@@ -79,6 +81,8 @@ function League() {
             <RenderStandings standings={standings} />
             <LeagueResults results={results} />
             {<LeagueFixtures fixtures={fixtures} />}
+            <LeagueScorers leagueId={leagueId} season={selectedSeason} />
+            <LeagueAssists leagueId={leagueId} season={selectedSeason} />
         </div>
     );
 }

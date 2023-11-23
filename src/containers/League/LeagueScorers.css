@@ -1,0 +1,62 @@
+/* LeagueScorers.css */
+.top-scorers-container {
+    text-align: center;
+    padding: 5px;
+    max-width: 100px;
+    margin: auto;
+    font-size: 0.7em;
+}
+
+.scorers-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.scorer-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 5px;
+    padding: 5px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background-color: #f9f9f9;
+}
+
+.player-photo {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 3px;
+}
+
+.top-scorers-container .scorers-list .scorer-item .team-logo {
+    width: 35px;
+    height: 35px;
+}
+
+
+.scorer-info {
+    text-align: center;
+    width: 100%; /* Ensure full width usage */
+}
+
+.scorer-info h4 {
+    margin: 0;
+    font-size: 1.5em; /* Slightly larger for readability */
+}
+
+.scorer-info p {
+    margin: 2px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.scorer-info .goals {
+    font-weight: bold; /* Highlighting goal count */
+    margin-right: 2px; /* Space between goals and logo */
+    font-size: 1.5em;
+}
