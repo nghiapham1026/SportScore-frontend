@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './LeagueFixtures.css'; // Create and style accordingly
+import { Link } from 'react-router-dom';
 
 const LeagueFixtures = ({ fixtures }) => {
     const [selectedRound, setSelectedRound] = useState('');
@@ -30,16 +31,25 @@ const LeagueFixtures = ({ fixtures }) => {
             <div>
                 {filteredFixtures.map((fixture, index) => (
                     <div key={index} className="fixtureItem">
+                        <div className="fixtureHeader">
+                            <img className="leagueLogo" src={fixture.league.logo} alt={fixture.league.name} />
+                            <span>{fixture.league.name} - {fixture.league.country}</span>
+                            <img className="countryFlag" src={fixture.league.flag} alt={fixture.league.country} />
+                        </div>
+                        <div className="fixtureDate">
+                            {new Date(fixture.fixture.date).toLocaleDateString()} {new Date(fixture.fixture.date).toLocaleTimeString()}
+                        </div>
+                        <div className="fixtureVenue">{fixture.fixture.venue.name}, {fixture.fixture.venue.city}</div>
                         <div className="fixtureItemTeam fixtureItemTeam-left">
-                            <img className="teamLogo" src={fixture.teams.home.logo} alt={fixture.teams.home.name} />
-                            <span>{fixture.teams.home.name}</span>
+                        <Link to={`/team/${fixture.teams.home.id}`}><img className="teamLogo" src={fixture.teams.home.logo} alt={fixture.teams.home.name} />
+                            <span>{fixture.teams.home.name}</span></Link>
                         </div>
                         <div className="fixtureItemTeam">
                             <span className="fixtureVersus">vs</span>
                         </div>
                         <div className="fixtureItemTeam fixtureItemTeam-right">
-                            <span>{fixture.teams.away.name}</span>
-                            <img className="teamLogo teamLogo-right" src={fixture.teams.away.logo} alt={fixture.teams.away.name} />
+                            <Link to={`/team/${fixture.teams.home.id}`}><span>{fixture.teams.away.name}</span>
+                            <img className="teamLogo teamLogo-right" src={fixture.teams.away.logo} alt={fixture.teams.away.name} /></Link>
                         </div>
                     </div>
                 ))}

@@ -1,4 +1,4 @@
-const API_URL = 'https://sportscore-a1cf52e3ff48.herokuapp.com';
+const API_URL = 'https://sportscore-backend-bbc348ab4d3e.herokuapp.com';
 
 module.exports = {
     API_URL,

@@ -5,6 +5,7 @@ import Home from './containers/Home/Home';
 import FixturePage from './containers/Fixtures/Fixtures';
 import Match from './containers/Match/Match';
 import League from './containers/League/League';
+import Team from './containers/Team/Team';
 
 function App() {
     return (
@@ -15,6 +16,7 @@ function App() {
                 <Route path="/fixtures" element={<FixturePage />} />
                 <Route path="/match/:fixtureId" element={<Match />} />
                 <Route path="/league/:leagueId" element={<League />} />
+                <Route path="/team/:teamId" element={<Team />} />
                 {/* Add more routes as needed */}
             </Routes>
         </Router>

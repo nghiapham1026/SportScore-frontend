@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 import './Fixtures.css';
 import { groupByProperty, toggleProperty } from './helpers/FixturesUtils';
-import DateSelector from './DateSelector';
+import DateSelector from './helpers/DateSelector';
 import LeagueHeader from './LeagueHeader';
 import FixtureItem from './FixtureItem';
 import { fetchFixtures } from '../../utils/dataController';
@@ -41,7 +41,6 @@ function Fixtures() {
       setSelectedDate(event.target.value);
     };
 
-    const minDate = new Date(Date.now() - 14 * 24 * 60 * 60 * 1000).toISOString().split('T')[0];
     const maxDate = new Date(Date.now() + 14 * 24 * 60 * 60 * 1000).toISOString().split('T')[0];
   
     if (error) {
@@ -54,7 +53,6 @@ function Fixtures() {
             <DateSelector 
                 selectedDate={selectedDate} 
                 handleDateChange={handleDateChange} 
-                minDate={minDate} 
                 maxDate={maxDate} 
             />
             <ul>

@@ -49,7 +49,9 @@ function Match() {
     return (
         <div>
             <MatchScore 
-                team1Logo={fixtureDetails.teams.home.logo} 
+                team1Id={fixtureDetails.teams.home.id}
+                team2Id={fixtureDetails.teams.away.id}
+                team1Logo={fixtureDetails.teams.home.logo}
                 team2Logo={fixtureDetails.teams.away.logo} 
                 team1Score={fixtureDetails.goals.home} 
                 team2Score={fixtureDetails.goals.away} 

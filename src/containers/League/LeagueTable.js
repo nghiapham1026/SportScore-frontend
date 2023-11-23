@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const LeagueTable = ({ tableData }) => (
     <table>
@@ -21,7 +22,7 @@ const LeagueTable = ({ tableData }) => (
                 {tableData.map((team) => (
                     <tr key={team.rank}>
                         <td>{team.rank}</td>
-                        <td><img src={team.team.logo} alt={team.team.name} width="30" /> {team.team.name}</td>
+                        <td><Link to={`/team/${team.team.id}`}><img src={team.team.logo} alt={team.team.name} width="30" /> {team.team.name}</Link></td>
                         <td>{team.all.played}</td>
                         <td>{team.all.win}</td>
                         <td>{team.all.draw}</td>
