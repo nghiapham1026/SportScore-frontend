@@ -70,3 +70,13 @@ export const getTeams = async (queryParams) => {
         throw err;
     }
 };
+
+export const getSquads = async (queryParams) => {
+    try {
+        const endpoint = `/players/db/getSquads`;
+        const response = await fetchData(endpoint, 'GET', null, queryParams);
+        return response.allSquads;
+    } catch (err) {
+        throw err;
+    }
+};
