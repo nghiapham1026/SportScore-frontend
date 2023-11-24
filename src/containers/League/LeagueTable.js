@@ -1,9 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import './LeagueTable.css';
 
 const LeagueTable = ({ tableData }) => (
-    <table>
-            <thead>
+    <div className="league-table-container">
+        <table className="league-table">
+        <thead>
                 <tr>
                     <th>Rank</th>
                     <th>Team</th>
@@ -19,8 +21,8 @@ const LeagueTable = ({ tableData }) => (
                 </tr>
             </thead>
             <tbody>
-                {tableData.map((team) => (
-                    <tr key={team.rank}>
+                {tableData.map((team, index) => (
+                    <tr key={index}>
                         <td>{team.rank}</td>
                         <td><Link to={`/team/${team.team.id}`}><img src={team.team.logo} alt={team.team.name} width="30" /> {team.team.name}</Link></td>
                         <td>{team.all.played}</td>
@@ -32,10 +34,16 @@ const LeagueTable = ({ tableData }) => (
                         <td>{team.goalsDiff}</td>
                         <td>{team.points}</td>
                         <td>{team.form}</td>
+                        <td className="form">
+                            {team.form.split('').map((result, index) => (
+                                <span key={index} className={`form-indicator ${result === 'W' ? 'win' : result === 'D' ? 'draw' : 'loss'}`}></span>
+                            ))}
+                        </td>
                     </tr>
                 ))}
             </tbody>
         </table>
+    </div>
 );
 
 export default LeagueTable;

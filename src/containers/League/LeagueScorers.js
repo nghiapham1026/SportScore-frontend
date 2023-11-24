@@ -1,4 +1,3 @@
-// LeagueScorers.js
 import React, { useState, useEffect } from 'react';
 import { getTopScorers } from '../../utils/dataController';
 import './LeagueScorers.css'; // Create and import a CSS file for styling
@@ -32,18 +31,29 @@ const LeagueScorers = ({ leagueId, season }) => {
     return (
         <div className="top-scorers-container">
             <h1>Top Scorers</h1>
-            <ul className="scorers-list">
-                {topScorers.map(scorer => (
-                    <li key={scorer.player.id} className="scorer-item">
-                        <img src={scorer.player.photo} alt={scorer.player.name} className="player-photo" />
-                        <div className="scorer-info">
-                            <h4>{scorer.player.name}</h4>
-                            <p><img src={scorer.statistics[0].team.logo} alt={scorer.statistics[0].team.name} className="team-logo" /></p>
-                            <element class="goals"><p>Goals: {scorer.statistics[0].goals.total}</p></element>
-                        </div>
-                    </li>
-                ))}
-            </ul>
+            <table className="scorers-table">
+                <thead>
+                    <tr>
+                        <th className="player-rank">Player</th>
+                        <th className="goals">Goals</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {topScorers.map((scorer, index) => (
+                        <tr key={scorer.player.id}>
+                            <td>
+                                <div className="player-info">
+                                    <span className="player-rank">{index + 1}.</span>
+                                    <img src={scorer.player.photo} alt={scorer.player.name} className="player-photo" />
+                                    <span>{scorer.player.name}</span>
+                                    <img src={scorer.statistics[0].team.logo} alt={scorer.statistics[0].team.name} className="team-logo" />
+                                </div>
+                            </td>
+                            <td className="goals">{scorer.statistics[0].goals.total}</td>
+                        </tr>
+                    ))}
+                </tbody>
+            </table>
         </div>
     );
 };

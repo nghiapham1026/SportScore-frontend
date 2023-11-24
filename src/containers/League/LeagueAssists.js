@@ -1,4 +1,3 @@
-// LeagueAssists.js
 import React, { useState, useEffect } from 'react';
 import { getTopAssists } from '../../utils/dataController';
 import './LeagueAssists.css'; // Ensure this CSS file exists and is styled appropriately
@@ -32,18 +31,27 @@ const LeagueAssists = ({ leagueId, season }) => {
     return (
         <div className="top-assists-container">
             <h1>Top Assists</h1>
-            <ul className="assists-list">
-                {topAssists.map(assist => (
-                    <li key={assist.player.id} className="assist-item">
-                        <img src={assist.player.photo} alt={assist.player.name} className="player-photo" />
-                        <div className="assist-info">
-                            <h4>{assist.player.name}</h4>
-                            <p>Team: <img src={assist.statistics[0].team.logo} alt={assist.statistics[0].team.name} className="team-logo" /></p>
-                            <p>Assists: {assist.statistics[0].goals.assists}</p>
-                        </div>
-                    </li>
-                ))}
-            </ul>
+            <table className="assists-table">
+                <thead>
+                    <tr>
+                        <th className="player-rank">Player</th>
+                        <th className="assists">Assists</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {topAssists.map((assist, index) => (
+                        <tr key={assist.player.id}>
+                            <td>
+                                <span className="player-rank">{index + 1}.</span>
+                                <img src={assist.player.photo} alt={assist.player.name} className="player-photo" />
+                                {assist.player.name}
+                                <img src={assist.statistics[0].team.logo} alt={assist.statistics[0].team.name} className="team-logo" />
+                            </td>
+                            <td className="assists">{assist.statistics[0].goals.assists}</td>
+                        </tr>
+                    ))}
+                </tbody>
+            </table>
         </div>
     );
 };

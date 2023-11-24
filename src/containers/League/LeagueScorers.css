@@ -1,62 +1,53 @@
 /* LeagueScorers.css */
 .top-scorers-container {
     text-align: center;
-    padding: 5px;
-    max-width: 100px;
+    padding: 20px;
     margin: auto;
-    font-size: 0.7em;
 }
 
-.scorers-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
+.scorers-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
 }
 
-.scorer-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-bottom: 5px;
-    padding: 5px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    background-color: #f9f9f9;
+.scorers-table th {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    background-color: #f8f8f8;
+    text-align: left; /* Align text to the left in header */
 }
 
-.player-photo {
-    width: 30px;
-    height: 30px;
+.scorers-table td {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    vertical-align: middle;
+    text-align: left; /* Align text to the left in cells */
+}
+
+.scorers-table .player-photo {
     border-radius: 50%;
-    object-fit: cover;
-    margin-bottom: 3px;
+    width: 40px;
+    height: 40px;
+    vertical-align: middle;
+    margin-right: 10px;
 }
 
-.top-scorers-container .scorers-list .scorer-item .team-logo {
-    width: 35px;
-    height: 35px;
+.scorers-table .team-logo {
+    width: 20px;
+    height: 20px;
+    vertical-align: middle;
+    margin-left: 5px;
 }
 
-
-.scorer-info {
-    text-align: center;
-    width: 100%; /* Ensure full width usage */
+/* Align goals to the right */
+.scorers-table .goals {
+    font-weight: bold;
+    text-align: right;
 }
 
-.scorer-info h4 {
-    margin: 0;
-    font-size: 1.5em; /* Slightly larger for readability */
-}
-
-.scorer-info p {
-    margin: 2px 0;
+/* Ensure the rank, photo, name, and logo are inline */
+.scorers-table .player-info {
     display: flex;
-    justify-content: center;
     align-items: center;
-}
-
-.scorer-info .goals {
-    font-weight: bold; /* Highlighting goal count */
-    margin-right: 2px; /* Space between goals and logo */
-    font-size: 1.5em;
 }
