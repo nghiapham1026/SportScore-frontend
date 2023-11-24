@@ -14,7 +14,6 @@ export function RenderStandings({ standings }) {
     if (standings[0] instanceof Array) {
         return standings.map((group, groupIndex) => (
             <div key={groupIndex}>
-                <h3>{group[0]?.group}</h3>
                 <LeagueTable tableData={group} />
             </div>
         ));

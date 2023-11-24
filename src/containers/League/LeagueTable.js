@@ -33,7 +33,6 @@ const LeagueTable = ({ tableData }) => (
                         <td>{team.all.goals.against}</td>
                         <td>{team.goalsDiff}</td>
                         <td>{team.points}</td>
-                        <td>{team.form}</td>
                         <td className="form">
                             {team.form.split('').map((result, index) => (
                                 <span key={index} className={`form-indicator ${result === 'W' ? 'win' : result === 'D' ? 'draw' : 'loss'}`}></span>
