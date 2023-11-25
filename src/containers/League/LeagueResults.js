@@ -1,16 +1,29 @@
 import React, { useState, useEffect } from 'react';
 import './LeagueResults.css';
 import { Link } from 'react-router-dom';
+import { fetchFixtures } from '../../utils/dataController';
 
-const LeagueResults = ({ results }) => {
+const LeagueResults = ({ leagueId, selectedSeason }) => {
+    const [results, setResults] = useState([]);
     const [selectedRound, setSelectedRound] = useState('');
 
     useEffect(() => {
-        const rounds = [...new Set(results.map(result => result.league.round))];
-        setSelectedRound(rounds[rounds.length - 1]);
-    }, [results]);
+        const fetchLeagueResults = async () => {
+            if (selectedSeason) {
+                try {
+                    const fetchedResults = await fetchFixtures({ league: leagueId, season: selectedSeason.year, status: 'FT-AET-PEN' });
+                    setResults(fetchedResults);
+                } catch (err) {
+                    console.error("Error fetching results:", err);
+                }
+            }
+        };
+        fetchLeagueResults();
+    }, [leagueId, selectedSeason]);
 
-    const filteredResults = results.filter(result => result.league.round === selectedRound);
+    const filteredResults = selectedRound
+        ? results.filter(result => result.league.round === selectedRound)
+        : results;
 
     return (
         <div className="resultsContainer">
