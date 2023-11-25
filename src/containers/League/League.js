@@ -31,12 +31,9 @@ function League() {
                 console.error("Error fetching league data:", err);
             }
         };
-        fetchLeagueData();
-    }, [leagueId]);
 
-    useEffect(() => {
-        if (selectedSeason) {
-            const fetchLeagueStandings = async () => {
+        const fetchLeagueStandings = async () => {
+            if (selectedSeason) {
                 try {
                     const leagueStandings = await getStandings({ league: leagueId, season: selectedSeason.year });
                     setStandings(leagueStandings);
@@ -44,10 +41,15 @@ function League() {
                 } catch (err) {
                     console.error("Error fetching standings data:", err);
                 }
-            };
+            }
+        };
+
+        // Call the functions in the appropriate order
+        fetchLeagueData().then(() => {
             fetchLeagueStandings();
-        }
-    }, [selectedSeason, leagueId]);
+        });
+
+    }, [leagueId, selectedSeason]);
 
     return (
         <div>
