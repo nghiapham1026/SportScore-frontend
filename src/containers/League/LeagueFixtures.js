@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import './LeagueFixtures.css'; // Create and style accordingly
+import './LeagueFixtures.css'; // Ensure CSS is styled accordingly
 import { Link } from 'react-router-dom';
 import { fetchFixtures } from '../../utils/dataController';
 
