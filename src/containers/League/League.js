@@ -9,24 +9,34 @@ function League() {
     const [seasons, setSeasons] = useState([]);
     const [selectedSeason, setSelectedSeason] = useState(null);
     const [standings, setStandings] = useState([]);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         async function fetchLeagueData() {
+            setLoading(true);
             try {
                 const leagues = await getLeagues();
                 const league = leagues.find(l => l.league.id === parseInt(leagueId));
                 if (league) {
                     setSeasons(league.seasons);
-                    const currentSeason = league.seasons.find(s => s.current) || league.seasons[league.seasons.length - 1];
-                    setSelectedSeason(currentSeason);
+                    // Only set the selectedSeason if it hasn't been set yet
+                    if (!selectedSeason) {
+                        const currentSeason = league.seasons.find(s => s.current) || league.seasons[league.seasons.length - 1];
+                        setSelectedSeason(currentSeason);
+                    }
                 }
             } catch (err) {
                 console.error("Error fetching league data:", err);
             }
+            setLoading(false);
         }
 
+        fetchLeagueData();
+    }, [leagueId]); // Remove selectedSeason from the dependency array
+
+    useEffect(() => {
         async function fetchLeagueStandings() {
-            if (selectedSeason) {
+            if (selectedSeason && !loading) {
                 try {
                     const leagueStandings = await getStandings({ league: leagueId, season: selectedSeason.year });
                     setStandings(leagueStandings);
@@ -36,8 +46,18 @@ function League() {
             }
         }
 
-        fetchLeagueData().then(fetchLeagueStandings);
-    }, [leagueId, selectedSeason]);
+        fetchLeagueStandings();
+    }, [selectedSeason, leagueId, loading]); // Add loading to the dependency array
+
+    const handleSeasonSelectorChange = (seasonId) => {
+        const season = handleSeasonChange(seasons, seasonId);
+        setSelectedSeason(season);
+        // Potentially reset standings or trigger a refetch of standings here
+    };
+
+    if (loading) {
+        return <p>Loading...</p>;
+    }
 
     return (
         <div>
@@ -45,10 +65,7 @@ function League() {
             <LeagueSelector 
                 seasons={seasons} 
                 selectedSeason={selectedSeason} 
-                onSeasonChange={(seasonId) => {
-                    const season = handleSeasonChange(seasons, seasonId);
-                    setSelectedSeason(season);
-                }}
+                onSeasonChange={handleSeasonSelectorChange}
             />
             <RenderStandings standings={standings} />
         </div>
