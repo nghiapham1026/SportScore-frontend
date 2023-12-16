@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { getLeagues } from '../../utils/dataController';
 import LeagueSelector from './helpers/LeagueSelector'; // Adjust the path as needed
 import LeagueScorers from './LeagueScorers'; // Adjust the path as needed
@@ -8,6 +8,7 @@ function LeagueScorersPage() {
     const { leagueId } = useParams();
     const [seasons, setSeasons] = useState([]);
     const [selectedSeason, setSelectedSeason] = useState(null);
+    const navigate = useNavigate();
 
     useEffect(() => {
         async function fetchSeasons() {
@@ -32,8 +33,14 @@ function LeagueScorersPage() {
         setSelectedSeason(season);
     };
 
+    const goToLeaguePage = () => {
+        navigate(`/league/${leagueId}`);
+    }
+
     return (
         <div>
+            <button onClick={goToLeaguePage}>Go Back to League Page</button>
+            
             <h2>League Top Scorers</h2>
             <LeagueSelector 
                 seasons={seasons} 

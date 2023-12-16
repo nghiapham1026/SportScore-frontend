@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { getLeagues, getStandings } from '../../utils/dataController';
 import { handleSeasonChange, RenderStandings } from './helpers/LeagueUtils';
 import LeagueSelector from './helpers/LeagueSelector';
@@ -7,6 +7,7 @@ import LeagueSelector from './helpers/LeagueSelector';
 function League() {
     const { leagueId } = useParams();
     const [seasons, setSeasons] = useState([]);
+    const navigate = useNavigate();
     const [selectedSeason, setSelectedSeason] = useState(null);
     const [standings, setStandings] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -55,12 +56,34 @@ function League() {
         // Potentially reset standings or trigger a refetch of standings here
     };
 
+    // Function to handle redirection to the Fixtures Page
+    const goToFixturesPage = () => {
+        navigate(`/league/${leagueId}/fixtures`); // Use navigate for redirection
+    };
+
+    const goToResultsPage = () => {
+        navigate(`/league/${leagueId}/results`);
+    }
+
+    const goToScorersPage = () => {
+        navigate(`/league/${leagueId}/scorers`);
+    }
+
+    const goToAssistsPage = () => {
+        navigate(`/league/${leagueId}/assists`);
+    }
+
     if (loading) {
         return <p>Loading...</p>;
     }
 
     return (
         <div>
+            <button onClick={goToFixturesPage}>View Fixtures</button>
+            <button onClick={goToResultsPage}>View Results</button>
+            <button onClick={goToScorersPage}>View Top Scorers</button>
+            <button onClick={goToAssistsPage}>View Top Assists</button>
+            
             <h2>League Table</h2>
             <LeagueSelector 
                 seasons={seasons} 
