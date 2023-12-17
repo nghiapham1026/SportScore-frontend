@@ -15,10 +15,6 @@ function HeadToHead({ headToHeadData }) {
                         <br />
                         <strong>Venue:</strong> {match.fixture.venue.name}, {match.fixture.venue.city}
                         <br />
-                        <strong>Status:</strong> {match.fixture.status.long}
-                        <br />
-                        <strong>Referee:</strong> {match.fixture.referee}
-                        <br />
                         <hr />
                     </li>
                 ))}

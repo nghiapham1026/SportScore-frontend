@@ -1,5 +1,6 @@
 // TeamSquad.js
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { getSquads } from '../../utils/dataController';
 import './TeamSquad.css'; // Create and import a CSS file for styling
 
@@ -39,7 +40,7 @@ const TeamSquad = ({ teamId }) => {
                     <div key={player.id} className="player-card">
                         <img src={player.photo} alt={player.name} className="player-photo" />
                         <div className="player-info">
-                            <h3>{player.name}</h3>
+                            <Link to={`/players/${player.id}`}><h3>{player.name}</h3></Link>
                             <p>Age: {player.age}</p>
                             <p>Number: {player.number}</p>
                             <p>Position: {player.position}</p>

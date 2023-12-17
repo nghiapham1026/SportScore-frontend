@@ -30,7 +30,7 @@ function MatchScore({ team1Logo, team2Logo, team1Score, team2Score, team1Id, tea
                     <div className="goal-details">
                         {team2Goals.map(goal => (
                             <div key={goal._id}>
-                                {goal.player.name} {goal.time.elapsed}'
+                                <Link to={`/players/${goal.player.id}`}>{goal.player.name} {goal.time.elapsed}'</Link>
                             </div>
                         ))}
                     </div>
@@ -42,7 +42,7 @@ function MatchScore({ team1Logo, team2Logo, team1Score, team2Score, team1Id, tea
                     <div key={event._id} className={`timeline-event ${event.team.logo === team1Logo ? 'left' : 'right'}`}>
                         <div className="event-circle"></div>
                         <div className="event-details">
-                            {event.detail} - {event.player.name} {event.time.elapsed}'
+                            {event.detail} - <Link to={`/players/${event.player.id}`}>{event.player.name} {event.time.elapsed}'</Link>
                         </div>
                     </div>
                 ))}

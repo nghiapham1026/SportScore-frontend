@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { getTopScorers } from '../../utils/dataController';
 import './LeagueScorers.css'; // Create and import a CSS file for styling
 
@@ -42,12 +43,12 @@ const LeagueScorers = ({ leagueId, season }) => {
                     {topScorers.map((scorer, index) => (
                         <tr key={scorer.player.id}>
                             <td>
-                                <div className="player-info">
+                                <Link to={`/players/${scorer.player.id}`}><div className="player-info">
                                     <span className="player-rank">{index + 1}.</span>
-                                    <img src={scorer.player.photo} alt={scorer.player.name} className="player-photo" />
+                                    <Link to={`/team/${scorer.statistics[0].team.id}`}><img src={scorer.player.photo} alt={scorer.player.name} className="player-photo" /></Link>
                                     <span>{scorer.player.name}</span>
                                     <img src={scorer.statistics[0].team.logo} alt={scorer.statistics[0].team.name} className="team-logo" />
-                                </div>
+                                </div></Link>
                             </td>
                             <td className="goals">{scorer.statistics[0].goals.total}</td>
                         </tr>

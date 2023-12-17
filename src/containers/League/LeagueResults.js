@@ -53,7 +53,7 @@ const LeagueResults = ({ leagueId, selectedSeason }) => {
                             <span>{result.teams.home.name}</span></Link>
                         </div>
                         <div className="resultItemTeam">
-                            <span className="scoreMain">{result.goals.home} - {result.goals.away}</span>
+                            <Link to={`/match/${result.fixture.id}`}><span className="scoreMain">{result.goals.home} - {result.goals.away}</span></Link>
                             {result.score.penalty.home !== null && result.score.penalty.away !== null && (
                                 <div className="scorePenalty">
                                     (Pen: {result.score.penalty.home} - {result.score.penalty.away})

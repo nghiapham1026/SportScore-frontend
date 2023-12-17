@@ -114,3 +114,14 @@ export const getTopAssists = async (queryParams) => {
         return { error: 'Failed to fetch top assists', details: err.message };
     }
 };
+
+export const getPlayers = async (queryParams) => {
+    try {
+        const endpoint = `/players/db/getPlayers`;
+        const response = await fetchData(endpoint, 'GET', null, queryParams);
+        return getDataOrFallback(response, 'allPlayers');
+    } catch (err) {
+        console.error('Error fetching players:', err);
+        return { error: 'Failed to fetch players', details: err.message };
+    }
+};
