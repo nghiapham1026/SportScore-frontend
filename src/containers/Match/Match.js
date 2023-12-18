@@ -18,9 +18,7 @@ function Match() {
     const [lineupData, setLineup] = useState(null);
     const [error, setError] = useState(null);
 
-    const [showLineup, setShowLineup] = useState(true);
-    const [showStatistics, setShowStatistics] = useState(true);
-    const [showHeadToHead, setShowHeadToHead] = useState(true);
+    const [activeSection, setActiveSection] = useState('lineup');
 
     useEffect(() => {
         const getData = async () => {
@@ -39,7 +37,6 @@ function Match() {
 
                 const lineups = await getLineups({ fixture: fixtureId });
                 setLineup(lineups);
-                console.log(lineups)
             } catch (err) {
                 setError(err.message);
             }
@@ -47,16 +44,16 @@ function Match() {
         getData();
     }, [fixtureId]);
 
-    const toggleLineup = () => setShowLineup(!showLineup);
-    const toggleStatistics = () => setShowStatistics(!showStatistics);
-    const toggleHeadToHead = () => setShowHeadToHead(!showHeadToHead);
-
     if (error) {
         return <p>Error: {error}</p>;
     }
 
     if (!statistics || !fixtureDetails) {
         return <p>Loading...</p>;
+    }
+
+    const toggleSection = (section) => {
+        setActiveSection(section);
     }
 
     return (
@@ -70,22 +67,35 @@ function Match() {
                 team2Score={fixtureDetails.goals.away} 
                 eventData={eventData}
             />
-            <button onClick={toggleLineup}>Lineup</button>
-            {showLineup && <MatchLineup lineupData={lineupData} />}
-
-            <div className="container">
-                <button onClick={toggleStatistics}>Statistics</button>
-                {showStatistics && (
-                    <div className="teamsContainer">
-                        {statistics.map((teamStats) => (
-                            <MatchStatistics key={teamStats.team.id} teamStats={teamStats} />
-                        ))}
-                    </div>
-                )}
-
-                <button onClick={toggleHeadToHead}>Head to Head</button>
-                {showHeadToHead && <HeadToHead headToHeadData={headToHeadData} />}
+            <div className="match-nav">
+                <button 
+                    className={`nav-button ${activeSection === 'lineup' ? 'active' : ''}`} 
+                    onClick={() => toggleSection('lineup')}
+                >
+                    Lineups
+                </button>
+                <button 
+                    className={`nav-button ${activeSection === 'statistics' ? 'active' : ''}`} 
+                    onClick={() => toggleSection('statistics')}
+                >
+                    Statistics
+                </button>
+                <button 
+                    className={`nav-button ${activeSection === 'headToHead' ? 'active' : ''}`} 
+                    onClick={() => toggleSection('headToHead')}
+                >
+                    Head-to-Head
+                </button>
             </div>
+            {activeSection === 'lineup' && <MatchLineup lineupData={lineupData} />}
+            {activeSection === 'statistics' && (
+                <div className="teamsContainer">
+                    {statistics.map((teamStats) => (
+                        <MatchStatistics key={teamStats.team.id} teamStats={teamStats} />
+                    ))}
+                </div>
+            )}
+            {activeSection === 'headToHead' && <HeadToHead headToHeadData={headToHeadData} />}
         </div>
     );    
 }

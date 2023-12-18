@@ -1,3 +1,32 @@
+/* Match.css */
+.match-nav {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.nav-button {
+    background-color: #f8f9fa;
+    border: 1px solid #ddd;
+    padding: 10px 15px;
+    margin: 0 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+    color: black;
+}
+
+.nav-button:hover {
+    background-color: #e2e6ea;
+    color: #0056b3;
+}
+
+/* Add styles for active state if needed */
+.nav-button.active {
+    background-color: #0056b3;
+    color: white;
+}
+
 .container {
     display: flex;
     flex-direction: column;

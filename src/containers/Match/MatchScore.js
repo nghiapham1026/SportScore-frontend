@@ -16,7 +16,7 @@ function MatchScore({ team1Logo, team2Logo, team1Score, team2Score, team1Id, tea
                     <Link to={`/team/${team1Id}`}><img src={team1Logo} alt="Team 1 Logo" className="team-logo" /></Link>
                     <div className="goal-details">
                         {team1Goals.map(goal => (
-                            <div key={goal._id}>{goal.player.name} {goal.time.elapsed}'</div>
+                            <Link to={`/players/${goal.player.id}`}><div key={goal._id}>{goal.player.name} {goal.time.elapsed}'</div></Link>
                         ))}
                     </div>
                 </div>
@@ -24,7 +24,7 @@ function MatchScore({ team1Logo, team2Logo, team1Score, team2Score, team1Id, tea
                 <div className="team-info">
                     <div className="goal-details">
                         {team2Goals.map(goal => (
-                            <div key={goal._id}>{goal.player.name} {goal.time.elapsed}'</div>
+                            <Link to={`/players/${goal.player.id}`}><div key={goal._id}>{goal.player.name} {goal.time.elapsed}'</div></Link>
                         ))}
                     </div>
                     <Link to={`/team/${team2Id}`}><img src={team2Logo} alt="Team 2 Logo" className="team-logo" /></Link>
