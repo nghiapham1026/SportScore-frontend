@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { getTeams } from '../../utils/dataController';
-import './TeamInfo.css'; // Make sure the path is correct
+import './TeamInfo.css';
 
 const TeamInfo = ({ teamId }) => {
     const [teamDetails, setTeamDetails] = useState(null);
@@ -38,7 +38,6 @@ const TeamInfo = ({ teamId }) => {
                 <img src={team.logo} alt={team.name} className="team-logo" />
                 <h1>{team.name}</h1>
                 <div className="info-row">
-                    <p>Code: {team.code}</p>
                     <p>Country: {team.country}</p>
                     <p>Founded: {team.founded}</p>
                 </div>
