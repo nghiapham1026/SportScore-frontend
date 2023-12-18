@@ -1,59 +1,84 @@
+/* MatchScore.css */
+
+.match-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 800px; /* Set a max-width for the container */
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
 .team-score-container {
     display: flex;
-    justify-content: center;
-    align-items: center;
+    justify-content: space-between;
+    width: 100%;
     margin-bottom: 20px;
 }
 
+.team-info {
+    display: flex;
+    align-items: center;
+}
+
 .team-logo {
-    width: 120px;
-    height: 120px;
-    margin: 0 10px;
+    width: 80px; /* Adjust the size as needed */
+    height: auto;
+    margin-right: 10px;
+}
+
+.goal-details {
+    display: flex;
+    flex-direction: column;
 }
 
 .score {
     font-size: 24px;
-    margin: 0 10px;
-}
-.team-info {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.goal-details {
-    font-size: 12px;
-    color: rgb(8, 3, 3);
-    text-align: center;
+    font-weight: bold;
+    margin: 0 20px;
 }
 
 .timeline-container {
-    margin-top: 20px;
-    position: relative;
-    border-left: 2px solid #ddd;
+    width: 100%;
 }
 
 .timeline-event {
-    position: relative;
-    padding: 10px;
-}
-
-.timeline-event.left .event-details {
-    padding-right: 10px;
-    text-align: right;
-}
-
-.timeline-event.right .event-details {
-    padding-left: 10px;
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
 }
 
 .event-circle {
     width: 10px;
     height: 10px;
-    background-color: #ddd;
     border-radius: 50%;
-    position: absolute;
-    left: -5px;
-    top: 50%;
-    transform: translateY(-50%);
+    background-color: #ccc;
+    margin-right: 10px;
+}
+
+.event-details {
+    font-size: 14px;
+}
+
+/* Style for events aligned left or right */
+.left {
+    justify-content: start;
+}
+
+.right {
+    justify-content: end;
+}
+
+/* Link styles */
+a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
 }

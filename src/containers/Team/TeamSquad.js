@@ -38,14 +38,20 @@ const TeamSquad = ({ teamId }) => {
             <div className="players-list">
                 {squadData.map(player => (
                     <div key={player.id} className="player-card">
-                        <img src={player.photo} alt={player.name} className="player-photo" />
-                        <div className="player-info">
-                            <Link to={`/players/${player.id}`}><h3>{player.name}</h3></Link>
+                    <img src={player.photo} alt={player.name} className="player-photo" />
+                    <div className="player-info">
+                        <Link to={`/players/${player.id}`}><h3>{player.name}</h3></Link>
+                        <div className="player-detail-row">
                             <p>Age: {player.age}</p>
+                        </div>
+                        <div className="player-detail-row">
                             <p>Number: {player.number}</p>
+                        </div>
+                        <div className="player-detail-row">
                             <p>Position: {player.position}</p>
                         </div>
                     </div>
+                </div>
                 ))}
             </div>
         </div>

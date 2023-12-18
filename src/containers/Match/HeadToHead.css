@@ -1,3 +1,52 @@
-li {
-    margin-bottom: 10px;
+/* HeadToHead.css */
+
+.headToHeadContainer {
+    width: 100%;
+    max-width: 800px; /* Set a max-width for the container */
+    margin: 20px auto;
+    padding: 20px;
+    background: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.headToHeadTitle {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+    font-size: 24px;
+}
+
+.matchItem {
+    background: white;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    padding: 15px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.matchDate {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 8px;
+}
+
+.matchScore {
+    font-size: 16px;
+    color: #333;
+    margin-bottom: 8px;
+}
+
+.matchVenue {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 8px;
+}
+
+/* Style for the horizontal rule to separate match items */
+.hrStyle {
+    border: none;
+    height: 1px;
+    background: #e0e0e0;
+    margin: 15px 0;
 }

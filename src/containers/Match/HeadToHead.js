@@ -3,22 +3,22 @@ import './HeadToHead.css';
 
 function HeadToHead({ headToHeadData }) {
     return (
-        <div>
-            <h2>Head-to-Head Data</h2>
-            <ul>
-                {headToHeadData.sort((a, b) => new Date(b.fixture.date) - new Date(a.fixture.date)).map((match, idx) => (
-                    <li key={idx}>
+        <div className="headToHeadContainer">
+            <h2 className="headToHeadTitle">Head-to-Head Data</h2>
+            {headToHeadData.sort((a, b) => new Date(b.fixture.date) - new Date(a.fixture.date)).map((match, idx) => (
+                <div key={idx} className="matchItem">
+                    <div className="matchDate">
                         <strong>Date:</strong> {new Date(match.fixture.date).toLocaleDateString()}
-                        <br />
-                        <br />
+                    </div>
+                    <div className="matchScore">
                         <strong>Score:</strong> {match.teams.home.name} {match.goals.home} - {match.goals.away} {match.teams.away.name}
-                        <br />
+                    </div>
+                    <div className="matchVenue">
                         <strong>Venue:</strong> {match.fixture.venue.name}, {match.fixture.venue.city}
-                        <br />
-                        <hr />
-                    </li>
-                ))}
-            </ul>
+                    </div>
+                    {idx < headToHeadData.length - 1 && <hr className="hrStyle" />} {/* Don't render <hr> after last item */}
+                </div>
+            ))}
         </div>
     );
 }

@@ -18,6 +18,10 @@ function Match() {
     const [lineupData, setLineup] = useState(null);
     const [error, setError] = useState(null);
 
+    const [showLineup, setShowLineup] = useState(true);
+    const [showStatistics, setShowStatistics] = useState(true);
+    const [showHeadToHead, setShowHeadToHead] = useState(true);
+
     useEffect(() => {
         const getData = async () => {
             try {
@@ -42,7 +46,10 @@ function Match() {
         };         
         getData();
     }, [fixtureId]);
-    
+
+    const toggleLineup = () => setShowLineup(!showLineup);
+    const toggleStatistics = () => setShowStatistics(!showStatistics);
+    const toggleHeadToHead = () => setShowHeadToHead(!showHeadToHead);
 
     if (error) {
         return <p>Error: {error}</p>;
@@ -63,14 +70,21 @@ function Match() {
                 team2Score={fixtureDetails.goals.away} 
                 eventData={eventData}
             />
-            <MatchLineup lineupData={lineupData} />
+            <button onClick={toggleLineup}>Lineup</button>
+            {showLineup && <MatchLineup lineupData={lineupData} />}
+
             <div className="container">
-                <div className="teamsContainer">
-                    {statistics.map((teamStats) => (
-                        <MatchStatistics key={teamStats.team.id} teamStats={teamStats} />
-                    ))}
-                </div>
-                <HeadToHead headToHeadData={headToHeadData} />
+                <button onClick={toggleStatistics}>Statistics</button>
+                {showStatistics && (
+                    <div className="teamsContainer">
+                        {statistics.map((teamStats) => (
+                            <MatchStatistics key={teamStats.team.id} teamStats={teamStats} />
+                        ))}
+                    </div>
+                )}
+
+                <button onClick={toggleHeadToHead}>Head to Head</button>
+                {showHeadToHead && <HeadToHead headToHeadData={headToHeadData} />}
             </div>
         </div>
     );    

@@ -13,30 +13,24 @@ function MatchScore({ team1Logo, team2Logo, team1Score, team2Score, team1Id, tea
         <div className="match-container">
             <div className="team-score-container">
                 <div className="team-info">
-                <Link to={`/team/${team1Id}`}><img src={team1Logo} alt="Team 1 Logo" className="team-logo" /></Link>
+                    <Link to={`/team/${team1Id}`}><img src={team1Logo} alt="Team 1 Logo" className="team-logo" /></Link>
                     <div className="goal-details">
                         {team1Goals.map(goal => (
-                            <div key={goal._id}>
-                                {goal.player.name} {goal.time.elapsed}'
-                            </div>
+                            <div key={goal._id}>{goal.player.name} {goal.time.elapsed}'</div>
                         ))}
                     </div>
                 </div>
-                <span className="score">
-                    {(team1Score !== null && team2Score !== null) ? `${team1Score} - ${team2Score}` : ' - '}
-                </span>
+                <span className="score">{team1Score} - {team2Score}</span>
                 <div className="team-info">
-                <Link to={`/team/${team2Id}`}><img src={team2Logo} alt="Team 2 Logo" className="team-logo" /></Link>
                     <div className="goal-details">
                         {team2Goals.map(goal => (
-                            <div key={goal._id}>
-                                <Link to={`/players/${goal.player.id}`}>{goal.player.name} {goal.time.elapsed}'</Link>
-                            </div>
+                            <div key={goal._id}>{goal.player.name} {goal.time.elapsed}'</div>
                         ))}
                     </div>
+                    <Link to={`/team/${team2Id}`}><img src={team2Logo} alt="Team 2 Logo" className="team-logo" /></Link>
                 </div>
             </div>
-
+            
             <div className="timeline-container">
                 {sortedEvents.map(event => (
                     <div key={event._id} className={`timeline-event ${event.team.logo === team1Logo ? 'left' : 'right'}`}>
