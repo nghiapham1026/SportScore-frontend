@@ -125,3 +125,14 @@ export const getPlayers = async (queryParams) => {
         return { error: 'Failed to fetch players', details: err.message };
     }
 };
+
+export const getLineups = async (queryParams) => {
+    try {
+        const endpoint = `/fixtures/db/getLineups`;
+        const response = await fetchData(endpoint, 'GET', null, queryParams);
+        return getDataOrFallback(response, 'allFixtureLineups');
+    } catch (err) {
+        console.error('Error fetching lineups:', err);
+        return { error: 'Failed to fetch lineups', details: err.message };
+    }
+};

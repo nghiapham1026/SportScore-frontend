@@ -5,7 +5,8 @@ import './Match.css';
 import MatchScore from './MatchScore';
 import MatchStatistics from './MatchStatistics';
 import HeadToHead from './HeadToHead';
-import { fetchStatistics, fetchHeadToHead, fetchFixtures, getEvents } from '../../utils/dataController';
+import MatchLineup from './MatchLineup';
+import { fetchStatistics, fetchHeadToHead, fetchFixtures, getEvents, getLineups } from '../../utils/dataController';
 
 function Match() {
     const { fixtureId } = useParams();
@@ -14,6 +15,7 @@ function Match() {
     const [statistics, setStatistics] = useState(null);
     const [headToHeadData, setHeadToHeadData] = useState([]);
     const [eventData, setEvents] = useState(null);
+    const [lineupData, setLineup] = useState(null);
     const [error, setError] = useState(null);
 
     useEffect(() => {
@@ -30,6 +32,10 @@ function Match() {
 
                 const events = await getEvents({ fixture: fixtureId });
                 setEvents(events);
+
+                const lineups = await getLineups({ fixture: fixtureId });
+                setLineup(lineups);
+                console.log(lineups)
             } catch (err) {
                 setError(err.message);
             }
@@ -57,6 +63,7 @@ function Match() {
                 team2Score={fixtureDetails.goals.away} 
                 eventData={eventData}
             />
+            <MatchLineup lineupData={lineupData} />
             <div className="container">
                 <div className="teamsContainer">
                     {statistics.map((teamStats) => (
