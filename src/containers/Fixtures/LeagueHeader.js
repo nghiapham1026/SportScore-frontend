@@ -1,4 +1,5 @@
 import React from 'react';
+import './LeagueHeader.css';
 
 function LeagueHeader({ leagueName, logo, toggleLeague }) {
     return (

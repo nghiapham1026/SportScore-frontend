@@ -41,15 +41,15 @@ function Fixtures() {
       setSelectedDate(event.target.value);
     };
 
-    const maxDate = new Date(Date.now() + 14 * 24 * 60 * 60 * 1000).toISOString().split('T')[0];
+    const maxDate = new Date(Date.now() - 1 * 24 * 60 * 60 * 1000).toISOString().split('T')[0];
   
     if (error) {
       return <p>Error: {error}</p>;
     }
 
     return (
-        <div className="container">
-            <h1 className="header">Fixtures</h1>
+        <div className="fixture-container">
+            <h1 className="fixture-header">Fixtures</h1>
             <DateSelector 
                 selectedDate={selectedDate} 
                 handleDateChange={handleDateChange} 

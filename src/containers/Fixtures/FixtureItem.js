@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import './FixtureItem.css';
 
 function FixtureItem({ fixture, toggleFixture, expandedFixtures }) {
     return (

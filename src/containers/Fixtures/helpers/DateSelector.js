@@ -1,4 +1,5 @@
 import React from 'react';
+import './DateSelector.css';
 
 function DateSelector({ selectedDate, handleDateChange, minDate, maxDate }) {
     return (
