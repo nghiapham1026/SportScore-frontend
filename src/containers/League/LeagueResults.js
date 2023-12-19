@@ -48,21 +48,26 @@ const LeagueResults = ({ leagueId, selectedSeason }) => {
                             {new Date(result.fixture.date).toLocaleDateString()} {new Date(result.fixture.date).toLocaleTimeString()}
                         </div>
                         <div className="fixtureVenue">{result.fixture.venue.name}, {result.fixture.venue.city}</div>
-                        <div className="resultItemTeam resultItemTeam-left">
-                        <Link to={`/team/${result.teams.home.id}`}><img className="teamLogo" src={result.teams.home.logo} alt={result.teams.home.name} />
-                            <span>{result.teams.home.name}</span></Link>
-                        </div>
-                        <div className="resultItemTeam">
-                            <Link to={`/match/${result.fixture.id}`}><span className="scoreMain">{result.goals.home} - {result.goals.away}</span></Link>
-                            {result.score.penalty.home !== null && result.score.penalty.away !== null && (
-                                <div className="scorePenalty">
-                                    (Pen: {result.score.penalty.home} - {result.score.penalty.away})
-                                </div>
-                            )}
-                        </div>
-                        <div className="resultItemTeam resultItemTeam-right">
-                            <Link to={`/team/${result.teams.home.id}`}><span>{result.teams.away.name}</span>
-                            <img className="teamLogo teamLogo-right" src={result.teams.away.logo} alt={result.teams.away.name} /></Link>
+                        <div className="matchDetails">
+                            <div className="resultItemTeam">
+                                <Link to={`/team/${result.teams.home.id}`}>
+                                    <img className="teamLogo" src={result.teams.home.logo} alt={result.teams.home.name} />
+                                    <span>{result.teams.home.name}</span>
+                                </Link>
+                            </div>
+                            
+                            <div className="scoreMain">
+                                <Link to={`/match/${result.fixture.id}`}>
+                                    {result.goals.home} - {result.goals.away}
+                                </Link>
+                            </div>
+                            
+                            <div className="resultItemTeam">
+                                <Link to={`/team/${result.teams.away.id}`}>
+                                    <img className="teamLogo teamLogo-right" src={result.teams.away.logo} alt={result.teams.away.name} />
+                                    <span>{result.teams.away.name}</span>
+                                </Link>
+                            </div>
                         </div>
                     </div>
                 ))}

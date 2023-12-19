@@ -48,6 +48,7 @@ const LeagueFixtures = ({ leagueId, selectedSeason }) => {
                             {new Date(fixture.fixture.date).toLocaleDateString()} {new Date(fixture.fixture.date).toLocaleTimeString()}
                         </div>
                         <div className="fixtureVenue">{fixture.fixture.venue.name}, {fixture.fixture.venue.city}</div>
+                        <div className="fixtureTeamsContainer">
                         <div className="fixtureItemTeam fixtureItemTeam-left">
                         <Link to={`/team/${fixture.teams.home.id}`}><img className="teamLogo" src={fixture.teams.home.logo} alt={fixture.teams.home.name} />
                             <span>{fixture.teams.home.name}</span></Link>
@@ -56,9 +57,10 @@ const LeagueFixtures = ({ leagueId, selectedSeason }) => {
                             <span className="fixtureVersus">vs</span>
                         </div>
                         <div className="fixtureItemTeam fixtureItemTeam-right">
-                            <Link to={`/team/${fixture.teams.home.id}`}><span>{fixture.teams.away.name}</span>
-                            <img className="teamLogo teamLogo-right" src={fixture.teams.away.logo} alt={fixture.teams.away.name} /></Link>
+                            <Link to={`/team/${fixture.teams.home.id}`}><img className="teamLogo teamLogo-right" src={fixture.teams.away.logo} alt={fixture.teams.away.name} />
+                            <span>{fixture.teams.away.name}</span></Link>
                         </div>
+                    </div>
                     </div>
                 ))}
             </div>

@@ -1,3 +1,5 @@
+// LeagueAssists.js
+
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { getTopAssists } from '../../utils/dataController';
@@ -22,35 +24,40 @@ const LeagueAssists = ({ leagueId, season }) => {
     }, [leagueId, season]);
 
     if (error) {
-        return <p>Error: {error}</p>;
+        return <p className="league-assists-error">Error: {error}</p>;
     }
 
     if (!topAssists.length) {
-        return <p>No top assists data available.</p>;
+        return <p className="league-assists-no-data">No top assists data available.</p>;
     }
 
     return (
-        <div className="top-assists-container">
-            <h1>Top Assists</h1>
-            <table className="assists-table">
+        <div className="league-assists-container">
+            <h1 className="league-assists-title">Top Assists</h1>
+            <table className="league-assists-table">
                 <thead>
                     <tr>
-                        <th className="player-rank">Player</th>
-                        <th className="assists">Assists</th>
+                        <th className="league-assists-player-row">Player</th>
+                        <th className="league-assists-assists">Assists</th>
                     </tr>
                 </thead>
                 <tbody>
                     {topAssists.map((assist, index) => (
                         <tr key={assist.player.id}>
-                            <td>
-                                <Link to={`/players/${assist.player.id}`}>
-                                <span className="player-rank">{index + 1}.</span>
-                                <img src={assist.player.photo} alt={assist.player.name} className="player-photo" />
-                                {assist.player.name}
-                                <img src={assist.statistics[0].team.logo} alt={assist.statistics[0].team.name} className="team-logo" />
-                                </Link>
+                            <td className='league-assists-player-row'>
+                                <div className="league-assists-player-info">
+                                    <span className="league-assists-player-rank">{index + 1}.</span>
+                                    <Link to={`/players/${assist.player.id}`}>
+                                        <img src={assist.player.photo} alt={assist.player.name} className="league-assists-player-photo" />
+                                        <span className="league-assists-player-name">{assist.player.name}</span>
+                                    </Link>
+                                    <Link to={`/team/${assist.statistics[0].team.id}`}>
+                                        <img src={assist.statistics[0].team.logo} alt={assist.statistics[0].team.name} className="league-assists-team-logo" />
+                                        <span className="league-assists-team-name">{assist.statistics[0].team.name}</span>
+                                    </Link>
+                                </div>
                             </td>
-                            <td className="assists">{assist.statistics[0].goals.assists}</td>
+                            <td className="league-assists-assists">{assist.statistics[0].goals.assists}</td>
                         </tr>
                     ))}
                 </tbody>

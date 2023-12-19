@@ -1,53 +1,59 @@
 /* LeagueScorers.css */
-.top-scorers-container {
-    text-align: center;
-    padding: 20px;
-    margin: auto;
-}
 
-.scorers-table {
+.league-scorers-container {
+    font-family: Arial, sans-serif;
+    max-width: 800px;
+    width: 100%;
+    margin: 0 auto;
+    text-align: center;
+  }
+  
+  .league-scorers-title {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 20px;
+  }
+  
+  .league-scorers-table {
     width: 100%;
     border-collapse: collapse;
-    margin-top: 20px;
-}
-
-.scorers-table th {
+  }
+  
+  .league-scorers-table thead {
+    background-color: #f2f2f2;
+  }
+  
+  .league-scorers-table th,
+  .league-scorers-table td {
     padding: 10px;
     border-bottom: 1px solid #ddd;
-    background-color: #f8f8f8;
-    text-align: left; /* Align text to the left in header */
-}
-
-.scorers-table td {
-    padding: 10px;
-    border-bottom: 1px solid #ddd;
-    vertical-align: middle;
-    text-align: left; /* Align text to the left in cells */
-}
-
-.scorers-table .player-photo {
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    vertical-align: middle;
-    margin-right: 10px;
-}
-
-.scorers-table .team-logo {
-    width: 20px;
-    height: 20px;
-    vertical-align: middle;
-    margin-left: 5px;
-}
-
-/* Align goals to the right */
-.scorers-table .goals {
-    font-weight: bold;
-    text-align: right;
-}
-
-/* Ensure the rank, photo, name, and logo are inline */
-.scorers-table .player-info {
+  }
+  
+  .league-scorers-player-rank {
+    width: 50px;
+  }
+  
+  .league-scorers-player-info {
     display: flex;
     align-items: center;
-}
+  }
+  
+  .league-scorers-player-photo,
+  .league-scorers-team-logo {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    margin-right: 10px;
+  }
+  
+  .league-scorers-player-name {
+    font-weight: bold;
+  }
+  
+  .league-scorers-goals {
+    font-weight: bold;
+    text-align: right;
+  }
+  
+  /* You might add styles for .league-scorers-error and .league-scorers-no-data if needed */
+  
