@@ -136,3 +136,25 @@ export const getLineups = async (queryParams) => {
         return { error: 'Failed to fetch lineups', details: err.message };
     }
 };
+
+export const getTeamStatistics = async (queryParams) => {
+    try {
+        const endpoint = `/teams/db/getStatistics`;
+        const response = await fetchData(endpoint, 'GET', null, queryParams);
+        return response;
+    } catch (err) {
+        console.error('Error fetching team statistics:', err);
+        return { error: 'Failed to fetch team statistics', details: err.message };
+    }
+};
+
+export const getPlayerSeasons = async (queryParams) => {
+    try {
+        const endpoint = `/players/db/getSeasons`;
+        const response = await fetchData(endpoint, 'GET', null, queryParams);
+        return response;
+    } catch (err) {
+        console.error('Error fetching player seasons: '. err);
+        return { error: 'Failed to fetch player seasons', details: err.message };
+    }
+}
