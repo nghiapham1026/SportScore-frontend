@@ -158,3 +158,14 @@ export const getPlayerSeasons = async (queryParams) => {
         return { error: 'Failed to fetch player seasons', details: err.message };
     }
 }
+
+export const getTeamSeasons = async (queryParams) => {
+    try {
+        const endpoint = `/teams/db/getSeasons`;
+        const response = await fetchData(endpoint, 'GET', null, queryParams);
+        return response;
+    } catch (err) {
+        console.error('Error fetching team seasons: ', err);
+        return { error: 'Failed to fetch team seasons', details: err.message };
+    }
+}

@@ -1,11 +1,60 @@
 // Players.js
-import React from 'react';
-import PlayerInfo from './PlayerInfo'; // Adjust the path as necessary
+import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+import { getPlayers, getPlayerSeasons } from '../../utils/dataController';
+import PlayerStatistics from './PlayerStatistics'; // Import PlayerStatistics
+import PlayerDetails from './PlayerDetails'; // Import PlayerDetails
+import "./Players.css";
 
 const Players = () => {
+    const { playerId } = useParams();
+    const [playerData, setPlayerData] = useState(null);
+    const [seasons, setSeasons] = useState([]);
+    const [selectedSeason, setSelectedSeason] = useState('');
+
+    useEffect(() => {
+        const fetchSeasons = async () => {
+            try {
+                const seasonData = await getPlayerSeasons({ player: playerId });
+                setSeasons(seasonData.seasons.map(s => s.year));
+                setSelectedSeason(seasonData.seasons[0].year);
+            } catch (error) {
+                console.error('Error fetching seasons:', error);
+            }
+        };
+
+        fetchSeasons();
+    }, [playerId]);
+
+    useEffect(() => {
+        const fetchPlayerData = async () => {
+            if (!selectedSeason) return;
+
+            try {
+                const data = await getPlayers({ id: playerId, season: selectedSeason.toString() });
+                setPlayerData(data);
+            } catch (error) {
+                console.error('Error fetching player data:', error);
+            }
+        };
+
+        fetchPlayerData();
+    }, [playerId, selectedSeason]);
+
+    if (!playerData) {
+        return <p>Loading player data or no data available...</p>;
+    }
+
     return (
-        <div>
-            <PlayerInfo />
+        <div className="player-container">
+            <h1>Player Information</h1>
+            <select value={selectedSeason} onChange={(e) => setSelectedSeason(e.target.value)}>
+                {seasons.map(year => (
+                    <option key={year} value={year}>{year}</option>
+                ))}
+            </select>
+            <PlayerDetails player={playerData[0].player} />
+            <PlayerStatistics statistics={playerData[0].statistics} />
         </div>
     );
 };
