@@ -1,0 +1,21 @@
+.timeline-container {
+    width: 100%;
+}
+
+.timeline-event {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.event-circle {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: #ccc;
+    margin-right: 10px;
+}
+
+.event-details {
+    font-size: 14px;
+}
