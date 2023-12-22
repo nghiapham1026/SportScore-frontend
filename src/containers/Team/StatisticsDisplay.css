@@ -1,0 +1,36 @@
+/* StatisticsDisplay.css */
+
+.statistics-container {
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    padding: 20px;
+    margin-top: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.statistics-container h3 {
+    color: #495057;
+    border-bottom: 1px solid #dee2e6;
+    padding-bottom: 5px;
+    margin-top: 20px;
+    margin-bottom: 15px;
+}
+
+.statistics-container div {
+    margin-bottom: 10px;
+    padding-left: 10px;
+    font-size: 0.9em;
+    color: #343a40;
+}
+
+.statistics-container div.stat-highlight {
+    font-weight: bold;
+    color: #007bff;
+}
+
+.statistics-container div.fixtures, .statistics-container div.goals, .statistics-container div.biggest, .statistics-container div.penalty, .statistics-container div.cards, .statistics-container div.clean-sheets, .statistics-container div.failed-to-score, .statistics-container div.lineups {
+    background-color: #e9ecef;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 15px;
+}

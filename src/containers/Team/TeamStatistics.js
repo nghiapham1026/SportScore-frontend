@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import './TeamStatistics.css';
 import { getLeagues, getTeamStatistics } from "../../utils/dataController";
-import StatisticsDisplay from "./StatistiscsDisplay";
+import StatisticsDisplay from "./StatisticsDisplay";
 
 const TeamStatistics = ({ teamId }) => {
     const [leagues, setLeagues] = useState([]);

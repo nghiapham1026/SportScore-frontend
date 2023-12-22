@@ -1,0 +1,42 @@
+/* PlayerStatistics.css */
+
+.statistics-container {
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    margin: 20px 0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+.toggle-button {
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    text-align: left;
+    font-size: 1em;
+    cursor: pointer;
+}
+
+.statistics-details {
+    padding: 20px;
+    text-align: center;
+}
+
+.statistics-details img {
+    max-width: 100px;
+    height: auto;
+    margin-bottom: 15px;
+}
+
+.statistics-details p {
+    margin: 10px 0;
+    color: #343a40;
+    font-size: 0.9em;
+}
+
+.statistics-details p.important-stat {
+    font-weight: bold;
+    color: #007bff;
+}
