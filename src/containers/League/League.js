@@ -19,10 +19,13 @@ function League() {
                 const leagues = await getLeagues();
                 const league = leagues.find(l => l.league.id === parseInt(leagueId));
                 if (league) {
-                    setSeasons(league.seasons);
+                    // Filter seasons to include only those after 2017
+                    const filteredSeasons = league.seasons.filter(season => parseInt(season.year) > 2017);
+                    setSeasons(filteredSeasons);
+    
                     // Only set the selectedSeason if it hasn't been set yet
                     if (!selectedSeason) {
-                        const currentSeason = league.seasons.find(s => s.current) || league.seasons[league.seasons.length - 1];
+                        const currentSeason = filteredSeasons.find(s => s.current) || filteredSeasons[filteredSeasons.length - 1];
                         setSelectedSeason(currentSeason);
                     }
                 }
@@ -31,9 +34,9 @@ function League() {
             }
             setLoading(false);
         }
-
+    
         fetchLeagueData();
-    }, [leagueId]); // Remove selectedSeason from the dependency array
+    }, [leagueId]);    
 
     useEffect(() => {
         async function fetchLeagueStandings() {
