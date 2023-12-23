@@ -1,6 +1,6 @@
 /* LeagueScorers.css */
 
-.league-scorers-container {
+.leagueScorersContainer {
     font-family: Arial, sans-serif;
     max-width: 800px;
     width: 100%;
@@ -8,49 +8,49 @@
     text-align: center;
   }
   
-  .league-scorers-title {
+  .leagueScorersTitle {
     font-size: 24px;
     color: #333;
     margin-bottom: 20px;
   }
   
-  .league-scorers-table {
+  .leagueScorersTable {
     width: 100%;
     border-collapse: collapse;
   }
   
-  .league-scorers-table thead {
+  .leagueScorersTable thead {
     background-color: #f2f2f2;
   }
   
-  .league-scorers-table th,
-  .league-scorers-table td {
+  .leagueScorersTable th,
+  .leagueScorersTable td {
     padding: 10px;
     border-bottom: 1px solid #ddd;
   }
   
-  .league-scorers-player-rank {
+  .leagueScorersPlayerRank {
     width: 50px;
   }
   
-  .league-scorers-player-info {
+  .leagueScorersPlayerInfo {
     display: flex;
     align-items: center;
   }
   
-  .league-scorers-player-photo,
-  .league-scorers-team-logo {
+  .leagueScorersPlayerPhoto,
+  .leagueScorersTeamLogo {
     width: 30px;
     height: 30px;
     border-radius: 50%;
     margin-right: 10px;
   }
   
-  .league-scorers-player-name {
+  .leagueScorersPlayerName {
     font-weight: bold;
   }
   
-  .league-scorers-goals {
+  .leagueScorersGoals {
     font-weight: bold;
     text-align: right;
   }

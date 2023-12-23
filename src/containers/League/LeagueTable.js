@@ -1,11 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import './LeagueTable.css';
+import styles from './LeagueTable.module.css'; // Updated import statement
 
 const LeagueTable = ({ tableData }) => (
-    <div className="league-table-container">
-        <table className="league-table">
-        <thead>
+    <div className={styles.leagueTableContainer}>
+        <table className={styles.leagueTable}>
+            <thead>
                 <tr>
                     <th>Rank</th>
                     <th>Team</th>
@@ -24,7 +24,11 @@ const LeagueTable = ({ tableData }) => (
                 {tableData.map((team, index) => (
                     <tr key={index}>
                         <td>{team.rank}</td>
-                        <td><Link to={`/team/${team.team.id}`}><img src={team.team.logo} alt={team.team.name} width="30" /> {team.team.name}</Link></td>
+                        <td>
+                            <Link to={`/team/${team.team.id}`}>
+                                <img src={team.team.logo} alt={team.team.name} width="30" /> {team.team.name}
+                            </Link>
+                        </td>
                         <td>{team.all.played}</td>
                         <td>{team.all.win}</td>
                         <td>{team.all.draw}</td>
@@ -33,9 +37,9 @@ const LeagueTable = ({ tableData }) => (
                         <td>{team.all.goals.against}</td>
                         <td>{team.goalsDiff}</td>
                         <td>{team.points}</td>
-                        <td className="form">
+                        <td className={styles.form}>
                             {team.form && team.form.split('').map((result, index) => (
-                                <span key={index} className={`form-indicator ${result === 'W' ? 'win' : result === 'D' ? 'draw' : 'loss'}`}></span>
+                                <span key={index} className={`${styles.formIndicator} ${result === 'W' ? styles.win : result === 'D' ? styles.draw : styles.loss}`}></span>
                             ))}
                         </td>
                     </tr>

@@ -1,9 +1,7 @@
-// LeagueAssists.js
-
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { getTopAssists } from '../../utils/dataController';
-import './LeagueAssists.css'; // Ensure this CSS file exists and is styled appropriately
+import styles from './LeagueAssists.module.css'; // Updated import statement
 
 const LeagueAssists = ({ leagueId, season }) => {
     const [topAssists, setTopAssists] = useState([]);
@@ -24,40 +22,40 @@ const LeagueAssists = ({ leagueId, season }) => {
     }, [leagueId, season]);
 
     if (error) {
-        return <p className="league-assists-error">Error: {error}</p>;
+        return <p className={styles.leagueAssistsError}>Error: {error}</p>;
     }
 
     if (!topAssists.length) {
-        return <p className="league-assists-no-data">No top assists data available.</p>;
+        return <p className={styles.leagueAssistsNoData}>No top assists data available.</p>;
     }
 
     return (
-        <div className="league-assists-container">
-            <h1 className="league-assists-title">Top Assists</h1>
-            <table className="league-assists-table">
+        <div className={styles.leagueAssistsContainer}>
+            <h1 className={styles.leagueAssistsTitle}>Top Assists</h1>
+            <table className={styles.leagueAssistsTable}>
                 <thead>
                     <tr>
-                        <th className="league-assists-player-row">Player</th>
-                        <th className="league-assists-assists">Assists</th>
+                        <th className={styles.leagueAssistsPlayerRow}>Player</th>
+                        <th className={styles.leagueAssistsAssists}>Assists</th>
                     </tr>
                 </thead>
                 <tbody>
                     {topAssists.map((assist, index) => (
                         <tr key={assist.player.id}>
-                            <td className='league-assists-player-row'>
-                                <div className="league-assists-player-info">
-                                    <span className="league-assists-player-rank">{index + 1}.</span>
+                            <td className={styles.leagueAssistsPlayerRow}>
+                                <div className={styles.leagueAssistsPlayerInfo}>
+                                    <span className={styles.leagueAssistsPlayerRank}>{index + 1}.</span>
                                     <Link to={`/players/${assist.player.id}`}>
-                                        <img src={assist.player.photo} alt={assist.player.name} className="league-assists-player-photo" />
-                                        <span className="league-assists-player-name">{assist.player.name}</span>
+                                        <img src={assist.player.photo} alt={assist.player.name} className={styles.leagueAssistsPlayerPhoto} />
+                                        <span className={styles.leagueAssistsPlayerName}>{assist.player.name}</span>
                                     </Link>
                                     <Link to={`/team/${assist.statistics[0].team.id}`}>
-                                        <img src={assist.statistics[0].team.logo} alt={assist.statistics[0].team.name} className="league-assists-team-logo" />
-                                        <span className="league-assists-team-name">{assist.statistics[0].team.name}</span>
+                                        <img src={assist.statistics[0].team.logo} alt={assist.statistics[0].team.name} className={styles.leagueAssistsTeamLogo} />
+                                        <span className={styles.leagueAssistsTeamName}>{assist.statistics[0].team.name}</span>
                                     </Link>
                                 </div>
                             </td>
-                            <td className="league-assists-assists">{assist.statistics[0].goals.assists}</td>
+                            <td className={styles.leagueAssistsAssists}>{assist.statistics[0].goals.assists}</td>
                         </tr>
                     ))}
                 </tbody>

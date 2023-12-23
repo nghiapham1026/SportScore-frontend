@@ -1,10 +1,10 @@
 /* LeagueTable.css */
 
-.league-table-container {
+.leagueTableContainer {
     overflow-x: auto; /* Enables horizontal scrolling on smaller screens */
 }
 
-.league-table {
+.leagueTable {
     width: 100%;
     border-collapse: collapse; /* Collapses the border to be seen as a single line */
     background-color: #fff;
@@ -13,34 +13,34 @@
     font-size: 0.9em; /* Adjust the font size as needed */
 }
 
-.league-table thead th {
+.leagueTable thead th {
     background-color: #333;
     color: #ffffff;
     padding: 10px;
     text-align: left; /* Align the text to the left inside header cells */
 }
 
-.league-table tbody td {
+.leagueTable tbody td {
     padding: 10px;
     border-bottom: 1px solid #e0e0e0; /* Adds a border to each table row */
 }
 
-.league-table tbody tr:nth-child(even) {
+.leagueTable tbody tr:nth-child(even) {
     background-color: #f8f8f8; /* Zebra stripes for the table rows */
 }
 
-.league-table tbody tr:hover {
+.leagueTable tbody tr:hover {
     background-color: #f1f1f1; /* Hover effect for table rows */
 }
 
-.league-table a {
+.leagueTable a {
     display: flex;
     align-items: center;
     text-decoration: none; /* Removes the underline from links */
     color: #333; /* Sets the text color for links */
 }
 
-.league-table img {
+.leagueTable img {
     margin-right: 10px; /* Adds space between the logo and the team name */
 }
 
@@ -49,7 +49,7 @@
     justify-content: center;
 }
 
-.form-indicator {
+.formIndicator {
     display: block;
     width: 15px; /* Width for the form indicator */
     height: 15px; /* Height for the form indicator */
@@ -57,39 +57,39 @@
     margin: 0 2px; /* Adds space between the form indicators */
 }
 
-.form-indicator.win {
+.formIndicator.win {
     background-color: #4CAF50; /* Green for wins */
 }
 
-.form-indicator.draw {
+.formIndicator.draw {
     background-color: #FFEB3B; /* Yellow for draws */
 }
 
-.form-indicator.loss {
+.formIndicator.loss {
     background-color: #F44336; /* Red for losses */
 }
 
 @media (max-width: 768px) {
-    .league-table thead {
+    .leagueTable thead {
         display: none; /* Hide the table headers on smaller screens if desired */
     }
 
-    .league-table, .league-table tbody, .league-table tr, .league-table td {
+    .leagueTable, .leagueTable tbody, .leagueTable tr, .leagueTable td {
         display: block; /* Stack the table cells on small screens */
         width: 100%;
     }
 
-    .league-table tr {
+    .leagueTable tr {
         margin-bottom: 15px;
     }
 
-    .league-table td {
+    .leagueTable td {
         text-align: right;
         padding-left: 50%; /* Make room for the table data */
         position: relative;
     }
 
-    .league-table td::before {
+    .leagueTable td::before {
         content: attr(data-label); /* Use the data-label attribute for mobile view */
         position: absolute;
         left: 10px;
