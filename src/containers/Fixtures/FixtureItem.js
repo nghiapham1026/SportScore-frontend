@@ -1,17 +1,21 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import './FixtureItem.css';
+import styles from './FixtureItem.module.css';  // Updated import statement
 
 function FixtureItem({ fixture, toggleFixture, expandedFixtures }) {
     return (
-        <li className="listItem">
-            <h3 className="fixtureHeader" onClick={() => toggleFixture(fixture.fixture.id)}>
-            <Link to={`/team/${fixture.teams.home.id}`}><img src={fixture.teams.home.logo} alt={`${fixture.teams.home.name} logo`} className="teamLogo" /></Link>
+        <li className={styles.listItem}>
+            <h3 className={styles.fixtureHeader} onClick={() => toggleFixture(fixture.fixture.id)}>
+                <Link to={`/team/${fixture.teams.home.id}`}>
+                    <img src={fixture.teams.home.logo} alt={`${fixture.teams.home.name} logo`} className={styles.teamLogo} />
+                </Link>
                 {fixture.teams.home.name} {fixture.goals.home}-{fixture.goals.away} {fixture.teams.away.name}
-                <Link to={`/team/${fixture.teams.away.id}`}><img src={fixture.teams.away.logo} alt={`${fixture.teams.away.name} logo`} className="teamLogo" /></Link>
+                <Link to={`/team/${fixture.teams.away.id}`}>
+                    <img src={fixture.teams.away.logo} alt={`${fixture.teams.away.name} logo`} className={styles.teamLogo} />
+                </Link>
             </h3>
             {expandedFixtures[fixture.fixture.id] && (
-                <div className="fixtureDetails">
+                <div className={styles.fixtureDetails}>
                     <p>Date & Time: {new Date(fixture.fixture.date).toLocaleString()} ({fixture.fixture.timezone})</p>
                     <p>Venue: {fixture.fixture.venue.name}, {fixture.fixture.venue.city}</p>
                     <p>Referee: {fixture.fixture.referee}</p>
@@ -23,7 +27,7 @@ function FixtureItem({ fixture, toggleFixture, expandedFixtures }) {
                 </div>
             )}
             <Link to={`/match/${fixture.fixture.id}`}>
-                <button className="matchCenterButton">
+                <button className={styles.matchCenterButton}>
                     Match Center
                 </button>
             </Link>

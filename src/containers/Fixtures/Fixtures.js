@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-import './Fixtures.css';
+import styles from './Fixtures.module.css'; // Updated import statement
 import { groupByProperty, toggleProperty } from './helpers/FixturesUtils';
 import DateSelector from './helpers/DateSelector';
 import LeagueHeader from './LeagueHeader';
@@ -17,7 +17,7 @@ function Fixtures() {
   
     useEffect(() => {
         const getFixtures = async () => {
-          try {
+            try {
             const fixturesData = await fetchFixtures({ date: selectedDate });
             setFixtures(fixturesData);
           } catch (err) {
@@ -25,10 +25,10 @@ function Fixtures() {
           }
         };
         getFixtures();
-      }, [selectedDate]);
+    }, [selectedDate]);
 
     const groupedFixtures = groupByProperty(fixtures, 'league.name');
-
+    
     const toggleLeague = (leagueName) => {
         setExpandedLeagues(prev => toggleProperty(prev, leagueName));
     };
@@ -42,14 +42,14 @@ function Fixtures() {
     };
 
     const maxDate = new Date(Date.now() - 1 * 24 * 60 * 60 * 1000).toISOString().split('T')[0];
-  
+
     if (error) {
-      return <p>Error: {error}</p>;
+        return <p>Error: {error}</p>;
     }
 
     return (
-        <div className="fixture-container">
-            <h1 className="fixture-header">Fixtures</h1>
+        <div className={styles.fixtureContainer}>
+            <h1 className={styles.fixtureHeader}>Fixtures</h1>
             <DateSelector 
                 selectedDate={selectedDate} 
                 handleDateChange={handleDateChange} 
