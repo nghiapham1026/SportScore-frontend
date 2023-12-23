@@ -25,14 +25,18 @@ function MatchScore({ team1Logo, team2Logo, team1Score, team2Score, team1Id, tea
                 <div className="team-info">
                     <div className="goal-details">
                         {team2Goals.map(goal => (
-                            <Link to={`/players/${goal.player.id}`} key={goal._id}><div>{goal.player.name} {goal.time.elapsed}'</div></Link>
+                            <Link to={`/players/${goal.player.id}`} key={goal._id}>
+                            <div>
+                                {goal.player.name} {goal.detail === "Own Goal" ? "(OG)" : ""} {goal.time.elapsed}'
+                            </div>
+                        </Link>
                         ))}
                     </div>
                     <Link to={`/team/${team2Id}`}><img src={team2Logo} alt="Team 2 Logo" className="team-logo" /></Link>
                 </div>
             </div>
             
-            <MatchTimeline eventData={eventData} team1Logo={team1Logo} />
+            <MatchTimeline eventData={eventData} team1Logo={team1Logo} team2Logo={team2Logo} />
         </div>
     );
 }

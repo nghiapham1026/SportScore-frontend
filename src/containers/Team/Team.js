@@ -11,7 +11,12 @@ const Team = () => {
         <div>
             <TeamInfo teamId={teamId} />
             <TeamSquad teamId={teamId} />
+            <h4>Team Statistics is temporary disabled due to API limits</h4>
+
+            {/* Currently Unstable due to API limits
             <TeamStatistics teamId={teamId} />
+            */}
+
         </div>
     );
 };
