@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
-import styles from './Match.module.css'; // Updated import statement
+import styles from './Match.module.css';
 import MatchScore from './MatchScore';
 import MatchStatistics from './MatchStatistics';
 import HeadToHead from './HeadToHead';
 import MatchLineup from './MatchLineup';
+import MatchFuture from './MatchFuture';
 import { fetchStatistics, fetchHeadToHead, fetchFixtures, getEvents, getLineups } from '../../utils/dataController';
 
 function Match() {
@@ -56,6 +57,17 @@ function Match() {
         setActiveSection(section);
     }
 
+    // Display only MatchFuture and HeadToHead if lineupData is null
+    if (!Array.isArray(lineupData)) {
+        return (
+            <div>
+                <MatchFuture fixtureDetails={fixtureDetails} />
+                <HeadToHead headToHeadData={headToHeadData} />
+            </div>
+        );
+    }
+
+    // Otherwise, display the full match details
     return (
         <div>
             <MatchScore 

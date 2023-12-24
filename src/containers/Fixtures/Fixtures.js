@@ -41,7 +41,7 @@ function Fixtures() {
       setSelectedDate(event.target.value);
     };
 
-    const maxDate = new Date(Date.now() - 1 * 24 * 60 * 60 * 1000).toISOString().split('T')[0];
+    const maxDate = new Date(Date.now() + 6 * 24 * 60 * 60 * 1000).toISOString().split('T')[0];
 
     if (error) {
         return <p>Error: {error}</p>;

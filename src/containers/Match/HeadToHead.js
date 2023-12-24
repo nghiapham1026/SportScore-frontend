@@ -1,5 +1,6 @@
 import React from 'react';
 import styles from './HeadToHead.module.css';  // Updated import statement
+import { Link } from 'react-router-dom';
 
 function HeadToHead({ headToHeadData }) {
     return (
@@ -10,9 +11,11 @@ function HeadToHead({ headToHeadData }) {
                     <div className={styles.matchDate}>
                         <strong>Date:</strong> {new Date(match.fixture.date).toLocaleDateString()}
                     </div>
+                    <Link to={`/match/${match.fixture.id}`}>
                     <div className={styles.matchScore}>
                         <strong>Score:</strong> {match.teams.home.name} {match.goals.home} - {match.goals.away} {match.teams.away.name}
                     </div>
+                    </Link>
                     <div className={styles.matchVenue}>
                         <strong>Venue:</strong> {match.fixture.venue.name}, {match.fixture.venue.city}
                     </div>
