@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { getSquads } from '../../utils/dataController';
-import './TeamSquad.css'; // Create and import a CSS file for styling
+import styles from './TeamSquad.module.css';
 
 const TeamSquad = ({ teamId }) => {
     const [squadData, setSquadData] = useState(null);
@@ -33,21 +33,21 @@ const TeamSquad = ({ teamId }) => {
     }
 
     return (
-        <div className="squad-container">
+        <div className={styles.squadContainer}>
             <h2>Squad List</h2>
-            <div className="players-list">
+            <div className={styles.playersList}>
                 {squadData.map(player => (
-                    <div key={player.id} className="player-card">
-                    <img src={player.photo} alt={player.name} className="player-photo" />
-                    <div className="player-info">
+                    <div key={player.id} className={styles.playerCard}>
+                    <img src={player.photo} alt={player.name} className={styles.playerPhoto} />
+                    <div className={styles.playerInfo}>
                         <Link to={`/players/${player.id}`}><h3>{player.name}</h3></Link>
-                        <div className="player-detail-row">
+                        <div className={styles.playerDetailRow}>
                             <p>Age: {player.age}</p>
                         </div>
-                        <div className="player-detail-row">
+                        <div className={styles.playerDetailRow}>
                             <p>Number: {player.number}</p>
                         </div>
-                        <div className="player-detail-row">
+                        <div className={styles.playerDetailRow}>
                             <p>Position: {player.position}</p>
                         </div>
                     </div>

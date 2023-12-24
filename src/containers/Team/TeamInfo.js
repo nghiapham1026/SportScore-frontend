@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { getTeams } from '../../utils/dataController';
-import './TeamInfo.css';
+import styles from './TeamInfo.module.css';
 
 const TeamInfo = ({ teamId }) => {
     const [teamDetails, setTeamDetails] = useState(null);
@@ -33,22 +33,22 @@ const TeamInfo = ({ teamId }) => {
     const { team, venue } = teamDetails;
 
     return (
-        <div className="team-container">
-            <div className="team-header">
-                <img src={team.logo} alt={team.name} className="team-logo" />
+        <div className={styles.teamContainer}>
+            <div className={styles.teamHeader}>
+                <img src={team.logo} alt={team.name} className={styles.teamLogo} />
                 <h1>{team.name}</h1>
-                <div className="info-row">
+                <div className={styles.infoRow}>
                     <p>Country: {team.country}</p>
                     <p>Founded: {team.founded}</p>
                 </div>
             </div>
 
-            <div className="venue-info">
-                <div className="venue-header">
-                    <img src={venue.image} alt={venue.name} className="venue-image" />
-                    <h2>Venue: {venue.name}</h2>
+            <div className={styles.venueInfo}>
+                <div className={styles.venueHeader}>
+                    <img src={venue.image} alt={venue.name} className={styles.venueImage} />
+                    <h2>Home Stadium: {venue.name}</h2>
                 </div>
-                <div className="info-row">
+                <div className={styles.infoRow}>
                     <p>Address: {venue.address}, {venue.city}</p>
                     <p>Capacity: {venue.capacity}</p>
                     <p>Surface: {venue.surface}</p>

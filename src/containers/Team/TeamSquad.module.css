@@ -1,6 +1,6 @@
 /* TeamSquad.css */
 
-.squad-container {
+.squadContainer {
     max-width: 800px;
     margin: auto;
     padding: 20px;
@@ -9,19 +9,19 @@
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.squad-container h2 {
+.squadContainer h2 {
     text-align: center;
     margin-bottom: 20px;
 }
 
-.players-list {
+.playersList {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     gap: 20px;
 }
 
-.player-card {
+.playerCard {
     width: 180px;
     border: 1px solid #ddd;
     border-radius: 4px;
@@ -33,17 +33,16 @@
     align-items: center;
 }
 
-.player-photo {
-    width: 100%;
-    height: auto;
+.playerPhoto {
     display: block;
-    border-radius: 50%; /* Make the photo round */
-    margin-top: -30px; /* Adjust as necessary to overlap the photo over the card edge */
-    border: 3px solid white; /* Adjust color as necessary to match the card background */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin: 10px auto;
+    border-radius: 50%;
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
 }
 
-.player-info {
+.playerInfo {
     padding: 10px;
     display: flex;
     flex-direction: column;
@@ -51,30 +50,30 @@
     width: 100%;
 }
 
-.player-info h3 {
+.playerInfo h3 {
     margin: 10px 0;
     font-size: 16px;
     color: #333;
     margin-top: 10px;
 }
 
-.player-info p {
+.playerInfo p {
     margin: 5px 0;
     font-size: 14px;
     color: #666;
     margin: 5px 0;
 }
 
-.player-info a {
+.playerInfo a {
     color: #007bff;
     text-decoration: none;
 }
 
-.player-info a:hover {
+.playerInfo a:hover {
     text-decoration: underline;
 }
 
-.player-detail-row {
+.playerDetailRow {
     display: flex;
     justify-content: space-between;
     width: 90%; /* Adjust width as necessary */
