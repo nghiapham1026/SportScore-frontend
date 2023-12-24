@@ -1,61 +1,61 @@
 /* PenaltyShootout.css */
 
-.shootout-container {
+.shootoutContainer {
     background-color: #ffffff;
     padding: 20px;
     border-radius: 8px;
     margin-top: 20px;
   }
   
-  .shootout-header h2 {
+  .shootoutHeader h2 {
     text-align: center;
     margin-bottom: 15px;
   }
   
-  .shootout-teams {
+  .shootoutTeams {
     display: flex;
     justify-content: space-around;
     margin-bottom: 20px;
   }
   
-  .shootout-team-logo {
+  .shootoutTeamLogo {
     width: 50px; /* or any other size */
     height: auto;
   }
   
-  .shootout-sequence {
+  .shootoutSequence {
     display: flex;
     flex-direction: column;
   }
   
-  .shootout-row {
+  .shootoutRow {
     display: flex;
     justify-content: space-between;
     margin-bottom: 5px;
   }
   
-  .shootout-attempt.left {
+  .shootoutAttempt.left {
     justify-content: flex-end;
   }
   
-  .shootout-attempt.right {
+  .shootoutAttempt.right {
     justify-content: flex-start;
   }
   
-  .player-name {
+  .playerName {
     margin-right: 10px;
   }
   
-  .goal-icon, .miss-icon {
+  .goalIcon, .missIcon {
     font-size: 1.5em;
   }
   
-  .shootout-teams {
+  .shootoutTeams {
     display: flex;
     justify-content: center;
   }
   
-  .shootout-column {
+  .shootoutColumn {
     margin: 0 20px;
   }
   

@@ -1,13 +1,13 @@
 import React from 'react';
-import './MatchStatistics.css';
+import styles from './MatchStatistics.module.css'; // Updated import statement
 
 function MatchStatistics({ teamStats }) {
     return (
-        <div className="teamSection">
-            <img src={teamStats.team.logo} alt={`${teamStats.team.name} logo`} className="teamLogo" />
-            <div className="statsList">
+        <div className={styles.teamSection}>
+            <img src={teamStats.team.logo} alt={`${teamStats.team.name} logo`} className={styles.teamLogo} />
+            <div className={styles.statsList}>
                 {teamStats.statistics.map((stat, index) => (
-                    <div key={index} className="statItem">
+                    <div key={index} className={styles.statItem}>
                         <span>{stat.type}</span>
                         <span>{stat.value}</span>
                     </div>

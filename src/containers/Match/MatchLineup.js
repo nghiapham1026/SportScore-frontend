@@ -1,5 +1,5 @@
 import React from "react";
-import './MatchLineup.css';
+import styles from './MatchLineup.module.css'; // Updated import statement
 import { Link } from 'react-router-dom';
 
 function MatchLineup({ lineupData }) {
@@ -8,13 +8,13 @@ function MatchLineup({ lineupData }) {
     }
 
     return (
-        <div className="lineup-container">
+        <div className={styles.lineupContainer}>
             {lineupData.map(team => (
-                <div key={team.team.id} className="team-lineup">
+                <div key={team.team.id} className={styles.teamLineup}>
                     <h2>{team.team.name}</h2>
                     <img src={team.team.logo} alt={`${team.team.name} logo`} />
                     <p>Formation: {team.formation}</p>
-                    <div className="starting-eleven">
+                    <div className={styles.startingEleven}>
                         <h3>Starting XI:</h3>
                         <ul>
                             {team.startXI.map(player => (
@@ -24,7 +24,7 @@ function MatchLineup({ lineupData }) {
                             ))}
                         </ul>
                     </div>
-                    <div className="substitutes">
+                    <div className={styles.substitutes}>
                         <h3>Substitutes:</h3>
                         <ul>
                             {team.substitutes.map(sub => (
@@ -34,7 +34,7 @@ function MatchLineup({ lineupData }) {
                             ))}
                         </ul>
                     </div>
-                    <div className="coach">
+                    <div className={styles.coach}>
                         <h3>Manager:</h3>
                         <p>{team.coach.name}</p>
                         <img src={team.coach.photo} alt={`${team.coach.name}`} />

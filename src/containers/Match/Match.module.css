@@ -1,11 +1,11 @@
 /* Match.css */
-.match-nav {
+.matchNav {
     display: flex;
     justify-content: center;
     margin-bottom: 20px;
 }
 
-.nav-button {
+.navButton {
     background-color: #f8f9fa;
     border: 1px solid #ddd;
     padding: 10px 15px;
@@ -16,13 +16,13 @@
     color: black;
 }
 
-.nav-button:hover {
+.navButton:hover {
     background-color: #e2e6ea;
     color: #0056b3;
 }
 
 /* Add styles for active state if needed */
-.nav-button.active {
+.navButton.active {
     background-color: #0056b3;
     color: white;
 }
@@ -74,14 +74,14 @@
     border-bottom: 1px solid #eee;
 }
 
-.team-score-container {
+.teamScoreContainer {
     display: flex;
     justify-content: center;
     align-items: center;
     margin-bottom: 20px;
 }
 
-.team-logo {
+.teamLogo {
     width: 120px;
     height: 120px;
     margin: 0 10px;

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
-import './Match.css';
+import styles from './Match.module.css'; // Updated import statement
 import MatchScore from './MatchScore';
 import MatchStatistics from './MatchStatistics';
 import HeadToHead from './HeadToHead';
@@ -10,7 +10,7 @@ import { fetchStatistics, fetchHeadToHead, fetchFixtures, getEvents, getLineups 
 
 function Match() {
     const { fixtureId } = useParams();
-
+    
     const [fixtureDetails, setFixtureDetails] = useState(null);
     const [statistics, setStatistics] = useState(null);
     const [headToHeadData, setHeadToHeadData] = useState([]);
@@ -67,21 +67,21 @@ function Match() {
                 team2Score={fixtureDetails.goals.away} 
                 eventData={eventData}
             />
-            <div className="match-nav">
+            <div className={styles.matchNav}>
                 <button 
-                    className={`nav-button ${activeSection === 'lineup' ? 'active' : ''}`} 
+                    className={`${styles.navButton} ${activeSection === 'lineup' ? styles.navButtonActive : ''}`} 
                     onClick={() => toggleSection('lineup')}
                 >
                     Lineups
                 </button>
                 <button 
-                    className={`nav-button ${activeSection === 'statistics' ? 'active' : ''}`} 
+                    className={`${styles.navButton} ${activeSection === 'statistics' ? 'active' : ''}`} 
                     onClick={() => toggleSection('statistics')}
                 >
                     Statistics
                 </button>
                 <button 
-                    className={`nav-button ${activeSection === 'headToHead' ? 'active' : ''}`} 
+                    className={`${styles.navButton} ${activeSection === 'headToHead' ? 'active' : ''}`} 
                     onClick={() => toggleSection('headToHead')}
                 >
                     Head-to-Head
@@ -89,7 +89,7 @@ function Match() {
             </div>
             {activeSection === 'lineup' && <MatchLineup lineupData={lineupData} />}
             {activeSection === 'statistics' && (
-                <div className="teamsContainer">
+                <div className={styles.teamsContainer}>
                     {statistics.map((teamStats) => (
                         <MatchStatistics key={teamStats.team.id} teamStats={teamStats} />
                     ))}

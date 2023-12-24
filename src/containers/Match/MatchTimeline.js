@@ -1,7 +1,6 @@
-// MatchTimeline.js
 import React from 'react';
 import { Link } from 'react-router-dom';
-import './MatchTimeline.css'; // You can create and import a dedicated CSS file for MatchTimeline
+import styles from './MatchTimeline.module.css'; // Updated import statement
 import PenaltyShootout from './PenaltyShootout';
 
 const MatchTimeline = ({ eventData, team1Logo, team2Logo }) => {
@@ -12,24 +11,24 @@ const MatchTimeline = ({ eventData, team1Logo, team2Logo }) => {
         .sort((a, b) => a.sequenceNumber - b.sequenceNumber);
 
     return (
-        <div className="timeline-container">
+        <div className={styles.timelineContainer}>
             {sortedEvents.map(event => (
-                <div key={event._id} className={`timeline-event ${event.team.logo === team1Logo ? 'left' : 'right'}`}>
-                    <div className="event-circle"></div>
-                    <div className="event-details">
+                <div key={event._id} className={`${styles.timelineEvent} ${event.team.logo === team1Logo ? styles.left : styles.right}`}>
+                    <div className={styles.eventCircle}></div>
+                    <div className={styles.eventDetails}>
                         {event.detail} - <Link to={`/players/${event.player.id}`}>{event.player.name} {event.time.elapsed}'</Link>
-                        {event.comments === "Penalty Shootout" && <span className="penalty-shootout"> (Penalty Shootout)</span>}
+                        {event.comments === "Penalty Shootout" && <span className={styles.penaltyShootout}> (Penalty Shootout)</span>}
                     </div>
                 </div>
             ))}
 
-{shootoutData.length > 0 && (
-                            <PenaltyShootout 
-                            shootoutData={shootoutData} 
-                            team1Logo={team1Logo} 
-                            team2Logo={team2Logo} 
-                            />
-                        )}
+            {shootoutData.length > 0 && (
+                <PenaltyShootout 
+                    shootoutData={shootoutData} 
+                    team1Logo={team1Logo} 
+                    team2Logo={team2Logo} 
+                />
+            )}
         </div>
     );
 };
