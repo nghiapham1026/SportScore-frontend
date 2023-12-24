@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 import { getPlayers, getPlayerSeasons } from '../../utils/dataController';
 import PlayerStatistics from './PlayerStatistics'; // Import PlayerStatistics
 import PlayerDetails from './PlayerDetails'; // Import PlayerDetails
-import "./Players.css";
+import styles from './Players.module.css';
 
 const Players = () => {
     const { playerId } = useParams();
@@ -46,7 +46,7 @@ const Players = () => {
     }
 
     return (
-        <div className="player-container">
+        <div className={styles.playerContainer}>
             <h1>Player Information</h1>
             <select value={selectedSeason} onChange={(e) => setSelectedSeason(e.target.value)}>
                 {seasons.map(year => (

@@ -1,10 +1,11 @@
 // PlayerDetails.js
 import React from 'react';
+import styles from './PlayerDetails.module.css';
 
 const PlayerDetails = ({ player }) => {
     return (
         <div>
-            <img src={player.photo} alt={player.name} className="player-photo"/>
+            <img src={player.photo} alt={player.name} className={styles.playerPhoto}/>
             <p><strong>Name:</strong> {player.name}</p>
             <p><strong>First Name:</strong> {player.firstname}</p>
             <p><strong>Last Name:</strong> {player.lastname}</p>
