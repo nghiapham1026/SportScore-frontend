@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styles from './LeagueTable.module.css'; // Updated import statement
+import PropTypes from 'prop-types';
 
 const LeagueTable = ({ tableData }) => (
   <div className={styles.leagueTableContainer}>
@@ -61,5 +62,31 @@ const LeagueTable = ({ tableData }) => (
     </table>
   </div>
 );
+
+LeagueTable.propTypes = {
+  tableData: PropTypes.arrayOf(
+    PropTypes.shape({
+      rank: PropTypes.number.isRequired,
+      team: PropTypes.shape({
+        id: PropTypes.number.isRequired,
+        logo: PropTypes.string.isRequired,
+        name: PropTypes.string.isRequired,
+      }).isRequired,
+      all: PropTypes.shape({
+        played: PropTypes.number.isRequired,
+        win: PropTypes.number.isRequired,
+        draw: PropTypes.number.isRequired,
+        lose: PropTypes.number.isRequired,
+        goals: PropTypes.shape({
+          for: PropTypes.number.isRequired,
+          against: PropTypes.number.isRequired,
+        }).isRequired,
+      }).isRequired,
+      goalsDiff: PropTypes.number.isRequired,
+      points: PropTypes.number.isRequired,
+      form: PropTypes.string,
+    })
+  ).isRequired,
+};
 
 export default LeagueTable;

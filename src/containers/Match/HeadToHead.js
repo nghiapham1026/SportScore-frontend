@@ -1,6 +1,7 @@
 import React from 'react';
 import styles from './HeadToHead.module.css'; // Updated import statement
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 function HeadToHead({ headToHeadData }) {
   return (
@@ -33,5 +34,32 @@ function HeadToHead({ headToHeadData }) {
     </div>
   );
 }
+
+HeadToHead.propTypes = {
+  headToHeadData: PropTypes.arrayOf(
+    PropTypes.shape({
+      fixture: PropTypes.shape({
+        id: PropTypes.number.isRequired,
+        date: PropTypes.string.isRequired,
+        venue: PropTypes.shape({
+          name: PropTypes.string.isRequired,
+          city: PropTypes.string.isRequired,
+        }).isRequired,
+      }).isRequired,
+      teams: PropTypes.shape({
+        home: PropTypes.shape({
+          name: PropTypes.string.isRequired,
+        }).isRequired,
+        away: PropTypes.shape({
+          name: PropTypes.string.isRequired,
+        }).isRequired,
+      }).isRequired,
+      goals: PropTypes.shape({
+        home: PropTypes.number,
+        away: PropTypes.number,
+      }).isRequired,
+    })
+  ).isRequired,
+};
 
 export default HeadToHead;

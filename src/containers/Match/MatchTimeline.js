@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import styles from './MatchTimeline.module.css'; // Updated import statement
 import PenaltyShootout from './PenaltyShootout';
+import PropTypes from 'prop-types';
 
 const MatchTimeline = ({ eventData, team1Logo, team2Logo }) => {
   // Sort the events based on elapsed time
@@ -25,7 +26,7 @@ const MatchTimeline = ({ eventData, team1Logo, team2Logo }) => {
           <div className={styles.eventDetails}>
             {event.detail} -{' '}
             <Link to={`/players/${event.player.id}`}>
-              {event.player.name} {event.time.elapsed}'
+              {event.player.name} {event.time.elapsed}&apos;
             </Link>
             {event.comments === 'Penalty Shootout' && (
               <span className={styles.penaltyShootout}>
@@ -46,6 +47,12 @@ const MatchTimeline = ({ eventData, team1Logo, team2Logo }) => {
       )}
     </div>
   );
+};
+
+MatchTimeline.propTypes = {
+  eventData: PropTypes.array.isRequired,
+  team1Logo: PropTypes.string.isRequired,
+  team2Logo: PropTypes.string.isRequired,
 };
 
 export default MatchTimeline;

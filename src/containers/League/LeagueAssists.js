@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { getTopAssists } from '../../utils/dataController';
 import styles from './LeagueAssists.module.css'; // Updated import statement
+import PropTypes from 'prop-types';
 
 const LeagueAssists = ({ leagueId, season }) => {
   const [topAssists, setTopAssists] = useState([]);
@@ -85,6 +86,14 @@ const LeagueAssists = ({ leagueId, season }) => {
       </table>
     </div>
   );
+};
+
+LeagueAssists.propTypes = {
+  leagueId: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
+    .isRequired,
+  season: PropTypes.shape({
+    year: PropTypes.number.isRequired,
+  }).isRequired,
 };
 
 export default LeagueAssists;

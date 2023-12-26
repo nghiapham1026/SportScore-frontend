@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styles from './MatchScore.module.css'; // Reusing MatchScore's CSS module
+import PropTypes from 'prop-types';
 
 function MatchFuture({ fixtureDetails }) {
   const fixtureDate = new Date(fixtureDetails.fixture.date).toLocaleString();
@@ -38,5 +39,29 @@ function MatchFuture({ fixtureDetails }) {
     </div>
   );
 }
+
+MatchFuture.propTypes = {
+  fixtureDetails: PropTypes.shape({
+    fixture: PropTypes.shape({
+      date: PropTypes.string.isRequired,
+      venue: PropTypes.shape({
+        name: PropTypes.string.isRequired,
+        city: PropTypes.string.isRequired,
+      }).isRequired,
+    }).isRequired,
+    teams: PropTypes.shape({
+      home: PropTypes.shape({
+        id: PropTypes.number.isRequired,
+        logo: PropTypes.string.isRequired,
+        name: PropTypes.string.isRequired,
+      }).isRequired,
+      away: PropTypes.shape({
+        id: PropTypes.number.isRequired,
+        logo: PropTypes.string.isRequired,
+        name: PropTypes.string.isRequired,
+      }).isRequired,
+    }).isRequired,
+  }).isRequired,
+};
 
 export default MatchFuture;

@@ -1,5 +1,6 @@
 import React from 'react';
 import styles from './LeagueHeader.module.css'; // Updated import statement
+import PropTypes from 'prop-types';
 
 function LeagueHeader({ leagueName, logo, toggleLeague }) {
   return (
@@ -16,5 +17,11 @@ function LeagueHeader({ leagueName, logo, toggleLeague }) {
     </h2>
   );
 }
+
+LeagueHeader.propTypes = {
+  leagueName: PropTypes.string.isRequired,
+  logo: PropTypes.string.isRequired,
+  toggleLeague: PropTypes.func.isRequired,
+};
 
 export default LeagueHeader;

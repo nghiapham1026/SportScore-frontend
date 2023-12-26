@@ -1,6 +1,7 @@
 // PlayerDetails.js
 import React from 'react';
 import styles from './PlayerDetails.module.css';
+import PropTypes from 'prop-types';
 
 const PlayerDetails = ({ player }) => {
   return (
@@ -45,6 +46,25 @@ const PlayerDetails = ({ player }) => {
       </p>
     </div>
   );
+};
+
+PlayerDetails.propTypes = {
+  player: PropTypes.shape({
+    photo: PropTypes.string,
+    name: PropTypes.string.isRequired,
+    firstname: PropTypes.string,
+    lastname: PropTypes.string,
+    age: PropTypes.number,
+    birth: PropTypes.shape({
+      date: PropTypes.string,
+      place: PropTypes.string,
+      country: PropTypes.string,
+    }),
+    nationality: PropTypes.string,
+    height: PropTypes.string,
+    weight: PropTypes.string,
+    injured: PropTypes.bool,
+  }).isRequired,
 };
 
 export default PlayerDetails;

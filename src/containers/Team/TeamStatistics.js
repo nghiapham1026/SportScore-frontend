@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { getLeagues, getTeamStatistics } from '../../utils/dataController';
 import StatisticsDisplay from './StatisticsDisplay';
+import PropTypes from 'prop-types';
 
 const TeamStatistics = ({ teamId }) => {
   const [leagues, setLeagues] = useState([]);
@@ -81,6 +82,10 @@ const TeamStatistics = ({ teamId }) => {
       )}
     </div>
   );
+};
+
+TeamStatistics.propTypes = {
+  teamId: PropTypes.string.isRequired,
 };
 
 export default TeamStatistics;

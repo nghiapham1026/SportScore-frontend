@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styles from './FixtureItem.module.css'; // Updated import statement
+import PropTypes from 'prop-types';
 
 function FixtureItem({ fixture, toggleFixture, expandedFixtures }) {
   return (
@@ -65,5 +66,61 @@ function FixtureItem({ fixture, toggleFixture, expandedFixtures }) {
     </li>
   );
 }
+
+FixtureItem.propTypes = {
+  fixture: PropTypes.shape({
+    fixture: PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      date: PropTypes.string.isRequired,
+      timezone: PropTypes.string,
+      venue: PropTypes.shape({
+        name: PropTypes.string.isRequired,
+        city: PropTypes.string.isRequired,
+      }).isRequired,
+      referee: PropTypes.string,
+      status: PropTypes.shape({
+        long: PropTypes.string,
+        short: PropTypes.string,
+        elapsed: PropTypes.number,
+      }),
+    }).isRequired,
+    teams: PropTypes.shape({
+      home: PropTypes.shape({
+        id: PropTypes.number.isRequired,
+        logo: PropTypes.string.isRequired,
+        name: PropTypes.string.isRequired,
+      }).isRequired,
+      away: PropTypes.shape({
+        id: PropTypes.number.isRequired,
+        logo: PropTypes.string.isRequired,
+        name: PropTypes.string.isRequired,
+      }).isRequired,
+    }).isRequired,
+    goals: PropTypes.shape({
+      home: PropTypes.number,
+      away: PropTypes.number,
+    }),
+    score: PropTypes.shape({
+      halftime: PropTypes.shape({
+        home: PropTypes.number,
+        away: PropTypes.number,
+      }),
+      fulltime: PropTypes.shape({
+        home: PropTypes.number,
+        away: PropTypes.number,
+      }),
+      extratime: PropTypes.shape({
+        home: PropTypes.number,
+        away: PropTypes.number,
+      }),
+      penalty: PropTypes.shape({
+        home: PropTypes.number,
+        away: PropTypes.number,
+      }),
+    }),
+  }).isRequired,
+  toggleFixture: PropTypes.func.isRequired,
+  expandedFixtures: PropTypes.object.isRequired, // Or a more specific shape if known
+};
 
 export default FixtureItem;

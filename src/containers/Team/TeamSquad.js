@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { getSquads } from '../../utils/dataController';
 import styles from './TeamSquad.module.css';
+import PropTypes from 'prop-types';
 
 const TeamSquad = ({ teamId }) => {
   const [squadData, setSquadData] = useState(null);
@@ -62,6 +63,10 @@ const TeamSquad = ({ teamId }) => {
       </div>
     </div>
   );
+};
+
+TeamSquad.propTypes = {
+  teamId: PropTypes.string.isRequired,
 };
 
 export default TeamSquad;

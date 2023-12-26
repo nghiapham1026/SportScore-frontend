@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const LeagueSelector = ({ seasons, selectedSeason, onSeasonChange }) => (
   <select
@@ -12,5 +13,18 @@ const LeagueSelector = ({ seasons, selectedSeason, onSeasonChange }) => (
     ))}
   </select>
 );
+
+LeagueSelector.propTypes = {
+  seasons: PropTypes.arrayOf(
+    PropTypes.shape({
+      _id: PropTypes.string.isRequired,
+      year: PropTypes.number.isRequired,
+    })
+  ).isRequired,
+  selectedSeason: PropTypes.shape({
+    _id: PropTypes.string,
+  }),
+  onSeasonChange: PropTypes.func.isRequired,
+};
 
 export default LeagueSelector;

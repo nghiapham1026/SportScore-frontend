@@ -1,5 +1,6 @@
 import React from 'react';
 import styles from './PenaltyShootout.module.css'; // Updated import statement
+import PropTypes from 'prop-types';
 
 const PenaltyShootout = ({ shootoutData, team1Logo, team2Logo }) => {
   // Split the shootout data into two arrays based on team logo
@@ -38,6 +39,23 @@ const PenaltyShootout = ({ shootoutData, team1Logo, team2Logo }) => {
       </div>
     </div>
   );
+};
+
+PenaltyShootout.propTypes = {
+  shootoutData: PropTypes.arrayOf(
+    PropTypes.shape({
+      team: PropTypes.shape({
+        logo: PropTypes.string.isRequired,
+      }).isRequired,
+      player: PropTypes.shape({
+        name: PropTypes.string.isRequired,
+      }).isRequired,
+      type: PropTypes.string.isRequired,
+      detail: PropTypes.string,
+    })
+  ).isRequired,
+  team1Logo: PropTypes.string.isRequired,
+  team2Logo: PropTypes.string.isRequired,
 };
 
 export default PenaltyShootout;

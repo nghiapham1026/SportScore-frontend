@@ -2,6 +2,7 @@ import React from 'react';
 import styles from './MatchScore.module.css'; // Updated import statement
 import { Link } from 'react-router-dom';
 import MatchTimeline from './MatchTimeline';
+import PropTypes from 'prop-types';
 
 function MatchScore({
   team1Logo,
@@ -37,7 +38,7 @@ function MatchScore({
             {team1Goals.map((goal) => (
               <Link to={`/players/${goal.player.id}`} key={goal._id}>
                 <div>
-                  {goal.player.name} {goal.time.elapsed}'
+                  {goal.player.name} {goal.time.elapsed}&apos;
                 </div>
               </Link>
             ))}
@@ -58,7 +59,7 @@ function MatchScore({
             {team2Goals.map((goal) => (
               <Link to={`/players/${goal.player.id}`} key={goal._id}>
                 <div>
-                  {goal.player.name} {goal.time.elapsed}'{' '}
+                  {goal.player.name} {goal.time.elapsed}&apos;{' '}
                   {goal.detail === 'Own Goal' ? '(OG)' : ''}{' '}
                   {goal.detail === 'Penalty' &&
                   goal.comments !== 'Penalty Shootout'
@@ -79,5 +80,15 @@ function MatchScore({
     </div>
   );
 }
+
+MatchScore.propTypes = {
+  team1Logo: PropTypes.string.isRequired,
+  team2Logo: PropTypes.string.isRequired,
+  team1Score: PropTypes.number.isRequired,
+  team2Score: PropTypes.number.isRequired,
+  team1Id: PropTypes.number.isRequired,
+  team2Id: PropTypes.number.isRequired,
+  eventData: PropTypes.array.isRequired, // Assuming eventData is an array
+};
 
 export default MatchScore;

@@ -1,6 +1,7 @@
 import React from 'react';
 import styles from './MatchLineup.module.css'; // Updated import statement
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 function MatchLineup({ lineupData }) {
   if (!lineupData) {
@@ -48,5 +49,38 @@ function MatchLineup({ lineupData }) {
     </div>
   );
 }
+
+MatchLineup.propTypes = {
+  lineupData: PropTypes.arrayOf(
+    PropTypes.shape({
+      team: PropTypes.shape({
+        id: PropTypes.number.isRequired,
+        name: PropTypes.string.isRequired,
+        logo: PropTypes.string,
+      }).isRequired,
+      formation: PropTypes.string,
+      startXI: PropTypes.arrayOf(
+        PropTypes.shape({
+          id: PropTypes.number.isRequired,
+          name: PropTypes.string.isRequired,
+          number: PropTypes.number,
+          pos: PropTypes.string,
+        })
+      ).isRequired,
+      substitutes: PropTypes.arrayOf(
+        PropTypes.shape({
+          id: PropTypes.number.isRequired,
+          name: PropTypes.string.isRequired,
+          number: PropTypes.number,
+          pos: PropTypes.string,
+        })
+      ).isRequired,
+      coach: PropTypes.shape({
+        name: PropTypes.string,
+        photo: PropTypes.string,
+      }),
+    })
+  ).isRequired,
+};
 
 export default MatchLineup;

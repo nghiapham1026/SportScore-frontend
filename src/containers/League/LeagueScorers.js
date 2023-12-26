@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { getTopScorers } from '../../utils/dataController';
 import styles from './LeagueScorers.module.css'; // Updated import statement
+import PropTypes from 'prop-types';
 
 const LeagueScorers = ({ leagueId, season }) => {
   const [topScorers, setTopScorers] = useState([]);
@@ -83,6 +84,14 @@ const LeagueScorers = ({ leagueId, season }) => {
       </table>
     </div>
   );
+};
+
+LeagueScorers.propTypes = {
+  leagueId: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
+    .isRequired,
+  season: PropTypes.shape({
+    year: PropTypes.number.isRequired,
+  }).isRequired,
 };
 
 export default LeagueScorers;

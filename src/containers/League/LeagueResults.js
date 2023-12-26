@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { fetchFixtures } from '../../utils/dataController';
 import styles from './LeagueResults.module.css'; // Updated import statement
+import PropTypes from 'prop-types';
 
 const LeagueResults = ({ leagueId, selectedSeason }) => {
   const [results, setResults] = useState([]);
@@ -107,6 +108,14 @@ const LeagueResults = ({ leagueId, selectedSeason }) => {
       </div>
     </div>
   );
+};
+
+LeagueResults.propTypes = {
+  leagueId: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
+    .isRequired,
+  selectedSeason: PropTypes.shape({
+    year: PropTypes.number.isRequired,
+  }).isRequired,
 };
 
 export default LeagueResults;

@@ -1,5 +1,6 @@
 import React from 'react';
 import LeagueTable from '../LeagueTable';
+import PropTypes from 'prop-types';
 
 export function handleSeasonChange(seasons, seasonId) {
   return seasons.find((s) => s._id === seasonId);
@@ -21,3 +22,10 @@ export function RenderStandings({ standings }) {
 
   return <LeagueTable tableData={standings} />;
 }
+
+RenderStandings.propTypes = {
+  standings: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.object),
+    PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.object)),
+  ]).isRequired,
+};

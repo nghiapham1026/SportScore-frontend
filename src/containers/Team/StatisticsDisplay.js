@@ -2,6 +2,7 @@
 
 import React from 'react';
 import styles from './StatisticsDisplay.module.css';
+import PropTypes from 'prop-types';
 
 const StatisticsDisplay = ({ stats }) => {
   return (
@@ -96,6 +97,85 @@ const StatisticsDisplay = ({ stats }) => {
       </div>
     </div>
   );
+};
+
+StatisticsDisplay.propTypes = {
+  stats: PropTypes.shape({
+    fixtures: PropTypes.shape({
+      played: PropTypes.shape({
+        home: PropTypes.number.isRequired,
+        away: PropTypes.number.isRequired,
+        total: PropTypes.number.isRequired,
+      }).isRequired,
+      wins: PropTypes.shape({
+        home: PropTypes.number.isRequired,
+        away: PropTypes.number.isRequired,
+        total: PropTypes.number.isRequired,
+      }).isRequired,
+      draws: PropTypes.shape({
+        home: PropTypes.number.isRequired,
+        away: PropTypes.number.isRequired,
+        total: PropTypes.number.isRequired,
+      }).isRequired,
+      loses: PropTypes.shape({
+        home: PropTypes.number.isRequired,
+        away: PropTypes.number.isRequired,
+        total: PropTypes.number.isRequired,
+      }).isRequired,
+    }).isRequired,
+    goals: PropTypes.shape({
+      for: PropTypes.shape({
+        total: PropTypes.shape({
+          home: PropTypes.number.isRequired,
+          away: PropTypes.number.isRequired,
+          total: PropTypes.number.isRequired,
+        }).isRequired,
+      }).isRequired,
+      against: PropTypes.shape({
+        total: PropTypes.shape({
+          home: PropTypes.number.isRequired,
+          away: PropTypes.number.isRequired,
+          total: PropTypes.number.isRequired,
+        }).isRequired,
+      }).isRequired,
+    }).isRequired,
+    biggest: PropTypes.shape({
+      wins: PropTypes.shape({
+        home: PropTypes.string,
+        away: PropTypes.string,
+      }),
+      loses: PropTypes.shape({
+        home: PropTypes.string,
+        away: PropTypes.string,
+      }),
+    }),
+    penalty: PropTypes.shape({
+      scored: PropTypes.shape({
+        total: PropTypes.number.isRequired,
+      }).isRequired,
+      missed: PropTypes.shape({
+        total: PropTypes.number.isRequired,
+      }).isRequired,
+      total: PropTypes.number.isRequired,
+    }).isRequired,
+    form: PropTypes.string,
+    clean_sheet: PropTypes.shape({
+      home: PropTypes.number.isRequired,
+      away: PropTypes.number.isRequired,
+      total: PropTypes.number.isRequired,
+    }).isRequired,
+    failed_to_score: PropTypes.shape({
+      home: PropTypes.number.isRequired,
+      away: PropTypes.number.isRequired,
+      total: PropTypes.number.isRequired,
+    }).isRequired,
+    lineups: PropTypes.arrayOf(
+      PropTypes.shape({
+        formation: PropTypes.string,
+        played: PropTypes.number,
+      })
+    ).isRequired,
+  }).isRequired,
 };
 
 export default StatisticsDisplay;

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { getTeams } from '../../utils/dataController';
 import styles from './TeamInfo.module.css';
+import PropTypes from 'prop-types';
 
 const TeamInfo = ({ teamId }) => {
   const [teamDetails, setTeamDetails] = useState(null);
@@ -62,6 +63,10 @@ const TeamInfo = ({ teamId }) => {
       </div>
     </div>
   );
+};
+
+TeamInfo.propTypes = {
+  teamId: PropTypes.string.isRequired,
 };
 
 export default TeamInfo;
