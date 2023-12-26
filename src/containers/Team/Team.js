@@ -5,20 +5,19 @@ import TeamSquad from './TeamSquad';
 import TeamStatistics from './TeamStatistics';
 
 const Team = () => {
-    const { teamId } = useParams();
+  const { teamId } = useParams();
 
-    return (
-        <div>
-            <TeamInfo teamId={teamId} />
-            <TeamSquad teamId={teamId} />
-            <h4>Team Statistics is temporary disabled due to API limits</h4>
+  return (
+    <div>
+      <TeamInfo teamId={teamId} />
+      <TeamSquad teamId={teamId} />
+      <h4>Team Statistics is temporary disabled due to API limits</h4>
 
-            {/* Currently Unstable due to API limits
+      {/* Currently Unstable due to API limits
             <TeamStatistics teamId={teamId} />
             */}
-
-        </div>
-    );
+    </div>
+  );
 };
 
 export default Team;
