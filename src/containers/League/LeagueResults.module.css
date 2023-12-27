@@ -1,0 +1,126 @@
+/* LeagueResults.css */
+
+.resultsContainer {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.resultsContainer h3 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.roundSelector {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+}
+
+.resultItem {
+    background-color: white;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.fixtureHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.leagueLogo, .countryFlag {
+    width: 30px;
+    height: auto;
+}
+
+.fixtureDate, .fixtureVenue {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 5px;
+}
+
+.resultItemTeam {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 16px;
+    margin-bottom: 5px;
+}
+
+.teamLogo {
+    width: 30px;
+    height: auto;
+    margin-right: 10px;
+}
+
+.teamLogo-right {
+    margin-left: 10px;
+    margin-right: 0;
+}
+
+.scoreMain {
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.scorePenalty {
+    font-size: 14px;
+    color: #888;
+}
+
+.matchDetails {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 10px 0; /* Adjust margin as needed */
+}
+
+.resultItemTeam {
+    display: flex;
+    align-items: center;
+    margin-right: 20px; /* Space between team and score */
+}
+
+.scoreMain {
+    font-weight: bold;
+    font-size: 20px; /* Larger font size for emphasis */
+    margin: 0 20px; /* Space around the score */
+}
+
+.teamLogo {
+    width: 30px;
+    height: auto;
+    margin-right: 10px;
+}
+
+.teamLogo-right {
+    margin-left: 10px;
+    margin-right: 0;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .fixtureHeader, .resultItemTeam {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .teamLogo-right {
+        margin-top: 5px;
+    }
+
+    .leagueLogo, .countryFlag {
+        width: 25px;
+    }
+}

@@ -1,54 +1,94 @@
 import React from 'react';
-import './MatchScore.css';
+import styles from './MatchScore.module.css'; // Updated import statement
 import { Link } from 'react-router-dom';
+import MatchTimeline from './MatchTimeline';
+import PropTypes from 'prop-types';
 
-function MatchScore({ team1Logo, team2Logo, team1Score, team2Score, team1Id, team2Id, eventData }) {
-    const team1Goals = (eventData || []).filter(event => event.type === "Goal" && event.team.logo === team1Logo);
-    const team2Goals = (eventData || []).filter(event => event.type === "Goal" && event.team.logo === team2Logo);
+function MatchScore({
+  team1Logo,
+  team2Logo,
+  team1Score,
+  team2Score,
+  team1Id,
+  team2Id,
+  eventData,
+}) {
+  const isRegularGoal = (event) =>
+    event.type === 'Goal' && event.comments !== 'Penalty Shootout';
 
-    // Sort the events based on elapsed time
-    const sortedEvents = (eventData || []).sort((a, b) => a.time.elapsed - b.time.elapsed);
+  const team1Goals = (eventData || []).filter(
+    (event) => isRegularGoal(event) && event.team.logo === team1Logo
+  );
+  const team2Goals = (eventData || []).filter(
+    (event) => isRegularGoal(event) && event.team.logo === team2Logo
+  );
 
-    return (
-        <div className="match-container">
-            <div className="team-score-container">
-                <div className="team-info">
-                <Link to={`/team/${team1Id}`}><img src={team1Logo} alt="Team 1 Logo" className="team-logo" /></Link>
-                    <div className="goal-details">
-                        {team1Goals.map(goal => (
-                            <div key={goal._id}>
-                                {goal.player.name} {goal.time.elapsed}'
-                            </div>
-                        ))}
-                    </div>
+  return (
+    <div className={styles.matchContainer}>
+      <div className={styles.teamScoreContainer}>
+        <div className={styles.teamInfo}>
+          <Link to={`/team/${team1Id}`}>
+            <img
+              src={team1Logo}
+              alt="Team 1 Logo"
+              className={styles.teamLogo}
+            />
+          </Link>
+          <div className={styles.goalDetails}>
+            {team1Goals.map((goal) => (
+              <Link to={`/players/${goal.player.id}`} key={goal._id}>
+                <div>
+                  {goal.player.name} {goal.time.elapsed}&apos;
                 </div>
-                <span className="score">
-                    {(team1Score !== null && team2Score !== null) ? `${team1Score} - ${team2Score}` : ' - '}
-                </span>
-                <div className="team-info">
-                <Link to={`/team/${team2Id}`}><img src={team2Logo} alt="Team 2 Logo" className="team-logo" /></Link>
-                    <div className="goal-details">
-                        {team2Goals.map(goal => (
-                            <div key={goal._id}>
-                                {goal.player.name} {goal.time.elapsed}'
-                            </div>
-                        ))}
-                    </div>
-                </div>
-            </div>
-
-            <div className="timeline-container">
-                {sortedEvents.map(event => (
-                    <div key={event._id} className={`timeline-event ${event.team.logo === team1Logo ? 'left' : 'right'}`}>
-                        <div className="event-circle"></div>
-                        <div className="event-details">
-                            {event.detail} - {event.player.name} {event.time.elapsed}'
-                        </div>
-                    </div>
-                ))}
-            </div>
+              </Link>
+            ))}
+          </div>
         </div>
-    );
+        <span className={styles.score}>
+          {team1Score} - {team2Score}
+        </span>
+        <div className={styles.teamInfo}>
+          <Link to={`/team/${team2Id}`}>
+            <img
+              src={team2Logo}
+              alt="Team 2 Logo"
+              className={styles.teamLogo}
+            />
+          </Link>
+          <div className={styles.goalDetails}>
+            {team2Goals.map((goal) => (
+              <Link to={`/players/${goal.player.id}`} key={goal._id}>
+                <div>
+                  {goal.player.name} {goal.time.elapsed}&apos;{' '}
+                  {goal.detail === 'Own Goal' ? '(OG)' : ''}{' '}
+                  {goal.detail === 'Penalty' &&
+                  goal.comments !== 'Penalty Shootout'
+                    ? '(PK)'
+                    : ''}
+                </div>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      <MatchTimeline
+        eventData={eventData}
+        team1Logo={team1Logo}
+        team2Logo={team2Logo}
+      />
+    </div>
+  );
 }
+
+MatchScore.propTypes = {
+  team1Logo: PropTypes.string.isRequired,
+  team2Logo: PropTypes.string.isRequired,
+  team1Score: PropTypes.number.isRequired,
+  team2Score: PropTypes.number.isRequired,
+  team1Id: PropTypes.number.isRequired,
+  team2Id: PropTypes.number.isRequired,
+  eventData: PropTypes.array.isRequired, // Assuming eventData is an array
+};
 
 export default MatchScore;

@@ -1,0 +1,61 @@
+/* PenaltyShootout.css */
+
+.shootoutContainer {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    margin-top: 20px;
+  }
+  
+  .shootoutHeader h2 {
+    text-align: center;
+    margin-bottom: 15px;
+  }
+  
+  .shootoutTeams {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 20px;
+  }
+  
+  .shootoutTeamLogo {
+    width: 50px; /* or any other size */
+    height: auto;
+  }
+  
+  .shootoutSequence {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .shootoutRow {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 5px;
+  }
+  
+  .shootoutAttempt.left {
+    justify-content: flex-end;
+  }
+  
+  .shootoutAttempt.right {
+    justify-content: flex-start;
+  }
+  
+  .playerName {
+    margin-right: 10px;
+  }
+  
+  .goalIcon, .missIcon {
+    font-size: 1.5em;
+  }
+  
+  .shootoutTeams {
+    display: flex;
+    justify-content: center;
+  }
+  
+  .shootoutColumn {
+    margin: 0 20px;
+  }
+  

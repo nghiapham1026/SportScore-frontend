@@ -1,0 +1,66 @@
+.leagueAssistsContainer {
+    font-family: Arial, sans-serif;
+    max-width: 800px;
+    width: 100%;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.leagueAssistsTitle {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.leagueAssistsTable {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.leagueAssistsTable thead {
+    background-color: #f2f2f2;
+}
+
+.leagueAssistsTable th,
+.leagueAssistsTable td {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+.leagueAssistsPlayerRank {
+    width: 50px;
+}
+
+.leagueAssistsPlayerInfo {
+    display: flex;
+    align-items: center;
+}
+
+.leagueAssistsPlayerPhoto,
+.leagueAssistsTeamLogo {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.leagueAssistsPlayerName {
+    font-weight: bold;
+    display: block;
+}
+
+.leagueAssistsTeamName {
+    display: inline-block;
+    margin-left: 5px;
+}
+
+.leagueAssistsAssists {
+    font-weight: bold;
+    text-align: right;
+}
+
+.leagueAssistsError,
+.leagueAssistsNoData {
+    color: red;
+    text-align: center;
+}

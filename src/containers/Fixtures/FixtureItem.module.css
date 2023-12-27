@@ -1,0 +1,78 @@
+/* FixtureItem.css */
+
+.listItem {
+    border-bottom: 1px solid #e3e3e3;
+    padding: 15px;
+    transition: background-color 0.3s ease;
+}
+
+.listItem:hover {
+    background-color: #f8f8f8;
+}
+
+.fixtureHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    margin: 0;
+    font-size: 1.2rem;
+    color: #333;
+}
+
+.teamLogo {
+    width: 30px;
+    height: 30px;
+    margin: 0 10px;
+    vertical-align: middle;
+}
+
+.matchCenterButton {
+    padding: 10px 20px;
+    margin-top: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.matchCenterButton:hover {
+    background-color: #0056b3;
+}
+
+.fixtureDetails {
+    background-color: #f9f9f9;
+    margin-top: 10px;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    font-size: 0.9rem;
+    line-height: 1.5;
+}
+
+.fixtureDetails p {
+    margin: 5px 0;
+}
+
+/* Responsive design considerations */
+@media (max-width: 768px) {
+    .fixtureHeader {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .teamLogo {
+        margin: 5px auto;
+    }
+
+    .matchCenterButton {
+        display: block;
+        width: 100%;
+    }
+
+    .fixtureDetails {
+        font-size: 0.8rem;
+    }
+}

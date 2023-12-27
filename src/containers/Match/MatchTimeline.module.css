@@ -1,0 +1,39 @@
+.timelineContainer {
+    width: 100%;
+}
+
+.timelineEvent {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.eventCircle {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: #ccc;
+    margin-right: 10px;
+}
+
+.eventDetails {
+    font-size: 14px;
+}
+
+.left {
+    justify-content: start;
+}
+
+.right {
+    justify-content: end;
+}
+
+/* Link styles */
+a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
