@@ -26,6 +26,10 @@ const LeagueFixtures = ({ leagueId, selectedSeason }) => {
     fetchLeagueFixtures();
   }, [leagueId, selectedSeason]);
 
+  if (!Array.isArray(fixtures) || fixtures.length === 0) {
+    return <p>No data for this selected season.</p>;
+  }
+
   const filteredFixtures = selectedRound
     ? fixtures.filter((fixture) => fixture.league.round === selectedRound)
     : fixtures;

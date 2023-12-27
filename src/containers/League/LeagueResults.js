@@ -26,6 +26,10 @@ const LeagueResults = ({ leagueId, selectedSeason }) => {
     fetchLeagueResults();
   }, [leagueId, selectedSeason]);
 
+  if (!Array.isArray(results) || results.length === 0) {
+    return <p>No data for this selected season.</p>;
+  }
+
   const filteredResults = selectedRound
     ? results.filter((result) => result.league.round === selectedRound)
     : results;

@@ -16,8 +16,12 @@ const Players = () => {
     const fetchSeasons = async () => {
       try {
         const seasonData = await getPlayerSeasons({ player: playerId });
-        setSeasons(seasonData.seasons.map((s) => s.year));
-        setSelectedSeason(seasonData.seasons[0].year);
+        // Sort seasons in descending order
+        const sortedSeasons = seasonData.seasons
+          .map((s) => s.year)
+          .sort((a, b) => b - a);
+        setSeasons(sortedSeasons);
+        setSelectedSeason(sortedSeasons[0]); // Set the most recent season as selected
       } catch (error) {
         console.error('Error fetching seasons:', error);
       }
