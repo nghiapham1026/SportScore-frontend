@@ -13,8 +13,10 @@ function Navbar() {
           <Link to="/fixtures" className="navbarLink">
             Fixtures
           </Link>
+          <Link to="/news" className="navbarLink">
+            News
+          </Link>
         </li>
-        {/* Add more navigation links as needed */}
       </ul>
     </nav>
   );

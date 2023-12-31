@@ -11,6 +11,8 @@ import LeagueResultsPage from './containers/League/LeagueResultsPage';
 import LeagueFixturesPage from './containers/League/LeagueFixturesPage';
 import LeagueScorersPage from './containers/League/LeagueScorersPage';
 import LeagueAssistsPage from './containers/League/LeagueAssistsPage';
+import Predictions from './containers/Predictions/Predictions';
+import News from './containers/News/News';
 
 function App() {
   return (
@@ -19,7 +21,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/fixtures" element={<FixturePage />} />
-        <Route path="/match/:fixtureId" element={<Match />} />
+        <Route path="/fixture/:fixtureId" element={<Match />} />
         <Route path="/league/:leagueId" element={<League />} />
         <Route
           path="/league/:leagueId/results"
@@ -39,6 +41,11 @@ function App() {
         />
         <Route path="/team/:teamId" element={<Team />} />
         <Route path="/players/:playerId" element={<Players />} />
+        <Route
+          path="/fixture/predictions/:fixtureId"
+          element={<Predictions />}
+        />
+        <Route path="/news" element={<News />} />
       </Routes>
     </Router>
   );

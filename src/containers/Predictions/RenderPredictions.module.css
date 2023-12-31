@@ -1,0 +1,41 @@
+.container {
+    padding: 20px;
+    background-color: #f4f4f4;
+    border-radius: 8px;
+    margin-bottom: 20px;
+  }
+  
+  .predictionItem {
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    background-color: #fff;
+  }
+  
+  .leagueInfo, .teams, .predictions, .comparison {
+    margin-bottom: 15px;
+  }
+  
+  .team, .predictionsDetail, .comparisonStat {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  
+  .team img, .leagueInfo img {
+    width: 50px;
+    height: 50px;
+    margin-right: 10px;
+  }
+  
+  h2, h3, h4 {
+    margin-bottom: 10px;
+  }
+  
+  p {
+    margin: 5px 0;
+  }
+  
+  /* Add more specific styles as needed */
+  

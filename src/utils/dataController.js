@@ -169,3 +169,14 @@ export const getTeamSeasons = async (queryParams) => {
     return { error: 'Failed to fetch team seasons', details: err.message };
   }
 };
+
+export const getMatchPredictions = async (queryParams) => {
+  try {
+    const endpoint = `/predictions/db/getPredictions`;
+    const response = await fetchData(endpoint, 'GET', null, queryParams);
+    return response;
+  } catch (err) {
+    console.error('Error fetching match predictions: ', err);
+    return { error: 'Failed to match predictions', details: err.message };
+  }
+};
