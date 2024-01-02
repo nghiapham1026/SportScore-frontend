@@ -177,6 +177,17 @@ export const getMatchPredictions = async (queryParams) => {
     return response;
   } catch (err) {
     console.error('Error fetching match predictions: ', err);
-    return { error: 'Failed to match predictions', details: err.message };
+    return { error: 'Failed to fetch match predictions', details: err.message };
   }
 };
+
+export const getNews = async () => {
+    try {
+        const endpoint = `/news/getNews`;
+        const response = await fetchData(endpoint, 'GET', null, null);
+        return response;
+    } catch (err) {
+        console.error('Error fetching news articles: ', err);
+        return { error: 'Failed to fetch news articles', details: err.message };
+    }
+}
