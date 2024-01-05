@@ -34,14 +34,6 @@ function MatchScore({
         extractTeamIdFromLogoUrl(team2Logo)
   );
 
-  team1Goals.forEach(goal => {
-    console.log(`Team 1 Goal: ${goal.player.name}, Detail: ${goal.detail}, Comments: ${goal.comments}`);
-  });
-  
-  team2Goals.forEach(goal => {
-    console.log(`Team 2 Goal: ${goal.player.name}, Detail: ${goal.detail}, Comments: ${goal.comments}`);
-  });
-
   return (
     <div className={styles.matchContainer}>
       <div className={styles.teamScoreContainer}>
@@ -58,6 +50,11 @@ function MatchScore({
               <Link to={`/players/${goal.player.id}`} key={goal._id}>
                 <div>
                   {goal.player.name} {goal.time.elapsed}&apos;
+                  {goal.detail === 'Own Goal' ? '(OG)' : ''}{' '}
+                  {goal.detail === 'Penalty' &&
+                  goal.comments !== 'Penalty Shootout'
+                    ? '(P)'
+                    : ''}
                 </div>
               </Link>
             ))}
@@ -82,7 +79,7 @@ function MatchScore({
                   {goal.detail === 'Own Goal' ? '(OG)' : ''}{' '}
                   {goal.detail === 'Penalty' &&
                   goal.comments !== 'Penalty Shootout'
-                    ? '(PK)'
+                    ? '(P)'
                     : ''}
                 </div>
               </Link>

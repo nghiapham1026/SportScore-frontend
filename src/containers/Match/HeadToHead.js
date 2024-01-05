@@ -4,6 +4,15 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 function HeadToHead({ headToHeadData }) {
+  if (headToHeadData.length === 0) {
+    return (
+      <div className={styles.headToHeadContainer}>
+        <h2 className={styles.headToHeadTitle}>Head-to-Head Data</h2>
+        <p>No data available.</p>
+      </div>
+    );
+  }
+
   return (
     <div className={styles.headToHeadContainer}>
       <h2 className={styles.headToHeadTitle}>Head-to-Head Data</h2>
