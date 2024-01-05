@@ -182,12 +182,12 @@ export const getMatchPredictions = async (queryParams) => {
 };
 
 export const getNews = async () => {
-    try {
-        const endpoint = `/news/getNews`;
-        const response = await fetchData(endpoint, 'GET', null, null);
-        return response;
-    } catch (err) {
-        console.error('Error fetching news articles: ', err);
-        return { error: 'Failed to fetch news articles', details: err.message };
-    }
-}
+  try {
+    const endpoint = `/news/getNews`;
+    const response = await fetchData(endpoint, 'GET', null, null);
+    return response;
+  } catch (err) {
+    console.error('Error fetching news articles: ', err);
+    return { error: 'Failed to fetch news articles', details: err.message };
+  }
+};

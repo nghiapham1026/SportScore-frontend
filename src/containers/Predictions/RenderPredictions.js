@@ -12,7 +12,9 @@ function RenderPredictions({ predictions }) {
         <div key={index} className={styles.predictionItem}>
           {/* League Information */}
           <div className={styles.leagueInfo}>
-            <h2>{prediction.league.name} - {prediction.league.season}</h2>
+            <h2>
+              {prediction.league.name} - {prediction.league.season}
+            </h2>
             <img src={prediction.league.logo} alt="League logo" />
           </div>
 
@@ -32,19 +34,40 @@ function RenderPredictions({ predictions }) {
           {/* Prediction Details */}
           <div className={styles.predictions}>
             <h3>Predictions</h3>
-            <p>Winner: {prediction.predictions.winner.name} ({prediction.predictions.winner.comment})</p>
-            <p>Win or Draw: {prediction.predictions.win_or_draw ? 'Yes' : 'No'}</p>
-            <p>Under/Over Goals: Home - {prediction.predictions.goals.home}, Away - {prediction.predictions.goals.away}</p>
+            <p>
+              Winner: {prediction.predictions.winner.name} (
+              {prediction.predictions.winner.comment})
+            </p>
+            <p>
+              Win or Draw: {prediction.predictions.win_or_draw ? 'Yes' : 'No'}
+            </p>
+            <p>
+              Under/Over Goals: Home - {prediction.predictions.goals.home}, Away
+              - {prediction.predictions.goals.away}
+            </p>
             <p>Advice: {prediction.predictions.advice}</p>
-            <p>Chances: Home - {prediction.predictions.percent.home}, Draw - {prediction.predictions.percent.draw}, Away - {prediction.predictions.percent.away}</p>
+            <p>
+              Chances: Home - {prediction.predictions.percent.home}, Draw -{' '}
+              {prediction.predictions.percent.draw}, Away -{' '}
+              {prediction.predictions.percent.away}
+            </p>
           </div>
 
           {/* Comparison Stats */}
           <div className={styles.comparison}>
             <h3>Comparison</h3>
-            <p>Form: Home - {prediction.comparison.form.home}, Away - {prediction.comparison.form.away}</p>
-            <p>Attack: Home - {prediction.comparison.att.home}, Away - {prediction.comparison.att.away}</p>
-            <p>Defense: Home - {prediction.comparison.def.home}, Away - {prediction.comparison.def.away}</p>
+            <p>
+              Form: Home - {prediction.comparison.form.home}, Away -{' '}
+              {prediction.comparison.form.away}
+            </p>
+            <p>
+              Attack: Home - {prediction.comparison.att.home}, Away -{' '}
+              {prediction.comparison.att.away}
+            </p>
+            <p>
+              Defense: Home - {prediction.comparison.def.home}, Away -{' '}
+              {prediction.comparison.def.away}
+            </p>
             {/* ... Other comparison stats ... */}
           </div>
         </div>
