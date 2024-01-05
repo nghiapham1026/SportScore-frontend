@@ -16,12 +16,31 @@ function MatchScore({
   const isRegularGoal = (event) =>
     event.type === 'Goal' && event.comments !== 'Penalty Shootout';
 
+  const extractTeamIdFromLogoUrl = (url) => {
+    const parts = url.split('/');
+    return parts[parts.length - 1]; // Get the last part of the URL
+  };
+
   const team1Goals = (eventData || []).filter(
-    (event) => isRegularGoal(event) && event.team.logo === team1Logo
+    (event) =>
+      isRegularGoal(event) &&
+      extractTeamIdFromLogoUrl(event.team.logo) ===
+        extractTeamIdFromLogoUrl(team1Logo)
   );
   const team2Goals = (eventData || []).filter(
-    (event) => isRegularGoal(event) && event.team.logo === team2Logo
+    (event) =>
+      isRegularGoal(event) &&
+      extractTeamIdFromLogoUrl(event.team.logo) ===
+        extractTeamIdFromLogoUrl(team2Logo)
   );
+
+  team1Goals.forEach(goal => {
+    console.log(`Team 1 Goal: ${goal.player.name}, Detail: ${goal.detail}, Comments: ${goal.comments}`);
+  });
+  
+  team2Goals.forEach(goal => {
+    console.log(`Team 2 Goal: ${goal.player.name}, Detail: ${goal.detail}, Comments: ${goal.comments}`);
+  });
 
   return (
     <div className={styles.matchContainer}>
