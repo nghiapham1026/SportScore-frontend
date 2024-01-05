@@ -1,0 +1,71 @@
+.newsContainer {
+    margin: 20px;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+  }
+  
+  .error {
+    color: red;
+    font-weight: bold;
+  }
+  
+  .article {
+    width: 40%; /* Reduced width */
+    margin: 0 auto 40px; /* Center align and add bottom margin */
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Optional: added shadow for better visibility */
+  }
+  
+  .articleTitle {
+    color: #333;
+    margin-bottom: 10px;
+  }
+  
+  .articleMeta {
+    font-style: italic;
+    color: #666;
+  }
+  
+  .articleBody {
+    margin-top: 20px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+  }
+  
+  .articleLink {
+    color: blue;
+    text-decoration: none;
+  }
+  
+  .articleImage {
+    width: 100%;
+    height: auto;
+    margin-top: 20px;
+    border-radius: 4px;
+  }
+  
+  .readMoreButton {
+    background-color: transparent; /* Remove background color */
+    color: grey; /* Set text color to grey */
+    border: none;
+    padding: 5px 10px; /* Reduce padding for a smaller button */
+    margin-top: 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.8em; /* Reduce font size for smaller text */
+    text-transform: lowercase; /* Optional: transform text to uppercase for a stylistic choice */
+  }
+  
+  .readMoreButton:hover {
+    background-color: #f0f0f0; /* Slight background color change on hover */
+    color: darkgrey; /* Change text color on hover for better visibility */
+  }
+  
+  
