@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
-import { AuthContext } from '../context/AuthContext'; // Import AuthContext
-import './NavBar.css';
+import { AuthContext } from '../context/AuthContext';
+import styles from './NavBar.module.css'; // Updated import statement
 
 function Navbar() {
   const { user, signOut } = useContext(AuthContext);
@@ -12,33 +12,21 @@ function Navbar() {
   };
 
   return (
-    <nav className="navbarContainer">
-      <ul className="navbarList">
-        <li className="navbarItem">
-          <Link to="/" className="navbarLink">
-            Home
-          </Link>
-          <Link to="/fixtures" className="navbarLink">
-            Fixtures
-          </Link>
-          <Link to="/news" className="navbarLink">
-            News
-          </Link>
+    <nav className={styles.navbarContainer}>
+      <ul className={styles.navbarList}>
+        <li className={styles.navbarItem}>
+          <Link to="/" className={styles.navbarLink}>Home</Link>
+          <Link to="/fixtures" className={styles.navbarLink}>Fixtures</Link>
+          <Link to="/news" className={styles.navbarLink}>News</Link>
         </li>
-        <li className="navbarItem signInLink">
+        <li className={`${styles.navbarItem} ${styles.signInLink}`}>
           {user ? (
             <>
-              <Link to="/profile" className="navbarLink">
-                Profile
-              </Link>
-              <Link to="/signin" onClick={handleSignOut} className="navbarLink">
-                Sign Out
-              </Link>
+              <Link to="/profile" className={styles.navbarLink}>Profile</Link>
+              <Link to="/signin" onClick={handleSignOut} className={styles.navbarLink}>Sign Out</Link>
             </>
           ) : (
-            <Link to="/signin" className="navbarLink">
-              Sign In
-            </Link>
+            <Link to="/signin" className={styles.navbarLink}>Sign In</Link>
           )}
         </li>
       </ul>
