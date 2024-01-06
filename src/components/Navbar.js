@@ -6,7 +6,7 @@ function Navbar() {
   return (
     <nav className="navbarContainer">
       <ul className="navbarList">
-        <li>
+        <li className="navbarItem">
           <Link to="/" className="navbarLink">
             Home
           </Link>
@@ -15,6 +15,14 @@ function Navbar() {
           </Link>
           <Link to="/news" className="navbarLink">
             News
+          </Link>
+        </li>
+        <li className="navbarItem signInLink">
+          <Link to="/signin" className="navbarLink">
+            Sign In
+          </Link>
+          <Link to="/profile" className='navbarLink'>
+            Profile
           </Link>
         </li>
       </ul>

@@ -10,6 +10,18 @@
     justify-content: center;
 }
 
+.navbarItem {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center; /* Centers content of navbarItem */
+}
+
+.navbarItem.signInLink {
+    flex-grow: 0;
+    justify-content: flex-end;
+    display: flex;
+}
+
 .navbarList li a {
     margin: 0 15px;
     color: white;

@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+
 import Navbar from './components/Navbar';
 import Home from './containers/Home/Home';
 import FixturePage from './containers/Fixtures/Fixtures';
@@ -13,9 +14,13 @@ import LeagueScorersPage from './containers/League/LeagueScorersPage';
 import LeagueAssistsPage from './containers/League/LeagueAssistsPage';
 import Predictions from './containers/Predictions/Predictions';
 import News from './containers/News/News';
+import { AuthProvider } from './context/AuthContext';
+import SignIn from './components/SignIn/SignIn';
+import Profile from './components/SignIn/Profile';
 
 function App() {
   return (
+    <AuthProvider>
     <Router>
       <Navbar />
       <Routes>
@@ -46,8 +51,12 @@ function App() {
           element={<Predictions />}
         />
         <Route path="/news" element={<News />} />
+
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/signin" element={<SignIn />} />
       </Routes>
     </Router>
+    </AuthProvider>
   );
 }
 
