@@ -21,41 +21,41 @@ import Profile from './components/SignIn/Profile';
 function App() {
   return (
     <AuthProvider>
-    <Router>
-      <Navbar />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/fixtures" element={<FixturePage />} />
-        <Route path="/fixture/:fixtureId" element={<Match />} />
-        <Route path="/league/:leagueId" element={<League />} />
-        <Route
-          path="/league/:leagueId/results"
-          element={<LeagueResultsPage />}
-        />
-        <Route
-          path="/league/:leagueId/fixtures"
-          element={<LeagueFixturesPage />}
-        />
-        <Route
-          path="/league/:leagueId/scorers"
-          element={<LeagueScorersPage />}
-        />
-        <Route
-          path="/league/:leagueId/assists"
-          element={<LeagueAssistsPage />}
-        />
-        <Route path="/team/:teamId" element={<Team />} />
-        <Route path="/players/:playerId" element={<Players />} />
-        <Route
-          path="/fixture/predictions/:fixtureId"
-          element={<Predictions />}
-        />
-        <Route path="/news" element={<News />} />
+      <Router>
+        <Navbar />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/fixtures" element={<FixturePage />} />
+          <Route path="/fixture/:fixtureId" element={<Match />} />
+          <Route path="/league/:leagueId" element={<League />} />
+          <Route
+            path="/league/:leagueId/results"
+            element={<LeagueResultsPage />}
+          />
+          <Route
+            path="/league/:leagueId/fixtures"
+            element={<LeagueFixturesPage />}
+          />
+          <Route
+            path="/league/:leagueId/scorers"
+            element={<LeagueScorersPage />}
+          />
+          <Route
+            path="/league/:leagueId/assists"
+            element={<LeagueAssistsPage />}
+          />
+          <Route path="/team/:teamId" element={<Team />} />
+          <Route path="/players/:playerId" element={<Players />} />
+          <Route
+            path="/fixture/predictions/:fixtureId"
+            element={<Predictions />}
+          />
+          <Route path="/news" element={<News />} />
 
-        <Route path="/profile" element={<Profile />} />
-        <Route path="/signin" element={<SignIn />} />
-      </Routes>
-    </Router>
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/signin" element={<SignIn />} />
+        </Routes>
+      </Router>
     </AuthProvider>
   );
 }

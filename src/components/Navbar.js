@@ -1,8 +1,16 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
+import { AuthContext } from '../context/AuthContext'; // Import AuthContext
 import './NavBar.css';
 
 function Navbar() {
+  const { user, signOut } = useContext(AuthContext);
+
+  const handleSignOut = () => {
+    signOut();
+    // Add any additional logic needed after sign out, like redirecting
+  };
+
   return (
     <nav className="navbarContainer">
       <ul className="navbarList">
@@ -18,12 +26,20 @@ function Navbar() {
           </Link>
         </li>
         <li className="navbarItem signInLink">
-          <Link to="/signin" className="navbarLink">
-            Sign In
-          </Link>
-          <Link to="/profile" className='navbarLink'>
-            Profile
-          </Link>
+          {user ? (
+            <>
+              <Link to="/profile" className="navbarLink">
+                Profile
+              </Link>
+              <Link to="/signin" onClick={handleSignOut} className="navbarLink">
+                Sign Out
+              </Link>
+            </>
+          ) : (
+            <Link to="/signin" className="navbarLink">
+              Sign In
+            </Link>
+          )}
         </li>
       </ul>
     </nav>
