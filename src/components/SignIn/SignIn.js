@@ -1,41 +1,30 @@
-import React, { useState, useContext } from 'react';
+import React, { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthContext';
+import { auth, GoogleAuthProvider, signInWithPopup } from '../../firebase'; // Import from firebase.js
 
 function SignIn() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const { signIn } = useContext(AuthContext);
+  const { setUser } = useContext(AuthContext);
   const navigate = useNavigate();
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    const success = await signIn(email, password);
-    if (success) {
+  const handleGoogleSignIn = async () => {
+    try {
+      const provider = new GoogleAuthProvider();
+      const result = await signInWithPopup(auth, provider);
+      const user = result.user;
+      
+      setUser(user); // Set the user in your AuthContext
       navigate('/profile'); // Redirect to profile page on successful sign-in
-    } else {
-      alert('Sign-in failed. Please check your credentials.');
+    } catch (error) {
+      console.error('Error during Google Sign-In', error);
+      alert('Sign-in failed. Please try again.');
     }
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <input
-        type="email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        placeholder="Email"
-        required
-      />
-      <input
-        type="password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-        placeholder="Password"
-        required
-      />
-      <button type="submit">Sign In</button>
-    </form>
+    <div>
+      <button onClick={handleGoogleSignIn}>Sign In with Google</button>
+    </div>
   );
 }
 
