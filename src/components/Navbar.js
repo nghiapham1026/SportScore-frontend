@@ -15,18 +15,34 @@ function Navbar() {
     <nav className={styles.navbarContainer}>
       <ul className={styles.navbarList}>
         <li className={styles.navbarItem}>
-          <Link to="/" className={styles.navbarLink}>Home</Link>
-          <Link to="/fixtures" className={styles.navbarLink}>Fixtures</Link>
-          <Link to="/news" className={styles.navbarLink}>News</Link>
+          <Link to="/" className={styles.navbarLink}>
+            Home
+          </Link>
+          <Link to="/fixtures" className={styles.navbarLink}>
+            Fixtures
+          </Link>
+          <Link to="/news" className={styles.navbarLink}>
+            News
+          </Link>
         </li>
         <li className={`${styles.navbarItem} ${styles.signInLink}`}>
           {user ? (
             <>
-              <Link to="/profile" className={styles.navbarLink}>Profile</Link>
-              <Link to="/signin" onClick={handleSignOut} className={styles.navbarLink}>Sign Out</Link>
+              <Link to="/profile" className={styles.navbarLink}>
+                Profile
+              </Link>
+              <Link
+                to="/signin"
+                onClick={handleSignOut}
+                className={styles.navbarLink}
+              >
+                Sign Out
+              </Link>
             </>
           ) : (
-            <Link to="/signin" className={styles.navbarLink}>Sign In</Link>
+            <Link to="/signin" className={styles.navbarLink}>
+              Sign In
+            </Link>
           )}
         </li>
       </ul>
