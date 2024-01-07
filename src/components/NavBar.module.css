@@ -2,12 +2,15 @@
     background-color: #333;
     padding: 10px 0;
     margin-bottom: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Adds subtle shadow for depth */
 }
 
 .navbarList {
     list-style-type: none;
     display: flex;
     justify-content: center;
+    margin: 0;
+    padding: 0;
 }
 
 .navbarItem {
@@ -22,13 +25,46 @@
     display: flex;
 }
 
-.navbarList li a {
+.navbarLink {
     margin: 0 15px;
     color: white;
     text-decoration: none;
+    padding: 5px 10px;
+    border-radius: 4px; /* Rounded corners for links */
+    transition: background-color 0.3s, color 0.3s; /* Smooth transition for hover effect */
 }
 
-.navbarList li a:hover {
-    /* Add hover effect if needed, e.g.: */
-    text-decoration: underline;
+.navbarLink:hover, .navbarButton:hover {
+    background-color: #555; /* Change background color on hover */
+    color: #fff;
+    text-decoration: none;
+}
+
+.navbarButton {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: white;
+    padding: 5px 10px;
+    margin: 0 15px;
+    text-align: center;
+    border-radius: 4px; /* Consistent with link styles */
+    transition: background-color 0.3s, color 0.3s;
+}
+
+/* Responsive design for smaller screens */
+@media (max-width: 600px) {
+    .navbarList {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .navbarItem {
+        justify-content: center;
+        margin-bottom: 10px;
+    }
+
+    .navbarItem.signInLink {
+        justify-content: center;
+    }
 }

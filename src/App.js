@@ -17,6 +17,7 @@ import News from './containers/News/News';
 import { AuthProvider } from './context/AuthContext';
 import SignIn from './components/SignIn/SignIn';
 import Profile from './components/SignIn/Profile';
+import SignUp from './components/SignUp/SignUp';
 
 function App() {
   return (
@@ -54,6 +55,7 @@ function App() {
 
           <Route path="/profile" element={<Profile />} />
           <Route path="/signin" element={<SignIn />} />
+          <Route path='/signup' element={<SignUp />} />
         </Routes>
       </Router>
     </AuthProvider>

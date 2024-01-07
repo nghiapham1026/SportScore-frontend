@@ -2,9 +2,11 @@ import React, { createContext, useState, useEffect } from 'react';
 import { auth } from '../firebase';
 import {
   onAuthStateChanged,
+  createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   GoogleAuthProvider,
   signInWithPopup,
+  signOut as firebaseSignOut,
 } from 'firebase/auth';
 
 export const AuthContext = createContext();
@@ -14,13 +16,20 @@ export const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, setUser);
-    return unsubscribe; // This is equivalent to () => unsubscribe()
+    return unsubscribe;
   }, []);
+
+  const signUpWithEmail = async (email, password) => {
+    try {
+      await createUserWithEmailAndPassword(auth, email, password);
+    } catch (error) {
+      throw error;
+    }
+  };
 
   const signInWithEmail = async (email, password) => {
     try {
       await signInWithEmailAndPassword(auth, email, password);
-      // User will be automatically set by the onAuthStateChanged listener
     } catch (error) {
       throw error;
     }
@@ -30,19 +39,22 @@ export const AuthProvider = ({ children }) => {
     try {
       const provider = new GoogleAuthProvider();
       await signInWithPopup(auth, provider);
-      // User will be automatically set by the onAuthStateChanged listener
     } catch (error) {
       throw error;
     }
   };
 
   const signOut = async () => {
-    await auth.signOut();
+    try {
+      await firebaseSignOut(auth);
+    } catch (error) {
+      throw error;
+    }
   };
 
   return (
     <AuthContext.Provider
-      value={{ user, signInWithEmail, signInWithGoogle, signOut }}
+      value={{ user, signUpWithEmail, signInWithEmail, signInWithGoogle, signOut }}
     >
       {children}
     </AuthContext.Provider>
