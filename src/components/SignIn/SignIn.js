@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthContext';
-import './SignIn.css'; // Import CSS for styling
+import styles from './SignIn.module.css'; // Import CSS for styling
 
 function SignIn() {
   const [email, setEmail] = useState('');
@@ -37,11 +37,8 @@ function SignIn() {
   };
 
   return (
-    <div className="sign-in-container">
-      {error && <p className="error">{error}</p>}
-      <button onClick={handleGoogleSignIn} disabled={loading}>
-        Sign In with Google
-      </button>
+    <div className={styles.signInContainer}>
+      {error && <p className={styles.error}>{error}</p>}
       <form onSubmit={handleEmailPasswordSignIn}>
         <input
           type="email"
@@ -49,6 +46,7 @@ function SignIn() {
           onChange={(e) => setEmail(e.target.value)}
           placeholder="Email"
           required
+          className={styles.input}
         />
         <input
           type="password"
@@ -56,9 +54,17 @@ function SignIn() {
           onChange={(e) => setPassword(e.target.value)}
           placeholder="Password"
           required
+          className={styles.input}
         />
-        <button type="submit" disabled={loading}>
+        <button type="submit" disabled={loading} className={styles.button}>
           Sign In with Email
+        </button>
+        <button
+          onClick={handleGoogleSignIn}
+          disabled={loading}
+          className={styles.button}
+        >
+          Sign In with Google
         </button>
       </form>
     </div>
