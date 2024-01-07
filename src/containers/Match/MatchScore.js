@@ -16,11 +16,22 @@ function MatchScore({
   const isRegularGoal = (event) =>
     event.type === 'Goal' && event.comments !== 'Penalty Shootout';
 
+  const extractTeamIdFromLogoUrl = (url) => {
+    const parts = url.split('/');
+    return parts[parts.length - 1]; // Get the last part of the URL
+  };
+
   const team1Goals = (eventData || []).filter(
-    (event) => isRegularGoal(event) && event.team.logo === team1Logo
+    (event) =>
+      isRegularGoal(event) &&
+      extractTeamIdFromLogoUrl(event.team.logo) ===
+        extractTeamIdFromLogoUrl(team1Logo)
   );
   const team2Goals = (eventData || []).filter(
-    (event) => isRegularGoal(event) && event.team.logo === team2Logo
+    (event) =>
+      isRegularGoal(event) &&
+      extractTeamIdFromLogoUrl(event.team.logo) ===
+        extractTeamIdFromLogoUrl(team2Logo)
   );
 
   return (
@@ -39,6 +50,11 @@ function MatchScore({
               <Link to={`/players/${goal.player.id}`} key={goal._id}>
                 <div>
                   {goal.player.name} {goal.time.elapsed}&apos;
+                  {goal.detail === 'Own Goal' ? '(OG)' : ''}{' '}
+                  {goal.detail === 'Penalty' &&
+                  goal.comments !== 'Penalty Shootout'
+                    ? '(P)'
+                    : ''}
                 </div>
               </Link>
             ))}
@@ -63,7 +79,7 @@ function MatchScore({
                   {goal.detail === 'Own Goal' ? '(OG)' : ''}{' '}
                   {goal.detail === 'Penalty' &&
                   goal.comments !== 'Penalty Shootout'
-                    ? '(PK)'
+                    ? '(P)'
                     : ''}
                 </div>
               </Link>

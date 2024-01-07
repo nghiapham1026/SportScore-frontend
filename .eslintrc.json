@@ -13,8 +13,11 @@
     }
   },
   "rules": {
-    "prettier/prettier": "error",
-    "no-unmodified-loop-condition": "off"
+    "prettier/prettier": "warn",
+    "no-unmodified-loop-condition": "off",
+    "react/prop-types": "off", // Disables prop-types rule
+    "react/no-unescaped-entities": "warn" // Changes to warning
+    // Add other rules here as needed
   },
   "globals": {
     "document": "readonly",

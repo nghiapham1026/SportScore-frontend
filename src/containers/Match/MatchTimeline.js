@@ -5,6 +5,8 @@ import PenaltyShootout from './PenaltyShootout';
 import PropTypes from 'prop-types';
 
 const MatchTimeline = ({ eventData, team1Logo, team2Logo }) => {
+  const getLogoIdentifier = (url) => url.split('/').pop();
+
   // Sort the events based on elapsed time
   const sortedEvents = (eventData || []).sort(
     (a, b) => a.time.elapsed - b.time.elapsed
@@ -19,7 +21,12 @@ const MatchTimeline = ({ eventData, team1Logo, team2Logo }) => {
         <div
           key={event._id}
           className={`${styles.timelineEvent} ${
-            event.team.logo === team1Logo ? styles.left : styles.right
+            getLogoIdentifier(event.team.logo) === getLogoIdentifier(team1Logo)
+              ? styles.left
+              : getLogoIdentifier(event.team.logo) ===
+                  getLogoIdentifier(team2Logo)
+                ? styles.right
+                : ''
           }`}
         >
           <div className={styles.eventCircle}></div>
