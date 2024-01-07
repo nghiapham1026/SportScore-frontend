@@ -1,50 +1,47 @@
 import React, { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthContext';
-import {
-  auth,
-  GoogleAuthProvider,
-  signInWithPopup,
-  signInWithEmailAndPassword,
-} from '../../firebase'; // Import additional functions
+import './SignIn.css'; // Import CSS for styling
 
 function SignIn() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const { setUser } = useContext(AuthContext);
+  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
+  const { signInWithGoogle, signInWithEmail } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const handleGoogleSignIn = async () => {
+    setLoading(true);
     try {
-      const provider = new GoogleAuthProvider();
-      const result = await signInWithPopup(auth, provider);
-      const user = result.user;
-
-      setUser(user); // Set the user in your AuthContext
-      navigate('/profile'); // Redirect to profile page on successful sign-in
+      await signInWithGoogle();
+      navigate('/profile');
     } catch (error) {
       console.error('Error during Google Sign-In', error);
-      alert('Sign-in failed. Please try again.');
+      setError('Failed to sign in with Google. Please try again.');
+      setLoading(false);
     }
   };
 
   const handleEmailPasswordSignIn = async (event) => {
     event.preventDefault();
+    setLoading(true);
     try {
-      const result = await signInWithEmailAndPassword(auth, email, password);
-      const user = result.user;
-
-      setUser(user);
+      await signInWithEmail(email, password);
       navigate('/profile');
     } catch (error) {
       console.error('Error during Email/Password Sign-In', error);
-      alert('Sign-in failed. Please check your credentials.');
+      setError('Sign-in failed. Please check your credentials.');
+      setLoading(false);
     }
   };
 
   return (
-    <div>
-      <button onClick={handleGoogleSignIn}>Sign In with Google</button>
+    <div className="sign-in-container">
+      {error && <p className="error">{error}</p>}
+      <button onClick={handleGoogleSignIn} disabled={loading}>
+        Sign In with Google
+      </button>
       <form onSubmit={handleEmailPasswordSignIn}>
         <input
           type="email"
@@ -60,7 +57,9 @@ function SignIn() {
           placeholder="Password"
           required
         />
-        <button type="submit">Sign In with Email</button>
+        <button type="submit" disabled={loading}>
+          Sign In with Email
+        </button>
       </form>
     </div>
   );
