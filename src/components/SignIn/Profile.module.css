@@ -1,0 +1,50 @@
+/* Profile.module.css */
+.profileContainer {
+    max-width: 400px;
+    margin: 2rem auto;
+    padding: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+  }
+  
+  .profileImage {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+  
+  .profileInfo {
+    margin-bottom: 1rem;
+  }
+  
+  .inputField {
+    margin-bottom: 0.5rem;
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .button {
+    background-color: #007bff;
+    color: white;
+    padding: 0.5rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .button:disabled {
+    background-color: #cccccc;
+    cursor: default;
+  }
+  
+  .errorMessage {
+    color: red;
+  }
+  
+  .successMessage {
+    color: green;
+  }
+  
