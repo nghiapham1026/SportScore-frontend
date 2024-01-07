@@ -18,6 +18,7 @@ import { AuthProvider } from './context/AuthContext';
 import SignIn from './components/SignIn/SignIn';
 import Profile from './components/SignIn/Profile';
 import SignUp from './components/SignUp/SignUp';
+import SignOut from './components/SignOut/SignOut';
 
 function App() {
   return (
@@ -55,7 +56,8 @@ function App() {
 
           <Route path="/profile" element={<Profile />} />
           <Route path="/signin" element={<SignIn />} />
-          <Route path='/signup' element={<SignUp />} />
+          <Route path="/signup" element={<SignUp />} />
+          <Route path="/signout" element={<SignOut />}></Route>
         </Routes>
       </Router>
     </AuthProvider>
