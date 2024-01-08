@@ -16,7 +16,7 @@ import Predictions from './containers/Predictions/Predictions';
 import News from './containers/News/News';
 import { AuthProvider } from './context/AuthContext';
 import SignIn from './components/SignIn/SignIn';
-import Profile from './components/SignIn/Profile';
+import Profile from './components/Profile/Profile';
 import SignUp from './components/SignUp/SignUp';
 import SignOut from './components/SignOut/SignOut';
 
