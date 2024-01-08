@@ -3,6 +3,8 @@ import { AuthContext } from '../../context/AuthContext';
 import { updateProfile, sendPasswordResetEmail } from 'firebase/auth';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { auth, storage } from '../../firebase';
+import DisplayProfile from './DisplayProfile';
+import EditProfile from './EditProfile';
 import styles from './Profile.module.css';
 
 function Profile() {
@@ -66,64 +68,22 @@ function Profile() {
     setEditMode(false);
   };
 
-  const toggleEditMode = () => {
-    setEditMode(!editMode);
-  };
-
   return (
     <div className={styles.profileContainer}>
       <h2>Profile</h2>
-      {user.photoURL && (
-        <img
-          src={user.photoURL}
-          alt="Profile"
-          className={styles.profileImage}
-        />
-      )}
-      <div className={styles.profileInfo}>
-        <p>Name: {user.displayName || 'Not set'}</p>
-        <p>Email: {user.email}</p>
-      </div>
-
       {editMode ? (
-        <>
-          <input
-            type="file"
-            onChange={handleImageChange}
-            className={styles.inputField}
-          />
-          <input
-            type="text"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            placeholder="Display Name"
-            className={styles.inputField}
-          />
-          <button
-            onClick={handleUpdateProfile}
-            disabled={loading}
-            className={styles.button}
-          >
-            Update Profile
-          </button>
-          <button
-            onClick={handlePasswordReset}
-            disabled={loading}
-            className={styles.button}
-          >
-            Reset Password
-          </button>
-          <button
-            onClick={handleCancelEdit}
-            className={styles.button}
-          >
-            Cancel
-          </button>
-        </>
+        <EditProfile
+          name={name}
+          image={image}
+          loading={loading}
+          onImageChange={handleImageChange}
+          onNameChange={(e) => setName(e.target.value)}
+          onUpdateProfile={handleUpdateProfile}
+          onPasswordReset={handlePasswordReset}
+          onCancel={handleCancelEdit}
+        />
       ) : (
-        <button onClick={toggleEditMode} className={styles.button}>
-          Edit Profile
-        </button>
+        <DisplayProfile user={user} onEdit={() => setEditMode(true)} />
       )}
 
       {message && (
