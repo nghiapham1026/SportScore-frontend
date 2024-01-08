@@ -6,6 +6,7 @@ import {
   signInWithPopup,
   signInWithEmailAndPassword,
 } from 'firebase/auth';
+import { getStorage } from 'firebase/storage'; // Import Firebase Storage
 
 const firebaseConfig = {
   apiKey: 'AIzaSyD4Do9ZZR5ZPrsLK8ht4Wt03xqGometLGo',
@@ -23,8 +24,12 @@ const app = initializeApp(firebaseConfig);
 // Get Firebase Auth instance
 const auth = getAuth(app);
 
+// Initialize Firebase Storage
+const storage = getStorage(app);
+
 export {
   auth,
+  storage, // Export the storage instance
   GoogleAuthProvider,
   signInWithPopup,
   signInWithEmailAndPassword,

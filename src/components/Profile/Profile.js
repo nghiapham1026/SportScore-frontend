@@ -1,19 +1,41 @@
 import React, { useState, useContext } from 'react';
 import { AuthContext } from '../../context/AuthContext';
 import { updateProfile, sendPasswordResetEmail } from 'firebase/auth';
-import { auth } from '../../firebase';
+import { ref, uploadBytes, getDownloadURL } from 'firebase/storage'; // Import required functions from Firebase Storage
+import { auth, storage } from '../../firebase'; // Ensure you import your Firebase storage instance
 import styles from './Profile.module.css';
 
 function Profile() {
   const { user } = useContext(AuthContext);
   const [name, setName] = useState(user?.displayName || '');
+  const [image, setImage] = useState(null); // New state for the image
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState('');
+
+  const handleImageChange = (e) => {
+    if (e.target.files[0]) {
+      setImage(e.target.files[0]);
+    }
+  };
+
+  const uploadImage = async () => {
+    if (image) {
+      const imageRef = ref(storage, `profile_images/${user.uid}`);
+      await uploadBytes(imageRef, image);
+      return await getDownloadURL(imageRef);
+    }
+    return null;
+  };
 
   const handleUpdateProfile = async () => {
     setLoading(true);
     try {
-      await updateProfile(user, { displayName: name });
+      const photoURL = await uploadImage(); // Upload the image and get the URL
+      if (photoURL) {
+        await updateProfile(user, { displayName: name, photoURL });
+      } else {
+        await updateProfile(user, { displayName: name });
+      }
       setMessage('Profile updated successfully');
     } catch (error) {
       setMessage('Failed to update profile');
@@ -51,6 +73,11 @@ function Profile() {
         <p>Email: {user.email}</p>
       </div>
 
+      <input
+        type="file"
+        onChange={handleImageChange}
+        className={styles.inputField}
+      />
       <input
         type="text"
         value={name}
