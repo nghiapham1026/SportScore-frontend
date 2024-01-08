@@ -25,6 +25,9 @@ function Navbar() {
           <Link to="/news" className={styles.navbarLink}>
             News
           </Link>
+          <Link to="/favorites" className={styles.navbarLink}>
+            Favorites
+          </Link>
         </li>
         <li className={`${styles.navbarItem} ${styles.signInLink}`}>
           {user ? (

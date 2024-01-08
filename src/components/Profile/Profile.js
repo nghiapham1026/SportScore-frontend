@@ -1,16 +1,17 @@
 import React, { useState, useContext } from 'react';
 import { AuthContext } from '../../context/AuthContext';
 import { updateProfile, sendPasswordResetEmail } from 'firebase/auth';
-import { ref, uploadBytes, getDownloadURL } from 'firebase/storage'; // Import required functions from Firebase Storage
-import { auth, storage } from '../../firebase'; // Ensure you import your Firebase storage instance
+import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
+import { auth, storage } from '../../firebase';
 import styles from './Profile.module.css';
 
 function Profile() {
   const { user } = useContext(AuthContext);
   const [name, setName] = useState(user?.displayName || '');
-  const [image, setImage] = useState(null); // New state for the image
+  const [image, setImage] = useState(null);
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState('');
+  const [editMode, setEditMode] = useState(false); // New state for toggling edit mode
 
   const handleImageChange = (e) => {
     if (e.target.files[0]) {
@@ -58,6 +59,17 @@ function Profile() {
 
   if (!user) return <div>Please sign in to view this page.</div>;
 
+  const handleCancelEdit = () => {
+    // Reset the form fields to their original states
+    setName(user?.displayName || '');
+    setImage(null);
+    setEditMode(false);
+  };
+
+  const toggleEditMode = () => {
+    setEditMode(!editMode);
+  };
+
   return (
     <div className={styles.profileContainer}>
       <h2>Profile</h2>
@@ -73,33 +85,46 @@ function Profile() {
         <p>Email: {user.email}</p>
       </div>
 
-      <input
-        type="file"
-        onChange={handleImageChange}
-        className={styles.inputField}
-      />
-      <input
-        type="text"
-        value={name}
-        onChange={(e) => setName(e.target.value)}
-        placeholder="Display Name"
-        className={styles.inputField}
-      />
-      <button
-        onClick={handleUpdateProfile}
-        disabled={loading}
-        className={styles.button}
-      >
-        Update Profile
-      </button>
-
-      <button
-        onClick={handlePasswordReset}
-        disabled={loading}
-        className={styles.button}
-      >
-        Reset Password
-      </button>
+      {editMode ? (
+        <>
+          <input
+            type="file"
+            onChange={handleImageChange}
+            className={styles.inputField}
+          />
+          <input
+            type="text"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            placeholder="Display Name"
+            className={styles.inputField}
+          />
+          <button
+            onClick={handleUpdateProfile}
+            disabled={loading}
+            className={styles.button}
+          >
+            Update Profile
+          </button>
+          <button
+            onClick={handlePasswordReset}
+            disabled={loading}
+            className={styles.button}
+          >
+            Reset Password
+          </button>
+          <button
+            onClick={handleCancelEdit}
+            className={styles.button}
+          >
+            Cancel
+          </button>
+        </>
+      ) : (
+        <button onClick={toggleEditMode} className={styles.button}>
+          Edit Profile
+        </button>
+      )}
 
       {message && (
         <p
