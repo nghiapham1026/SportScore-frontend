@@ -5,18 +5,19 @@ import EditProfile from './EditProfile';
 import styles from './Profile.module.css';
 
 function Profile() {
-  const { user, userData } = useContext(AuthContext);
+  const { user } = useContext(AuthContext);
   const [name, setName] = useState(user?.displayName || '');
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState('');
   const [editMode, setEditMode] = useState(false);
-  const [selectedLeagues, setSelectedLeagues] = useState(userData.favoriteLeagues || []);
+  const [selectedLeagues, setSelectedLeagues] = useState([]);
 
   useEffect(() => {
-    if (userData.favoriteLeagues) {
-      setSelectedLeagues(userData.favoriteLeagues);
+    // Check if user object is not null and has favoriteLeagues property
+    if (user && user.favoriteLeagues) {
+      setSelectedLeagues(user.favoriteLeagues);
     }
-  }, [userData.favoriteLeagues]);
+  }, [user]);
 
   if (!user) return <div>Please sign in to view this page.</div>;
 
@@ -36,11 +37,21 @@ function Profile() {
           setSelectedLeagues={setSelectedLeagues}
         />
       ) : (
-        <DisplayProfile user={user} onEdit={() => setEditMode(true)} />
+        <DisplayProfile
+          user={user}
+          onEdit={() => setEditMode(true)}
+          selectedLeagues={selectedLeagues} // Passing selectedLeagues to DisplayProfile
+        />
       )}
 
       {message && (
-        <p className={message.includes('Failed') ? styles.errorMessage : styles.successMessage}>
+        <p
+          className={
+            message.includes('Failed')
+              ? styles.errorMessage
+              : styles.successMessage
+          }
+        >
           {message}
         </p>
       )}

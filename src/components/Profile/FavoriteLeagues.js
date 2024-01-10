@@ -24,7 +24,7 @@ function FavoriteLeagues({ selectedLeagues, setSelectedLeagues }) {
   const handleLeagueSelect = (leagueId) => {
     const isCurrentlySelected = selectedLeagues.includes(leagueId);
     const updatedSelection = isCurrentlySelected
-      ? selectedLeagues.filter(id => id !== leagueId)
+      ? selectedLeagues.filter((id) => id !== leagueId)
       : [...selectedLeagues, leagueId];
     setSelectedLeagues(updatedSelection);
   };
@@ -39,7 +39,15 @@ function FavoriteLeagues({ selectedLeagues, setSelectedLeagues }) {
   return (
     <div className={styles.leaguesContainer}>
       {leagues.map((item) => (
-        <div key={item.league.id} onClick={() => handleLeagueSelect(item.league.id)} className={selectedLeagues.includes(item.league.id) ? styles.selectedLeague : styles.league}>
+        <div
+          key={item.league.id}
+          onClick={() => handleLeagueSelect(item.league.id)}
+          className={
+            selectedLeagues.includes(item.league.id)
+              ? styles.selectedLeague
+              : styles.league
+          }
+        >
           {item.league.name}
           <img src={item.league.logo} alt={item.league.name} />
         </div>

@@ -1,14 +1,14 @@
 import React, { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthContext';
-import styles from './SignIn.module.css'; // Import CSS for styling
+import styles from './SignIn.module.css';
 
 function SignIn() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
-  const { signInWithGoogle, signInWithEmail } = useContext(AuthContext);
+  const { signInWithEmail, signInWithGoogle } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const handleGoogleSignIn = async () => {

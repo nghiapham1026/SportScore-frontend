@@ -14,28 +14,44 @@ export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
-  const [userData, setUserData] = useState({}); // Store additional user data
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, async (user) => {
-      if (user) {
-        // Fetch user data from Firestore
-        const userRef = doc(db, 'users', user.uid);
-        const docSnap = await getDoc(userRef);
-        if (docSnap.exists()) {
-          setUserData(docSnap.data());
-        }
-      } else {
-        setUserData({});
-      }
-      setUser(user);
-    });
+    const unsubscribe = onAuthStateChanged(auth, setUser);
     return unsubscribe;
   }, []);
 
+  const createUserDocument = async (user) => {
+    const userRef = doc(db, 'users', user.uid);
+    const docSnap = await getDoc(userRef);
+
+    // Only create a new document if it doesn't already exist
+    if (!docSnap.exists()) {
+      await setDoc(userRef, { favoriteLeagues: [] }, { merge: true });
+    }
+  };
+
+  const signUpWithGoogle = async () => {
+    try {
+      const provider = new GoogleAuthProvider();
+      const result = await signInWithPopup(auth, provider);
+
+      // Check if the user is new and create a user document if they are
+      if (result.additionalUserInfo?.isNewUser) {
+        await createUserDocument(result.user);
+      }
+    } catch (error) {
+      throw error;
+    }
+  };
+
   const signUpWithEmail = async (email, password) => {
     try {
-      await createUserWithEmailAndPassword(auth, email, password);
+      const userCredential = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+      await createUserDocument(userCredential.user);
     } catch (error) {
       throw error;
     }
@@ -52,7 +68,8 @@ export const AuthProvider = ({ children }) => {
   const signInWithGoogle = async () => {
     try {
       const provider = new GoogleAuthProvider();
-      await signInWithPopup(auth, provider);
+      const result = await signInWithPopup(auth, provider);
+      await createUserDocument(result.user);
     } catch (error) {
       throw error;
     }
@@ -70,10 +87,10 @@ export const AuthProvider = ({ children }) => {
     <AuthContext.Provider
       value={{
         user,
-        userData, // Provide userData to the context consumers
         signUpWithEmail,
         signInWithEmail,
         signInWithGoogle,
+        signUpWithGoogle,
         signOut,
       }}
     >

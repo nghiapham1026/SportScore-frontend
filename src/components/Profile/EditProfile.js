@@ -1,14 +1,24 @@
 import React, { useState } from 'react';
 import { updateProfile, sendPasswordResetEmail } from 'firebase/auth';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
-import { doc, updateDoc } from 'firebase/firestore';
+import { doc, updateDoc, getDoc, setDoc } from 'firebase/firestore';
 import { auth, storage, db } from '../../firebase';
 import FavoriteLeagues from './FavoriteLeagues';
 import styles from './Profile.module.css';
 
-const EditProfile = ({ user, name, setName, loading, setLoading, setMessage, setEditMode, selectedLeagues, setSelectedLeagues }) => {
+const EditProfile = ({
+  user,
+  name,
+  setName,
+  loading,
+  setLoading,
+  setMessage,
+  setEditMode,
+  selectedLeagues,
+  setSelectedLeagues,
+}) => {
   const [image, setImage] = useState(null);
-  
+
   const handleImageChange = (e) => {
     if (e.target.files[0]) {
       setImage(e.target.files[0]);
@@ -42,38 +52,38 @@ const EditProfile = ({ user, name, setName, loading, setLoading, setMessage, set
   };
 
   const handleSaveProfileAndFavorites = async () => {
-  setLoading(true);
-  try {
-    // Update profile picture and name
-    const photoURL = await uploadImage(image);
-    if (photoURL) {
-      await updateProfile(user, { displayName: name, photoURL });
-    } else {
-      await updateProfile(user, { displayName: name });
+    setLoading(true);
+    try {
+      // Update profile picture and name
+      const photoURL = await uploadImage(image);
+      if (photoURL) {
+        await updateProfile(user, { displayName: name, photoURL });
+      } else {
+        await updateProfile(user, { displayName: name });
+      }
+
+      // Update favorite leagues in Firestore
+      const userRef = doc(db, 'users', user.uid);
+      const docSnap = await getDoc(userRef);
+
+      if (docSnap.exists()) {
+        await updateDoc(userRef, {
+          favoriteLeagues: selectedLeagues,
+        });
+      } else {
+        // Create the document if it doesn't exist
+        await setDoc(userRef, {
+          favoriteLeagues: selectedLeagues,
+        });
+      }
+
+      setMessage('Profile and favorites updated successfully');
+    } catch (error) {
+      setMessage(`Failed to update profile and favorites: ${error.message}`);
+    } finally {
+      setLoading(false);
     }
-
-    // Update favorite leagues in Firestore
-    const userRef = doc(db, 'users', user.uid);
-    const docSnap = await getDoc(userRef);
-
-    if (docSnap.exists()) {
-      await updateDoc(userRef, {
-        favoriteLeagues: selectedLeagues
-      });
-    } else {
-      // Create the document if it doesn't exist
-      await setDoc(userRef, {
-        favoriteLeagues: selectedLeagues
-      });
-    }
-
-    setMessage('Profile and favorites updated successfully');
-  } catch (error) {
-    setMessage(`Failed to update profile and favorites: ${error.message}`);
-  } finally {
-    setLoading(false);
-  }
-};
+  };
 
   return (
     <>
@@ -96,13 +106,13 @@ const EditProfile = ({ user, name, setName, loading, setLoading, setMessage, set
       >
         Reset Password
       </button>
-      <button
-        onClick={handleCancelEdit}
-        className={styles.button}
-      >
+      <button onClick={handleCancelEdit} className={styles.button}>
         Done
       </button>
-      <FavoriteLeagues selectedLeagues={selectedLeagues} setSelectedLeagues={setSelectedLeagues} />
+      <FavoriteLeagues
+        selectedLeagues={selectedLeagues}
+        setSelectedLeagues={setSelectedLeagues}
+      />
       <button
         onClick={() => handleSaveProfileAndFavorites(image)}
         disabled={loading}

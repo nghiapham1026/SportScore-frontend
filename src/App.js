@@ -59,7 +59,7 @@ function App() {
           <Route path="/signin" element={<SignIn />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/signout" element={<SignOut />}></Route>
-          <Route path='/favorites' element={<Favorites />}></Route>
+          <Route path="/favorites" element={<Favorites />}></Route>
         </Routes>
       </Router>
     </AuthProvider>
