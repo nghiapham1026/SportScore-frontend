@@ -1,0 +1,14 @@
+.league {
+    cursor: pointer;
+    /* Other styling */
+  }
+  
+  .selectedLeague {
+    background-color: #ddd; /* Or any indication of selection */
+    /* Other styling for selected league */
+  }
+  
+  .saveButton {
+    /* Styling for the save button */
+  }
+  
