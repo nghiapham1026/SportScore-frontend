@@ -5,7 +5,7 @@ import EditProfile from './EditProfile';
 import styles from './Profile.module.css';
 
 function Profile() {
-  const { user } = useContext(AuthContext);
+  const { user, userData } = useContext(AuthContext);
   const [name, setName] = useState(user?.displayName || '');
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState('');
@@ -13,11 +13,10 @@ function Profile() {
   const [selectedLeagues, setSelectedLeagues] = useState([]);
 
   useEffect(() => {
-    // Check if user object is not null and has favoriteLeagues property
-    if (user && user.favoriteLeagues) {
-      setSelectedLeagues(user.favoriteLeagues);
+    if (userData && userData.favoriteLeagues) {
+      setSelectedLeagues(userData.favoriteLeagues);
     }
-  }, [user]);
+  }, [userData]);
 
   if (!user) return <div>Please sign in to view this page.</div>;
 
@@ -40,18 +39,12 @@ function Profile() {
         <DisplayProfile
           user={user}
           onEdit={() => setEditMode(true)}
-          selectedLeagues={selectedLeagues} // Passing selectedLeagues to DisplayProfile
+          selectedLeagues={selectedLeagues}
         />
       )}
 
       {message && (
-        <p
-          className={
-            message.includes('Failed')
-              ? styles.errorMessage
-              : styles.successMessage
-          }
-        >
+        <p className={message.includes('Failed') ? styles.errorMessage : styles.successMessage}>
           {message}
         </p>
       )}

@@ -8,15 +8,28 @@ import {
   signInWithPopup,
   signOut as firebaseSignOut,
 } from 'firebase/auth';
-import { doc, setDoc } from 'firebase/firestore';
+import { doc, setDoc, getDoc } from 'firebase/firestore';
 
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
+  const [userData, setUserData] = useState({}); // Store additional user data
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, setUser);
+    const unsubscribe = onAuthStateChanged(auth, async (authUser) => {
+      if (authUser) {
+        const userRef = doc(db, 'users', authUser.uid);
+        const docSnap = await getDoc(userRef);
+
+        if (docSnap.exists()) {
+          setUserData(docSnap.data());
+        }
+      } else {
+        setUserData({});
+      }
+      setUser(authUser);
+    });
     return unsubscribe;
   }, []);
 
@@ -87,6 +100,7 @@ export const AuthProvider = ({ children }) => {
     <AuthContext.Provider
       value={{
         user,
+        userData,
         signUpWithEmail,
         signInWithEmail,
         signInWithGoogle,
