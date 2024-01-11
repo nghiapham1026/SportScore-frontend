@@ -22,10 +22,15 @@ function FavoriteLeagues({ selectedLeagues, setSelectedLeagues }) {
   }, []);
 
   const handleLeagueSelect = (league) => {
-    const isCurrentlySelected = selectedLeagues.some(selected => selected.id === league.id);
+    const isCurrentlySelected = selectedLeagues.some(
+      (selected) => selected.id === league.id
+    );
     const updatedSelection = isCurrentlySelected
-      ? selectedLeagues.filter(selected => selected.id !== league.id)
-      : [...selectedLeagues, { id: league.id, name: league.name, logo: league.logo }];
+      ? selectedLeagues.filter((selected) => selected.id !== league.id)
+      : [
+          ...selectedLeagues,
+          { id: league.id, name: league.name, logo: league.logo },
+        ];
     setSelectedLeagues(updatedSelection);
   };
 
@@ -39,7 +44,7 @@ function FavoriteLeagues({ selectedLeagues, setSelectedLeagues }) {
           key={item.league.id}
           onClick={() => handleLeagueSelect(item.league)}
           className={
-            selectedLeagues.some(league => league.id === item.league.id)
+            selectedLeagues.some((league) => league.id === item.league.id)
               ? styles.selectedLeague
               : styles.league
           }

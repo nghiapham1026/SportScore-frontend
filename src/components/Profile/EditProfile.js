@@ -4,7 +4,7 @@ import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { doc, updateDoc, getDoc, setDoc } from 'firebase/firestore';
 import { auth, storage, db } from '../../firebase';
 import FavoriteLeagues from './FavoriteLeagues';
-import styles from './Profile.module.css';
+import styles from './EditProfile.module.css';
 
 const EditProfile = ({
   user,

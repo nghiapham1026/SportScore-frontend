@@ -44,7 +44,13 @@ function Profile() {
       )}
 
       {message && (
-        <p className={message.includes('Failed') ? styles.errorMessage : styles.successMessage}>
+        <p
+          className={
+            message.includes('Failed')
+              ? styles.errorMessage
+              : styles.successMessage
+          }
+        >
           {message}
         </p>
       )}

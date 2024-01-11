@@ -1,14 +1,33 @@
-.league {
+/* FavoriteLeagues.module.css */
+.leaguesContainer {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+  }
+  
+  .league {
     cursor: pointer;
-    /* Other styling */
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
   }
   
   .selectedLeague {
-    background-color: #ddd; /* Or any indication of selection */
-    /* Other styling for selected league */
+    background-color: #e0e0e0; /* Light grey to indicate selection */
+    border-color: #007bff; /* Blue border for selected league */
   }
   
-  .saveButton {
-    /* Styling for the save button */
+  .league img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
   }
   

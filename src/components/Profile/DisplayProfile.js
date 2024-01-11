@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './Profile.module.css';
+import styles from './DisplayProfile.module.css'; // Update the import
 
 const DisplayProfile = ({ user, onEdit, selectedLeagues }) => {
   return (
@@ -23,10 +23,10 @@ const DisplayProfile = ({ user, onEdit, selectedLeagues }) => {
           {selectedLeagues.map((league, index) => (
             <li key={index}>
               <div className={styles.leagueItem}>
-                <img 
-                  src={league.logo} 
-                  alt={league.name} 
-                  className={styles.leagueLogo} 
+                <img
+                  src={league.logo}
+                  alt={league.name}
+                  className={styles.leagueLogo}
                 />
                 <span>{league.name}</span>
               </div>
