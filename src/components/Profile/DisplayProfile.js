@@ -21,7 +21,16 @@ const DisplayProfile = ({ user, onEdit, selectedLeagues }) => {
         <h3>Favorite Leagues</h3>
         <ul>
           {selectedLeagues.map((league, index) => (
-            <li key={index}>{league}</li> // Assuming league has a 'name' property
+            <li key={index}>
+              <div className={styles.leagueItem}>
+                <img 
+                  src={league.logo} 
+                  alt={league.name} 
+                  className={styles.leagueLogo} 
+                />
+                <span>{league.name}</span>
+              </div>
+            </li>
           ))}
         </ul>
       </div>

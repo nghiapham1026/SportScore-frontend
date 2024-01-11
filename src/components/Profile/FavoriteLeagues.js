@@ -21,16 +21,12 @@ function FavoriteLeagues({ selectedLeagues, setSelectedLeagues }) {
     fetchLeagues();
   }, []);
 
-  const handleLeagueSelect = (leagueId) => {
-    const isCurrentlySelected = selectedLeagues.includes(leagueId);
+  const handleLeagueSelect = (league) => {
+    const isCurrentlySelected = selectedLeagues.some(selected => selected.id === league.id);
     const updatedSelection = isCurrentlySelected
-      ? selectedLeagues.filter((id) => id !== leagueId)
-      : [...selectedLeagues, leagueId];
+      ? selectedLeagues.filter(selected => selected.id !== league.id)
+      : [...selectedLeagues, { id: league.id, name: league.name, logo: league.logo }];
     setSelectedLeagues(updatedSelection);
-  };
-
-  const handleSaveFavorites = () => {
-    updateUserFavorites(selectedLeagues); // Ensure this updates the user's profile correctly
   };
 
   if (loading) return <p>Loading...</p>;
@@ -41,9 +37,9 @@ function FavoriteLeagues({ selectedLeagues, setSelectedLeagues }) {
       {leagues.map((item) => (
         <div
           key={item.league.id}
-          onClick={() => handleLeagueSelect(item.league.id)}
+          onClick={() => handleLeagueSelect(item.league)}
           className={
-            selectedLeagues.includes(item.league.id)
+            selectedLeagues.some(league => league.id === item.league.id)
               ? styles.selectedLeague
               : styles.league
           }
