@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { updateProfile, sendPasswordResetEmail } from 'firebase/auth';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { doc, updateDoc, getDoc, setDoc } from 'firebase/firestore';
@@ -17,7 +17,14 @@ const EditProfile = ({
   selectedLeagues,
   setSelectedLeagues,
 }) => {
-  const [image, setImage] = useState(null);
+    const [image, setImage] = useState(null);
+    const [tempSelectedLeagues, setTempSelectedLeagues] = useState(selectedLeagues);
+  
+    // Effect to reset tempSelectedLeagues when selectedLeagues changes, 
+    // which happens when the component mounts and potentially when the prop changes
+    useEffect(() => {
+      setTempSelectedLeagues(selectedLeagues);
+    }, [selectedLeagues]);
 
   const handleImageChange = (e) => {
     if (e.target.files[0]) {
@@ -47,7 +54,10 @@ const EditProfile = ({
   };
 
   const handleCancelEdit = () => {
+    // Revert the local changes without saving them to Firestore
+    setTempSelectedLeagues(selectedLeagues);
     setName(user?.displayName || '');
+    setImage(null); // Assuming you want to reset the image as well
     setEditMode(false);
   };
 
@@ -70,11 +80,13 @@ const EditProfile = ({
         await updateDoc(userRef, {
           favoriteLeagues: selectedLeagues,
         });
+        setSelectedLeagues(tempSelectedLeagues);
       } else {
         // Create the document if it doesn't exist
         await setDoc(userRef, {
           favoriteLeagues: selectedLeagues,
         });
+        setSelectedLeagues(tempSelectedLeagues);
       }
 
       setMessage('Profile and favorites updated successfully');
@@ -110,8 +122,8 @@ const EditProfile = ({
         Done
       </button>
       <FavoriteLeagues
-        selectedLeagues={selectedLeagues}
-        setSelectedLeagues={setSelectedLeagues}
+        selectedLeagues={tempSelectedLeagues}
+        setSelectedLeagues={setTempSelectedLeagues}
       />
       <button
         onClick={() => handleSaveProfileAndFavorites(image)}

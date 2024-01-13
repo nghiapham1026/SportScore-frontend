@@ -18,20 +18,25 @@ export const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (authUser) => {
+      console.log('Auth state changed:', authUser);
       if (authUser) {
         const userRef = doc(db, 'users', authUser.uid);
         const docSnap = await getDoc(userRef);
-
+  
         if (docSnap.exists()) {
+          console.log('User data found:', docSnap.data());
           setUserData(docSnap.data());
+        } else {
+          console.log('No user data found');
         }
+        setUser(authUser);
       } else {
+        console.log('User signed out');
         setUserData({});
       }
-      setUser(authUser);
     });
     return unsubscribe;
-  }, []);
+  }, []);  
 
   const createUserDocument = async (user) => {
     const userRef = doc(db, 'users', user.uid);

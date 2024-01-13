@@ -13,6 +13,8 @@ function Profile() {
   const [selectedLeagues, setSelectedLeagues] = useState([]);
 
   useEffect(() => {
+    setEditMode(false);
+
     if (userData && userData.favoriteLeagues) {
       setSelectedLeagues(userData.favoriteLeagues);
     }
