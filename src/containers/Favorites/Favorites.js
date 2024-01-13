@@ -1,24 +1,45 @@
-import React, { useContext, useState, useEffect } from 'react';
-import { AuthContext } from '../../context/AuthContext';
+import React, { useState, useEffect, useContext } from 'react';
 import { fetchFixtures } from '../../utils/dataController';
 import styles from './Favorites.module.css';
+import { AuthContext } from '../../context/AuthContext';
 
 function Favorites() {
-    const today = new Date().toISOString().slice(0, 10);
+  const today = new Date().toISOString().slice(0, 10);
   const { user, userData } = useContext(AuthContext);
   const [selectedDate, setSelectedDate] = useState(today);
   const [fixtures, setFixtures] = useState([]);
-
+  
   if (!user) return <div>Please log in to view your favorites.</div>;
+
+  // Hardcoded userData for debugging
+  /*const userData = {
+    favoriteLeagues: [
+      {
+        logo: "https://media.api-sports.io/football/leagues/78.png",
+        id: 78,
+        name: "Bundesliga"
+      },
+      {
+        name: "Serie A",
+        logo: "https://media.api-sports.io/football/leagues/135.png",
+        id: 135
+      },
+      {
+        name: "Premier League",
+        logo: "https://media.api-sports.io/football/leagues/39.png",
+        id: 39
+      }
+    ]
+  };*/
 
   const handleDateChange = (event) => {
     console.log('Date changed:', event.target.value);
     setSelectedDate(event.target.value);
   };
 
-  /*useEffect(() => {
+  useEffect(() => {
     const fetchLeagueFixtures = async () => {
-      if (selectedDate && userData.favoriteLeagues) {
+      if (selectedDate) {
         console.log('Fetching fixtures for date:', selectedDate);
         try {
           // Fetch all fixtures for the selected date
@@ -37,24 +58,20 @@ function Favorites() {
     };
   
     console.log('Clearing previous fixtures');
-    // Clear the previous fixtures before fetching new ones
     setFixtures([]);
-  
-    // Call the async function
     fetchLeagueFixtures();
-  }, [selectedDate, userData.favoriteLeagues]);  */
+  }, [selectedDate]); // Removed userData.favoriteLeagues from dependencies
 
-  const favoriteLeagues = userData?.favoriteLeagues || [];
+  const favoriteLeagues = userData.favoriteLeagues;
 
   return (
     <div>
-      <h2>Favorites Feed for User: {user.email}</h2>
+      <h2>Favorites Feed</h2>
       {favoriteLeagues.length > 0 ? (
         <ul>
           {favoriteLeagues.map((league, index) => (
             <li key={index}>
-              {league.name} {/* Display the league name */}
-              {/* If there's a logo, display it */}
+              {league.name}
               {league.logo && <img src={league.logo} alt={league.name} />}
             </li>
           ))}
@@ -75,9 +92,12 @@ function Favorites() {
         <div>
           <h3>Fixtures for {selectedDate}</h3>
           <ul>
-            {fixtures.map((fixture, index) => (
-              <li key={index}>{fixture}</li> // Replace with appropriate JSX based on fixture object structure
-            ))}
+          {fixtures.map((fixture, index) => (
+  <li key={index}>
+    {fixture.league.name} - {fixture.teams.home.name} vs. {fixture.teams.away.name}
+    {/* Add other fixture details you want to display */}
+  </li>
+))}
           </ul>
         </div>
       )}
