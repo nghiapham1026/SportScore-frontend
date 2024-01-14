@@ -16,7 +16,10 @@ import Predictions from './containers/Predictions/Predictions';
 import News from './containers/News/News';
 import { AuthProvider } from './context/AuthContext';
 import SignIn from './components/SignIn/SignIn';
-import Profile from './components/SignIn/Profile';
+import Profile from './components/Profile/Profile';
+import SignUp from './components/SignUp/SignUp';
+import SignOut from './components/SignOut/SignOut';
+import Favorites from './containers/Favorites/Favorites';
 
 function App() {
   return (
@@ -54,6 +57,9 @@ function App() {
 
           <Route path="/profile" element={<Profile />} />
           <Route path="/signin" element={<SignIn />} />
+          <Route path="/signup" element={<SignUp />} />
+          <Route path="/signout" element={<SignOut />}></Route>
+          <Route path="/favorites" element={<Favorites />}></Route>
         </Routes>
       </Router>
     </AuthProvider>

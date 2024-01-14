@@ -4,7 +4,11 @@
     "es2021": true,
     "node": true
   },
-  "extends": ["plugin:prettier/recommended", "plugin:react/recommended"],
+  "extends": [
+    "plugin:prettier/recommended",
+    "plugin:react/recommended",
+    "plugin:react-hooks/recommended"
+  ],
   "parserOptions": {
     "ecmaVersion": "latest",
     "sourceType": "module",
@@ -14,8 +18,8 @@
   },
   "rules": {
     "prettier/prettier": "warn",
-    "no-unmodified-loop-condition": "off",
-    "react/prop-types": "off", // Disables prop-types rule
+    "no-unmodified-loop-condition": "warn",
+    "react/prop-types": "warn", // Disables prop-types rule
     "react/no-unescaped-entities": "warn" // Changes to warning
     // Add other rules here as needed
   },

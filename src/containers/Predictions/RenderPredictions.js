@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styles from './RenderPredictions.module.css';
 
 function RenderPredictions({ predictions }) {
@@ -75,5 +76,31 @@ function RenderPredictions({ predictions }) {
     </div>
   );
 }
+
+RenderPredictions.propTypes = {
+  predictions: PropTypes.shape({
+    allPredictions: PropTypes.arrayOf(
+      PropTypes.shape({
+        league: PropTypes.shape({
+          name: PropTypes.string.isRequired,
+          season: PropTypes.string.isRequired,
+          logo: PropTypes.string,
+        }).isRequired,
+        teams: PropTypes.shape({
+          home: PropTypes.shape({
+            name: PropTypes.string.isRequired,
+            logo: PropTypes.string,
+          }).isRequired,
+          away: PropTypes.shape({
+            name: PropTypes.string.isRequired,
+            logo: PropTypes.string,
+          }).isRequired,
+        }).isRequired,
+        predictions: PropTypes.object,
+        comparison: PropTypes.object,
+      })
+    ).isRequired,
+  }),
+};
 
 export default RenderPredictions;

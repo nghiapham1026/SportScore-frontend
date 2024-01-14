@@ -1,37 +1,37 @@
 import React, { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthContext';
-import styles from './SignIn.module.css';
+import styles from '../SignIn/SignIn.module.css'; // Reusing the same styles
 
-function SignIn() {
+function SignUp() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
-  const { signInWithEmail, signInWithGoogle } = useContext(AuthContext);
+  const { signUpWithEmail, signUpWithGoogle } = useContext(AuthContext);
   const navigate = useNavigate();
 
-  const handleGoogleSignIn = async () => {
+  const handleGoogleSignUp = async () => {
     setLoading(true);
     try {
-      await signInWithGoogle();
+      await signUpWithGoogle();
       navigate('/profile');
     } catch (error) {
-      console.error('Error during Google Sign-In', error);
-      setError('Failed to sign in with Google. Please try again.');
+      console.error('Error during Google Sign-Up', error);
+      setError('Failed to sign up with Google. Please try again.');
       setLoading(false);
     }
   };
 
-  const handleEmailPasswordSignIn = async (event) => {
+  const handleEmailPasswordSignUp = async (event) => {
     event.preventDefault();
     setLoading(true);
     try {
-      await signInWithEmail(email, password);
+      await signUpWithEmail(email, password);
       navigate('/profile');
     } catch (error) {
-      console.error('Error during Email/Password Sign-In', error);
-      setError('Sign-in failed. Please check your credentials.');
+      console.error('Error during Email/Password Sign-Up', error);
+      setError('Sign-up failed. Please check your credentials.');
       setLoading(false);
     }
   };
@@ -39,7 +39,7 @@ function SignIn() {
   return (
     <div className={styles.signInContainer}>
       {error && <p className={styles.error}>{error}</p>}
-      <form onSubmit={handleEmailPasswordSignIn}>
+      <form onSubmit={handleEmailPasswordSignUp}>
         <input
           type="email"
           value={email}
@@ -57,18 +57,18 @@ function SignIn() {
           className={styles.input}
         />
         <button type="submit" disabled={loading} className={styles.button}>
-          Sign In with Email
+          Sign Up with Email
         </button>
         <button
-          onClick={handleGoogleSignIn}
+          onClick={handleGoogleSignUp}
           disabled={loading}
           className={styles.button}
         >
-          Sign In with Google
+          Sign Up with Google
         </button>
       </form>
     </div>
   );
 }
 
-export default SignIn;
+export default SignUp;
