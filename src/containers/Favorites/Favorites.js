@@ -45,21 +45,27 @@ function Favorites() {
   if (!user) return <div>Please log in to view your favorites.</div>;
 
   return (
-    <div>
-      <h2>Favorites Feed for {user.displayName || user.email}</h2>
+    <div className={styles.container}>
+      <h2 className={styles.header}>
+        Favorites Feed for {user.displayName || user.email}
+      </h2>
       {favoriteLeagues.length > 0 ? (
-        <ul>
+        <ul className={styles.leagueList}>
           {favoriteLeagues.map((league, index) => (
-            <li key={index}>
-              {league.name}
+            <li key={index} className={styles.leagueItem}>
               {league.logo && <img src={league.logo} alt={league.name} />}
+              {league.name}
             </li>
           ))}
         </ul>
       ) : (
-        <p>You have no favorite leagues added. Start adding some!</p>
+        <p className={styles.noLeagues}>
+          You have no favorite leagues added. Start adding some!
+        </p>
       )}
-      <label htmlFor="calendar">Choose a date:</label>
+      <label htmlFor="calendar" className={styles.calendarLabel}>
+        Choose a date:
+      </label>
       <input
         type="date"
         id="calendar"
@@ -70,13 +76,12 @@ function Favorites() {
       />
       {fixtures.length > 0 && (
         <div>
-          <h3>Fixtures for {selectedDate}</h3>
-          <ul>
+          <h3>Fixtures on {selectedDate}</h3>
+          <ul className={styles.fixtureList}>
             {fixtures.map((fixture, index) => (
-              <li key={index}>
+              <li key={index} className={styles.fixtureItem}>
                 {fixture.league.name} - {fixture.teams.home.name} vs.{' '}
                 {fixture.teams.away.name}
-                {/* Add other fixture details you want to display */}
               </li>
             ))}
           </ul>
