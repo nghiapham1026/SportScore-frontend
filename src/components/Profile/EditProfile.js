@@ -17,14 +17,15 @@ const EditProfile = ({
   selectedLeagues,
   setSelectedLeagues,
 }) => {
-    const [image, setImage] = useState(null);
-    const [tempSelectedLeagues, setTempSelectedLeagues] = useState(selectedLeagues);
-  
-    // Effect to reset tempSelectedLeagues when selectedLeagues changes, 
-    // which happens when the component mounts and potentially when the prop changes
-    useEffect(() => {
-      setTempSelectedLeagues(selectedLeagues);
-    }, [selectedLeagues]);
+  const [image, setImage] = useState(null);
+  const [tempSelectedLeagues, setTempSelectedLeagues] =
+    useState(selectedLeagues);
+
+  // Effect to reset tempSelectedLeagues when selectedLeagues changes,
+  // which happens when the component mounts and potentially when the prop changes
+  useEffect(() => {
+    setTempSelectedLeagues(selectedLeagues);
+  }, [selectedLeagues]);
 
   const handleImageChange = (e) => {
     if (e.target.files[0]) {

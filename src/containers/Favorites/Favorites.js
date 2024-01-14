@@ -8,65 +8,45 @@ function Favorites() {
   const { user, userData } = useContext(AuthContext);
   const [selectedDate, setSelectedDate] = useState(today);
   const [fixtures, setFixtures] = useState([]);
-  
-  if (!user) return <div>Please log in to view your favorites.</div>;
 
-  // Hardcoded userData for debugging
-  /*const userData = {
-    favoriteLeagues: [
-      {
-        logo: "https://media.api-sports.io/football/leagues/78.png",
-        id: 78,
-        name: "Bundesliga"
-      },
-      {
-        name: "Serie A",
-        logo: "https://media.api-sports.io/football/leagues/135.png",
-        id: 135
-      },
-      {
-        name: "Premier League",
-        logo: "https://media.api-sports.io/football/leagues/39.png",
-        id: 39
+  useEffect(() => {
+    const fetchLeagueFixtures = async () => {
+      console.log('Fetching fixtures for date:', selectedDate);
+      try {
+        // Fetch all fixtures for the selected date
+        const allFixturesForDate = await fetchFixtures({ date: selectedDate });
+
+        // Filter these fixtures to include only those from favorite leagues
+        const favoriteLeagueIDs = new Set(
+          userData.favoriteLeagues.map((league) => league.id)
+        );
+        const filteredFixtures = allFixturesForDate.filter((fixture) =>
+          favoriteLeagueIDs.has(fixture.league.id)
+        );
+
+        setFixtures(filteredFixtures);
+      } catch (error) {
+        console.error('Error fetching fixtures:', error);
       }
-    ]
-  };*/
+    };
+
+    console.log('Clearing previous fixtures');
+    setFixtures([]);
+    fetchLeagueFixtures();
+  }, [userData, selectedDate]);
 
   const handleDateChange = (event) => {
     console.log('Date changed:', event.target.value);
     setSelectedDate(event.target.value);
   };
 
-  useEffect(() => {
-    const fetchLeagueFixtures = async () => {
-      if (selectedDate) {
-        console.log('Fetching fixtures for date:', selectedDate);
-        try {
-          // Fetch all fixtures for the selected date
-          const allFixturesForDate = await fetchFixtures({ date: selectedDate });
-  
-          // Filter these fixtures to include only those from favorite leagues
-          const favoriteLeagueIDs = new Set(userData.favoriteLeagues.map(league => league.id));
-          const filteredFixtures = allFixturesForDate.filter(fixture => 
-            favoriteLeagueIDs.has(fixture.league.id));
-  
-          setFixtures(filteredFixtures);
-        } catch (error) {
-          console.error('Error fetching fixtures:', error);
-        }
-      }
-    };
-  
-    console.log('Clearing previous fixtures');
-    setFixtures([]);
-    fetchLeagueFixtures();
-  }, [selectedDate]); // Removed userData.favoriteLeagues from dependencies
-
   const favoriteLeagues = userData.favoriteLeagues;
+
+  if (!user) return <div>Please log in to view your favorites.</div>;
 
   return (
     <div>
-      <h2>Favorites Feed</h2>
+      <h2>Favorites Feed for {user.displayName || user.email}</h2>
       {favoriteLeagues.length > 0 ? (
         <ul>
           {favoriteLeagues.map((league, index) => (
@@ -92,17 +72,18 @@ function Favorites() {
         <div>
           <h3>Fixtures for {selectedDate}</h3>
           <ul>
-          {fixtures.map((fixture, index) => (
-  <li key={index}>
-    {fixture.league.name} - {fixture.teams.home.name} vs. {fixture.teams.away.name}
-    {/* Add other fixture details you want to display */}
-  </li>
-))}
+            {fixtures.map((fixture, index) => (
+              <li key={index}>
+                {fixture.league.name} - {fixture.teams.home.name} vs.{' '}
+                {fixture.teams.away.name}
+                {/* Add other fixture details you want to display */}
+              </li>
+            ))}
           </ul>
         </div>
       )}
     </div>
   );
-};
+}
 
 export default Favorites;

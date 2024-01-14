@@ -22,7 +22,7 @@ export const AuthProvider = ({ children }) => {
       if (authUser) {
         const userRef = doc(db, 'users', authUser.uid);
         const docSnap = await getDoc(userRef);
-  
+
         if (docSnap.exists()) {
           console.log('User data found:', docSnap.data());
           setUserData(docSnap.data());
@@ -36,7 +36,7 @@ export const AuthProvider = ({ children }) => {
       }
     });
     return unsubscribe;
-  }, []);  
+  }, []);
 
   const createUserDocument = async (user) => {
     const userRef = doc(db, 'users', user.uid);
