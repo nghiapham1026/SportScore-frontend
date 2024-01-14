@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import { getLeagues } from '../../utils/dataController';
 import styles from './FavoriteLeagues.module.css';
 
@@ -56,5 +57,16 @@ function FavoriteLeagues({ selectedLeagues, setSelectedLeagues }) {
     </div>
   );
 }
+
+FavoriteLeagues.propTypes = {
+  selectedLeagues: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      name: PropTypes.string.isRequired,
+      logo: PropTypes.string,
+    })
+  ).isRequired,
+  setSelectedLeagues: PropTypes.func.isRequired,
+};
 
 export default FavoriteLeagues;

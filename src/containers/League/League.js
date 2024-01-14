@@ -40,7 +40,7 @@ function League() {
     }
 
     fetchLeagueData();
-  }, [leagueId]);
+  }, [leagueId, selectedSeason]);
 
   useEffect(() => {
     async function fetchLeagueStandings() {
@@ -58,7 +58,7 @@ function League() {
     }
 
     fetchLeagueStandings();
-  }, [selectedSeason, leagueId, loading]); // Add loading to the dependency array
+  }, [selectedSeason, leagueId, loading]); // Include selectedSeason in the dependency array
 
   const handleSeasonSelectorChange = (seasonId) => {
     const season = handleSeasonChange(seasons, seasonId);

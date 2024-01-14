@@ -1,5 +1,6 @@
 import React from 'react';
-import styles from './DisplayProfile.module.css'; // Update the import
+import PropTypes from 'prop-types';
+import styles from './DisplayProfile.module.css';
 
 const DisplayProfile = ({ user, onEdit, selectedLeagues }) => {
   return (
@@ -36,6 +37,21 @@ const DisplayProfile = ({ user, onEdit, selectedLeagues }) => {
       </div>
     </>
   );
+};
+
+DisplayProfile.propTypes = {
+  user: PropTypes.shape({
+    photoURL: PropTypes.string,
+    displayName: PropTypes.string,
+    email: PropTypes.string,
+  }),
+  onEdit: PropTypes.func.isRequired,
+  selectedLeagues: PropTypes.arrayOf(
+    PropTypes.shape({
+      logo: PropTypes.string.isRequired,
+      name: PropTypes.string.isRequired,
+    })
+  ).isRequired,
 };
 
 export default DisplayProfile;

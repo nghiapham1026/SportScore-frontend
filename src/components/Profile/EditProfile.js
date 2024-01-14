@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import { updateProfile, sendPasswordResetEmail } from 'firebase/auth';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { doc, updateDoc, getDoc, setDoc } from 'firebase/firestore';
@@ -135,6 +136,22 @@ const EditProfile = ({
       </button>
     </>
   );
+};
+
+EditProfile.propTypes = {
+  user: PropTypes.shape({
+    uid: PropTypes.string.isRequired,
+    email: PropTypes.string,
+    displayName: PropTypes.string,
+  }).isRequired,
+  name: PropTypes.string.isRequired,
+  setName: PropTypes.func.isRequired,
+  loading: PropTypes.bool.isRequired,
+  setLoading: PropTypes.func.isRequired,
+  setMessage: PropTypes.func.isRequired,
+  setEditMode: PropTypes.func.isRequired,
+  selectedLeagues: PropTypes.arrayOf(PropTypes.object).isRequired,
+  setSelectedLeagues: PropTypes.func.isRequired,
 };
 
 export default EditProfile;

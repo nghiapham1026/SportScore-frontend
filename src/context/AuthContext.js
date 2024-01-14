@@ -1,4 +1,5 @@
 import React, { createContext, useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import { auth, db } from '../firebase';
 import {
   onAuthStateChanged,
@@ -116,6 +117,10 @@ export const AuthProvider = ({ children }) => {
       {children}
     </AuthContext.Provider>
   );
+};
+
+AuthProvider.propTypes = {
+  children: PropTypes.node.isRequired, // Define the prop type for children
 };
 
 export default AuthProvider;
