@@ -87,9 +87,12 @@ const EditProfile = ({
           favoriteLeagues: tempSelectedLeagues,
         });
       }
-      setSelectedLeagues(tempSelectedLeagues);      
+      setSelectedLeagues(tempSelectedLeagues);
 
       setMessage('Profile and favorites updated successfully');
+
+      // Reload the page to reflect the new changes
+      window.location.reload();
     } catch (error) {
       setMessage(`Failed to update profile and favorites: ${error.message}`);
     } finally {

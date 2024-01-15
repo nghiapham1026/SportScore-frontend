@@ -112,7 +112,7 @@ export const AuthProvider = ({ children }) => {
     } catch (error) {
       throw error;
     }
-  };  
+  };
 
   return (
     <AuthContext.Provider
@@ -133,7 +133,7 @@ export const AuthProvider = ({ children }) => {
 };
 
 AuthProvider.propTypes = {
-  children: PropTypes.node.isRequired, // Define the prop type for children
+  children: PropTypes.node.isRequired,
 };
 
 export default AuthProvider;
