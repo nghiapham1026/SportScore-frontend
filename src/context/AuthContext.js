@@ -17,22 +17,32 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [userData, setUserData] = useState({}); // Store additional user data
 
+  const fetchAndUpdateUserData = async (uid) => {
+    if (!uid) return;
+
+    try {
+      const userRef = doc(db, 'users', uid);
+      const docSnap = await getDoc(userRef);
+
+      if (docSnap.exists()) {
+        setUserData(docSnap.data());
+      } else {
+        setUserData({});
+      }
+    } catch (error) {
+      console.error('Error fetching user data:', error);
+    }
+  };
+
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, async (authUser) => {
+    const unsubscribe = onAuthStateChanged(auth, (authUser) => {
       console.log('Auth state changed:', authUser);
       if (authUser) {
-        const userRef = doc(db, 'users', authUser.uid);
-        const docSnap = await getDoc(userRef);
-
-        if (docSnap.exists()) {
-          console.log('User data found:', docSnap.data());
-          setUserData(docSnap.data());
-        } else {
-          console.log('No user data found');
-        }
+        fetchAndUpdateUserData(authUser.uid);
         setUser(authUser);
       } else {
         console.log('User signed out');
+        setUser(null);
         setUserData({});
       }
     });
@@ -109,6 +119,7 @@ export const AuthProvider = ({ children }) => {
       value={{
         user,
         userData,
+        fetchAndUpdateUserData,
         signUpWithEmail,
         signInWithEmail,
         signInWithGoogle,

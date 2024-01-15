@@ -5,9 +5,15 @@ import { AuthContext } from '../../context/AuthContext';
 
 function Favorites() {
   const today = new Date().toISOString().slice(0, 10);
-  const { user, userData } = useContext(AuthContext);
+  const { user, userData, fetchAndUpdateUserData } = useContext(AuthContext);
   const [selectedDate, setSelectedDate] = useState(today);
   const [fixtures, setFixtures] = useState([]);
+
+  useEffect(() => {
+    if (user) {
+      fetchAndUpdateUserData(user.uid);
+    }
+  }, [user, fetchAndUpdateUserData]);
 
   useEffect(() => {
     const fetchLeagueFixtures = async () => {
