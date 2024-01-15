@@ -17,6 +17,47 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [userData, setUserData] = useState({}); // Store additional user data
 
+  const autoSignOut = (timeout) => {
+    setTimeout(() => {
+      signOut();
+    }, timeout);
+  };
+
+  useEffect(() => {
+    if (user) {
+      autoSignOut(3600000);
+
+      const resetTimer = () => {
+        autoSignOut(3600000);
+      };
+
+      window.addEventListener('click', resetTimer);
+      window.addEventListener('scroll', resetTimer);
+      window.addEventListener('keypress', resetTimer);
+
+      return () => {
+        window.removeEventListener('click', resetTimer);
+        window.removeEventListener('scroll', resetTimer);
+        window.removeEventListener('keypress', resetTimer);
+      };
+    }
+  }, [user]);
+
+  useEffect(() => {
+    const handleBeforeUnload = (e) => {
+      e.preventDefault();
+      e.returnValue = ''; // Required for some browsers
+      signOut();
+    };
+  
+    window.addEventListener('beforeunload', handleBeforeUnload);
+  
+    return () => {
+      window.removeEventListener('beforeunload', handleBeforeUnload);
+    };
+  }, []);
+  
+
   const fetchAndUpdateUserData = async (uid) => {
     if (!uid) return;
 
