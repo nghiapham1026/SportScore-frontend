@@ -97,10 +97,12 @@ export const AuthProvider = ({ children }) => {
   const signOut = async () => {
     try {
       await firebaseSignOut(auth);
+      setUser(null);
+      setUserData({});
     } catch (error) {
       throw error;
     }
-  };
+  };  
 
   return (
     <AuthContext.Provider
