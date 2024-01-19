@@ -43,21 +43,6 @@ export const AuthProvider = ({ children }) => {
     }
   }, [user]);
 
-  useEffect(() => {
-    const handleBeforeUnload = (e) => {
-      e.preventDefault();
-      e.returnValue = ''; // Required for some browsers
-      signOut();
-    };
-  
-    window.addEventListener('beforeunload', handleBeforeUnload);
-  
-    return () => {
-      window.removeEventListener('beforeunload', handleBeforeUnload);
-    };
-  }, []);
-  
-
   const fetchAndUpdateUserData = async (uid) => {
     if (!uid) return;
 
