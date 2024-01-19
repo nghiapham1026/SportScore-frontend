@@ -11,10 +11,50 @@
     margin-bottom: 10px;
     border-radius: 4px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .fixtureItem:hover {
     background-color: #eaeaea;
+    cursor: pointer;
 }
 
-/* Add more styles as needed */
+.leagueHeader {
+    cursor: pointer;
+    margin: 20px 0;
+    font-size: 1.2rem;
+    color: #333;
+    display: flex;
+    align-items: center;
+}
+
+.leagueLogo {
+    width: 30px;
+    height: 30px;
+    object-fit: cover;
+    margin-right: 10px;
+    border-radius: 50%;
+}
+
+.leagueItemContainer {
+    margin-bottom: 20px;
+}
+
+/* Additional styles for animation and visual cues */
+.leagueHeader::after {
+    content: '';
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-right: 2px solid #333;
+    border-bottom: 2px solid #333;
+    margin-left: 10px;
+    transform: rotate(-45deg);
+    transition: transform 0.3s ease;
+}
+
+.leagueHeader.active::after {
+    transform: rotate(45deg);
+}

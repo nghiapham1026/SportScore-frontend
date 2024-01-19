@@ -22,21 +22,11 @@ function Favorites() {
   return (
     <div className={styles.container}>
       <h2>Favorites Feed for {user.displayName || user.email}</h2>
-      {favoriteLeagues.length > 0 ? (
-        <ul className={styles.leagueList}>
-          {favoriteLeagues.map((league, index) => (
-            <li key={index} className={styles.leagueItem}>
-              {league.logo && <img src={league.logo} alt={league.name} />}
-              {league.name}
-            </li>
-          ))}
-        </ul>
-      ) : (
+      {favoriteLeagues.length === 0 && (
         <p className={styles.noLeagues}>
           You have no favorite leagues added. Start adding some!
         </p>
       )}
-
       <label htmlFor="calendar" className={styles.calendarLabel}>
         Choose a date:
       </label>

@@ -1,0 +1,65 @@
+.favoriteTableContainer {
+    margin: 20px 0;
+  }
+  
+  .leagueStandingsContainer {
+    margin-bottom: 20px;
+  }
+  
+  .leagueHeader {
+    cursor: pointer;
+    font-size: 1.2rem;
+    color: #333;
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  
+  .leagueHeader::after {
+    content: '';
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-right: 2px solid #333;
+    border-bottom: 2px solid #333;
+    margin-left: 10px;
+    transform: rotate(-45deg);
+    transition: transform 0.3s ease;
+  }
+  
+  .leagueHeader.active::after {
+    transform: rotate(45deg);
+  }
+  
+  .leagueLogo {
+    width: 30px;
+    height: 30px;
+    object-fit: cover;
+    margin-right: 10px;
+    border-radius: 50%;
+  }
+  
+  .leagueTable {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+  }
+  
+  .leagueTable th, .leagueTable td {
+    text-align: left;
+    padding: 8px;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .leagueTable th {
+    background-color: #f2f2f2;
+  }
+  
+  .leagueTable td {
+    background-color: #fff;
+  }
+  
+  .leagueTable tbody tr:hover {
+    background-color: #eaeaea;
+  }
+  
