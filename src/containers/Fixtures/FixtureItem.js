@@ -63,7 +63,7 @@ function FixtureItem({ fixture, toggleFixture, expandedFixtures }) {
       <Link to={`/fixture/${fixture.fixture.id}`}>
         <button className={styles.matchCenterButton}>Match Center</button>
       </Link>
-      <Link to={`/fixture/predictions/${fixture.fixture.id}`}>
+      <Link to={`/predictions/${fixture.fixture.id}`}>
         <button className={styles.matchCenterButton}>Predictions</button>
       </Link>
     </li>

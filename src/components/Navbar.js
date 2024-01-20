@@ -28,6 +28,9 @@ function Navbar() {
           <Link to="/favorites" className={styles.navbarLink}>
             Favorites
           </Link>
+          <Link to="/predictions" className={styles.navbarLink}>
+            Predictions
+          </Link>
         </li>
         <li className={`${styles.navbarItem} ${styles.signInLink}`}>
           {user ? (
