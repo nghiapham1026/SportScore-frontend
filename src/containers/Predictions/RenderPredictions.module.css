@@ -1,41 +1,60 @@
 .container {
-    padding: 20px;
-    background-color: #f4f4f4;
-    border-radius: 8px;
-    margin-bottom: 20px;
-  }
-  
-  .predictionItem {
+    margin: 20px;
+    padding: 15px;
     border: 1px solid #ddd;
-    padding: 10px;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.predictionItem {
     margin-bottom: 20px;
-    border-radius: 8px;
-    background-color: #fff;
-  }
-  
-  .leagueInfo, .teams, .predictions, .comparison {
-    margin-bottom: 15px;
-  }
-  
-  .team, .predictionsDetail, .comparisonStat {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.leagueInfo {
     display: flex;
     align-items: center;
     margin-bottom: 10px;
-  }
-  
-  .team img, .leagueInfo img {
+}
+
+.leagueInfo h2 {
+    margin-right: 10px;
+    font-size: 1.2em;
+}
+
+.leagueInfo img {
     width: 50px;
     height: 50px;
-    margin-right: 10px;
-  }
-  
-  h2, h3, h4 {
-    margin-bottom: 10px;
-  }
-  
-  p {
+    object-fit: cover;
+}
+
+.teams,
+.predictions,
+.comparison {
+    margin-bottom: 15px;
+}
+
+.team,
+.predictions p,
+.comparison p {
+    display: flex;
+    align-items: center;
     margin: 5px 0;
-  }
-  
-  /* Add more specific styles as needed */
-  
+}
+
+.team h4,
+.predictions h3,
+.comparison h3 {
+    margin-right: 10px;
+    font-weight: bold;
+}
+
+.team img {
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
+    object-fit: cover;
+}
