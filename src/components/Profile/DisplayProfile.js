@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import DisplayPredictions from './DisplayPredictions';
 import styles from './DisplayProfile.module.css';
 
 const DisplayProfile = ({ user, onEdit, selectedLeagues }) => {
@@ -35,6 +36,8 @@ const DisplayProfile = ({ user, onEdit, selectedLeagues }) => {
           ))}
         </ul>
       </div>
+
+      {user && <DisplayPredictions userId={user.uid} />}
     </>
   );
 };

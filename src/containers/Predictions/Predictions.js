@@ -72,6 +72,7 @@ function Predictions() {
           awayScore: userPrediction.away,
           homeLogo: predictions.allPredictions[0].teams.home.logo,
           awayLogo: predictions.allPredictions[0].teams.away.logo,
+          date: fixtureDetails.fixture.date,
           submittedAt: new Date()
         });
         setUserPredictionDisplay(userPrediction);
@@ -82,8 +83,6 @@ function Predictions() {
       }
     }
   };
-
-  console.log(userPredictionDisplay)
 
   return (
     <div>
