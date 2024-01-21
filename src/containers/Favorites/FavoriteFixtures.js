@@ -60,7 +60,7 @@ function FavoriteFixtures({ selectedDate }) {
                 .filter((fixture) => fixture.league.id === league.id)
                 .map((fixture, index) => (
                   <li key={index} className={styles.fixtureItem}>
-                    {fixture.teams.home.name} vs. {fixture.teams.away.name}
+                    {fixture.teams.home.name} {fixture.goals.home} - {fixture.goals.away} {fixture.teams.away.name}
                   </li>
                 ))}
             </ul>
