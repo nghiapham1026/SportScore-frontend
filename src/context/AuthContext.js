@@ -1,4 +1,4 @@
-import React, { createContext, useState, useEffect } from 'react';
+import React, { createContext, useState, useEffect, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { auth, db } from '../firebase';
 import {
@@ -21,7 +21,7 @@ export const AuthProvider = ({ children }) => {
     setTimeout(() => {
       signOut();
     }, timeout);
-  }, []); // Empty dependency array since it does not depend on any external variables
+  }, []);
 
   useEffect(() => {
     if (user) {

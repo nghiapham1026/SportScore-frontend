@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
-import { ReactPropTypes } from 'prop-types';
+import PropTypes from 'prop-types';
 import { fetchFixtures } from '../../utils/dataController';
 import styles from './FavoriteFixtures.module.css';
 import { AuthContext } from '../../context/AuthContext';
