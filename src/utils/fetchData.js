@@ -1,7 +1,5 @@
 import axios from 'axios';
 
-const { API_URL } = require('./constants');
-
 export const fetchData = async (
   endpoint,
   method = 'GET',
@@ -11,7 +9,7 @@ export const fetchData = async (
   try {
     const response = await axios({
       method: method,
-      url: `${API_URL}${endpoint}`,
+      url: `${process.env.REACT_APP_API_URL}${endpoint}`,
       data: data,
       params: params,
     });

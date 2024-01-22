@@ -13,6 +13,7 @@ import LeagueFixturesPage from './containers/League/LeagueFixturesPage';
 import LeagueScorersPage from './containers/League/LeagueScorersPage';
 import LeagueAssistsPage from './containers/League/LeagueAssistsPage';
 import Predictions from './containers/Predictions/Predictions';
+import PredictionPage from './containers/PredictionPage/PredictionPage';
 import News from './containers/News/News';
 import { AuthProvider } from './context/AuthContext';
 import SignIn from './components/SignIn/SignIn';
@@ -49,10 +50,8 @@ function App() {
           />
           <Route path="/team/:teamId" element={<Team />} />
           <Route path="/players/:playerId" element={<Players />} />
-          <Route
-            path="/fixture/predictions/:fixtureId"
-            element={<Predictions />}
-          />
+          <Route path="/predictions" element={<PredictionPage />} />
+          <Route path="/predictions/:fixtureId" element={<Predictions />} />
           <Route path="/news" element={<News />} />
 
           <Route path="/profile" element={<Profile />} />

@@ -1,0 +1,37 @@
+/* PredictionPage.module.css */
+
+.predictionItem {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.teamInfo {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.team {
+    display: flex;
+    align-items: center;
+}
+
+.teamLogo {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    margin-right: 10px;
+    border-radius: 50%;
+}
+
+.score {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #333;
+}
+
+/* Additional styles can be added here as needed */

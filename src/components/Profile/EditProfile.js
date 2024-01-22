@@ -80,18 +80,19 @@ const EditProfile = ({
 
       if (docSnap.exists()) {
         await updateDoc(userRef, {
-          favoriteLeagues: selectedLeagues,
+          favoriteLeagues: tempSelectedLeagues,
         });
-        setSelectedLeagues(tempSelectedLeagues);
       } else {
-        // Create the document if it doesn't exist
         await setDoc(userRef, {
-          favoriteLeagues: selectedLeagues,
+          favoriteLeagues: tempSelectedLeagues,
         });
-        setSelectedLeagues(tempSelectedLeagues);
       }
+      setSelectedLeagues(tempSelectedLeagues);
 
       setMessage('Profile and favorites updated successfully');
+
+      // Reload the page to reflect the new changes
+      window.location.reload();
     } catch (error) {
       setMessage(`Failed to update profile and favorites: ${error.message}`);
     } finally {

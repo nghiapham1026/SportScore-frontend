@@ -17,22 +17,58 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [userData, setUserData] = useState({}); // Store additional user data
 
+  const autoSignOut = useCallback((timeout) => {
+    setTimeout(() => {
+      signOut();
+    }, timeout);
+  }, []); // Empty dependency array since it does not depend on any external variables
+
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, async (authUser) => {
+    if (user) {
+      autoSignOut(3600000);
+
+      const resetTimer = () => {
+        autoSignOut(3600000);
+      };
+
+      window.addEventListener('click', resetTimer);
+      window.addEventListener('scroll', resetTimer);
+      window.addEventListener('keypress', resetTimer);
+
+      return () => {
+        window.removeEventListener('click', resetTimer);
+        window.removeEventListener('scroll', resetTimer);
+        window.removeEventListener('keypress', resetTimer);
+      };
+    }
+  }, [user, autoSignOut]);
+
+  const fetchAndUpdateUserData = async (uid) => {
+    if (!uid) return;
+
+    try {
+      const userRef = doc(db, 'users', uid);
+      const docSnap = await getDoc(userRef);
+
+      if (docSnap.exists()) {
+        setUserData(docSnap.data());
+      } else {
+        setUserData({});
+      }
+    } catch (error) {
+      console.error('Error fetching user data:', error);
+    }
+  };
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (authUser) => {
       console.log('Auth state changed:', authUser);
       if (authUser) {
-        const userRef = doc(db, 'users', authUser.uid);
-        const docSnap = await getDoc(userRef);
-
-        if (docSnap.exists()) {
-          console.log('User data found:', docSnap.data());
-          setUserData(docSnap.data());
-        } else {
-          console.log('No user data found');
-        }
+        fetchAndUpdateUserData(authUser.uid);
         setUser(authUser);
       } else {
         console.log('User signed out');
+        setUser(null);
         setUserData({});
       }
     });
@@ -97,6 +133,8 @@ export const AuthProvider = ({ children }) => {
   const signOut = async () => {
     try {
       await firebaseSignOut(auth);
+      setUser(null);
+      setUserData({});
     } catch (error) {
       throw error;
     }
@@ -107,6 +145,7 @@ export const AuthProvider = ({ children }) => {
       value={{
         user,
         userData,
+        fetchAndUpdateUserData,
         signUpWithEmail,
         signInWithEmail,
         signInWithGoogle,
@@ -120,7 +159,7 @@ export const AuthProvider = ({ children }) => {
 };
 
 AuthProvider.propTypes = {
-  children: PropTypes.node.isRequired, // Define the prop type for children
+  children: PropTypes.node.isRequired,
 };
 
 export default AuthProvider;

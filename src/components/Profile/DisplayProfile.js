@@ -1,5 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
+import DisplayPredictions from './DisplayPredictions';
 import styles from './DisplayProfile.module.css';
 
 const DisplayProfile = ({ user, onEdit, selectedLeagues }) => {
@@ -23,18 +25,22 @@ const DisplayProfile = ({ user, onEdit, selectedLeagues }) => {
         <ul>
           {selectedLeagues.map((league, index) => (
             <li key={index}>
-              <div className={styles.leagueItem}>
-                <img
-                  src={league.logo}
-                  alt={league.name}
-                  className={styles.leagueLogo}
-                />
-                <span>{league.name}</span>
-              </div>
+              <Link to={`/league/${league.id}`} key={league.id}>
+                <div className={styles.leagueItem}>
+                  <img
+                    src={league.logo}
+                    alt={league.name}
+                    className={styles.leagueLogo}
+                  />
+                  <span>{league.name}</span>
+                </div>
+              </Link>
             </li>
           ))}
         </ul>
       </div>
+
+      {user && <DisplayPredictions userId={user.uid} />}
     </>
   );
 };
@@ -50,6 +56,7 @@ DisplayProfile.propTypes = {
     PropTypes.shape({
       logo: PropTypes.string.isRequired,
       name: PropTypes.string.isRequired,
+      id: PropTypes.number.isRequired,
     })
   ).isRequired,
 };
