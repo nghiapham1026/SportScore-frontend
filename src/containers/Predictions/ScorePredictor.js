@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import styles from './ScorePredictor.module.css'; // Import CSS module
 
 function ScorePredictor({ onPredictionSubmit }) {
@@ -45,5 +46,9 @@ function ScorePredictor({ onPredictionSubmit }) {
     </div>
   );
 }
+
+ScorePredictor.propTypes = {
+  onPredictionSubmit: PropTypes.func.isRequired,
+};
 
 export default ScorePredictor;

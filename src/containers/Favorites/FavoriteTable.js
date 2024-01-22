@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { getStandings } from '../../utils/dataController';
 import { AuthContext } from '../../context/AuthContext';
+import { Link } from 'react-router-dom';
 import styles from './FavoriteTable.module.css';
 
 const FavoriteTable = () => {
@@ -49,13 +50,18 @@ const FavoriteTable = () => {
             className={styles.leagueHeader}
             onClick={() => toggleVisibility(leagueData.leagueId)}
           >
-            {leagueData.leagueLogo && (
-              <img
-                src={leagueData.leagueLogo}
-                alt={leagueData.leagueName}
-                className={styles.leagueLogo}
-              />
-            )}
+            <Link
+              to={`/league/${leagueData.leagueId}`}
+              key={leagueData.leagueId}
+            >
+              {leagueData.leagueLogo && (
+                <img
+                  src={leagueData.leagueLogo}
+                  alt={leagueData.leagueName}
+                  className={styles.leagueLogo}
+                />
+              )}
+            </Link>
             <h3>{leagueData.leagueName}</h3>
           </div>
           {visibleLeagueId === leagueData.leagueId && (
@@ -78,14 +84,16 @@ const FavoriteTable = () => {
                 {leagueData.standings.map((team, teamIndex) => (
                   <tr key={teamIndex}>
                     <td>{team.rank}</td>
-                    <td>
-                      <img
-                        src={team.team.logo}
-                        alt={team.team.name}
-                        width="30"
-                      />{' '}
-                      {team.team.name}
-                    </td>
+                    <Link to={`/team/${team.team.id}`} key={team.team.id}>
+                      <td>
+                        <img
+                          src={team.team.logo}
+                          alt={team.team.name}
+                          width="30"
+                        />{' '}
+                        {team.team.name}
+                      </td>
+                    </Link>
                     <td>{team.all.played}</td>
                     <td>{team.all.win}</td>
                     <td>{team.all.draw}</td>

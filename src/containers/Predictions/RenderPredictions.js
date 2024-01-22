@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import styles from './RenderPredictions.module.css';
 
@@ -12,24 +13,30 @@ function RenderPredictions({ predictions }) {
       {predictions.allPredictions.map((prediction, index) => (
         <div key={index} className={styles.predictionItem}>
           {/* League Information */}
-          <div className={styles.leagueInfo}>
-            <h2>
-              {prediction.league.name} - {prediction.league.season}
-            </h2>
-            <img src={prediction.league.logo} alt="League logo" />
-          </div>
+          <Link to={`/league/${prediction.league.id}`}>
+            <div className={styles.leagueInfo}>
+              <h2>
+                {prediction.league.name} - {prediction.league.season}
+              </h2>
+              <img src={prediction.league.logo} alt="League logo" />
+            </div>
+          </Link>
 
           {/* Team Information */}
           <div className={styles.teams}>
             <h3>Teams</h3>
-            <div className={styles.team}>
-              <h4>Home: {prediction.teams.home.name}</h4>
-              <img src={prediction.teams.home.logo} alt="Home team logo" />
-            </div>
-            <div className={styles.team}>
-              <h4>Away: {prediction.teams.away.name}</h4>
-              <img src={prediction.teams.away.logo} alt="Away team logo" />
-            </div>
+            <Link to={`/team/${prediction.teams.home.id}`}>
+              <div className={styles.team}>
+                <h4>Home: {prediction.teams.home.name}</h4>
+                <img src={prediction.teams.home.logo} alt="Home team logo" />
+              </div>
+            </Link>
+            <Link to={`/team/${prediction.teams.away.id}`}>
+              <div className={styles.team}>
+                <h4>Away: {prediction.teams.away.name}</h4>
+                <img src={prediction.teams.away.logo} alt="Away team logo" />
+              </div>
+            </Link>
           </div>
 
           {/* Prediction Details */}

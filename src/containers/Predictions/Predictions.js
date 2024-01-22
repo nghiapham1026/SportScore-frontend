@@ -19,7 +19,9 @@ function Predictions() {
   useEffect(() => {
     async function fetchData() {
       try {
-        const predictionsResponse = await getMatchPredictions({ fixture: fixtureId });
+        const predictionsResponse = await getMatchPredictions({
+          fixture: fixtureId,
+        });
         const fixturesResponse = await fetchFixtures({ id: fixtureId });
 
         if (predictionsResponse.error) setError(predictionsResponse.error);
@@ -45,7 +47,13 @@ function Predictions() {
   useEffect(() => {
     if (user && !userPredictionDisplay) {
       async function fetchUserPrediction() {
-        const predictionRef = doc(db, 'users', user.uid, 'predictions', fixtureId);
+        const predictionRef = doc(
+          db,
+          'users',
+          user.uid,
+          'predictions',
+          fixtureId
+        );
         const docSnap = await getDoc(predictionRef);
         if (docSnap.exists()) {
           setUserPredictionDisplay(docSnap.data());
@@ -54,29 +62,39 @@ function Predictions() {
 
       fetchUserPrediction();
     }
-  }, [user, fixtureId]);
+  }, [user, fixtureId, userPredictionDisplay]);
 
   const handlePredictionSubmit = async (userPrediction) => {
     if (!user) {
-      console.error("User not signed in");
+      console.error('User not signed in');
       return;
     }
 
-    const overwrite = !userPredictionDisplay || window.confirm("You have already predicted this match. Overwrite your prediction?");
+    const overwrite =
+      !userPredictionDisplay ||
+      window.confirm(
+        'You have already predicted this match. Overwrite your prediction?'
+      );
 
     if (overwrite) {
       try {
-        const predictionsRef = doc(db, 'users', user.uid, 'predictions', fixtureId.toString());
+        const predictionsRef = doc(
+          db,
+          'users',
+          user.uid,
+          'predictions',
+          fixtureId.toString()
+        );
         await setDoc(predictionsRef, {
           homeScore: userPrediction.home,
           awayScore: userPrediction.away,
           homeLogo: predictions.allPredictions[0].teams.home.logo,
           awayLogo: predictions.allPredictions[0].teams.away.logo,
           date: fixtureDetails.fixture.date,
-          submittedAt: new Date()
+          submittedAt: new Date(),
         });
         setUserPredictionDisplay(userPrediction);
-        console.log("Prediction saved successfully");
+        console.log('Prediction saved successfully');
         window.location.reload();
       } catch (error) {
         console.error('Error saving prediction:', error);
@@ -92,14 +110,23 @@ function Predictions() {
       {!isPredictionLocked ? (
         <ScorePredictor onPredictionSubmit={handlePredictionSubmit} />
       ) : (
-        <p>Prediction is locked as the match is about to start, in progress, or has ended.</p>
+        <p>
+          Prediction is locked as the match is about to start, in progress, or
+          has ended.
+        </p>
       )}
-      
+
       {userPredictionDisplay && (
         <div>
           <h3>Your Prediction:</h3>
-          <p>{userPredictionDisplay.homeLogo} Home Score: {userPredictionDisplay.homeScore}</p>
-          <p>{userPredictionDisplay.awayLogo} Away Score: {userPredictionDisplay.awayScore}</p>
+          <p>
+            {userPredictionDisplay.homeLogo} Home Score:{' '}
+            {userPredictionDisplay.homeScore}
+          </p>
+          <p>
+            {userPredictionDisplay.awayLogo} Away Score:{' '}
+            {userPredictionDisplay.awayScore}
+          </p>
         </div>
       )}
     </div>

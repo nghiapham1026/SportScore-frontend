@@ -17,11 +17,11 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [userData, setUserData] = useState({}); // Store additional user data
 
-  const autoSignOut = (timeout) => {
+  const autoSignOut = useCallback((timeout) => {
     setTimeout(() => {
       signOut();
     }, timeout);
-  };
+  }, []); // Empty dependency array since it does not depend on any external variables
 
   useEffect(() => {
     if (user) {
@@ -41,7 +41,7 @@ export const AuthProvider = ({ children }) => {
         window.removeEventListener('keypress', resetTimer);
       };
     }
-  }, [user]);
+  }, [user, autoSignOut]);
 
   const fetchAndUpdateUserData = async (uid) => {
     if (!uid) return;

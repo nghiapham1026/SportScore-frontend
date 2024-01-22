@@ -1,4 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
+import { Link } from 'react-router-dom';
+import { ReactPropTypes } from 'prop-types';
 import { fetchFixtures } from '../../utils/dataController';
 import styles from './FavoriteFixtures.module.css';
 import { AuthContext } from '../../context/AuthContext';
@@ -45,13 +47,15 @@ function FavoriteFixtures({ selectedDate }) {
             onClick={() => toggleVisibility(league.id)}
             className={styles.leagueHeader}
           >
-            {league.logo && (
-              <img
-                src={league.logo}
-                alt={league.name}
-                className={styles.leagueLogo}
-              />
-            )}
+            <Link to={`/league/${league.id}`} key={league.id}>
+              {league.logo && (
+                <img
+                  src={league.logo}
+                  alt={league.name}
+                  className={styles.leagueLogo}
+                />
+              )}
+            </Link>
             {league.name}
           </h4>
           {visibleLeagueId === league.id && (
@@ -59,9 +63,15 @@ function FavoriteFixtures({ selectedDate }) {
               {fixtures
                 .filter((fixture) => fixture.league.id === league.id)
                 .map((fixture, index) => (
-                  <li key={index} className={styles.fixtureItem}>
-                    {fixture.teams.home.name} {fixture.goals.home} - {fixture.goals.away} {fixture.teams.away.name}
-                  </li>
+                  <Link
+                    to={`/fixture/${fixture.fixture.id}`}
+                    key={fixture.fixture.id}
+                  >
+                    <li key={index} className={styles.fixtureItem}>
+                      {fixture.teams.home.name} {fixture.goals.home} -{' '}
+                      {fixture.goals.away} {fixture.teams.away.name}
+                    </li>
+                  </Link>
                 ))}
             </ul>
           )}
@@ -70,5 +80,9 @@ function FavoriteFixtures({ selectedDate }) {
     </div>
   );
 }
+
+FavoriteFixtures.propTypes = {
+  selectedDate: PropTypes.string.isRequired, // Assuming selectedDate is a string
+};
 
 export default FavoriteFixtures;

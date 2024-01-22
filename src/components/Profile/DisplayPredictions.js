@@ -28,7 +28,7 @@ const DisplayPredictions = ({ userId }) => {
     const oneHour = 60 * 60 * 1000; // One hour in milliseconds
     const kickoffTime = new Date(date);
     const currentTime = new Date();
-    return (kickoffTime - currentTime > oneHour) ? 'open' : 'closed';
+    return kickoffTime - currentTime > oneHour ? 'open' : 'closed';
   };
 
   return (
@@ -37,7 +37,11 @@ const DisplayPredictions = ({ userId }) => {
       <div>
         {userPredictions.map((prediction, index) => (
           <div key={index} className={styles.predictionBox}>
-            <img src={prediction.homeLogo} alt="Home Team Logo" className={styles.teamLogo} />
+            <img
+              src={prediction.homeLogo}
+              alt="Home Team Logo"
+              className={styles.teamLogo}
+            />
             <div>
               <span className={styles.score}>
                 {prediction.homeScore} - {prediction.awayScore}
@@ -45,11 +49,21 @@ const DisplayPredictions = ({ userId }) => {
               <p className={styles.predictionDate}>
                 Date: {new Date(prediction.date).toLocaleString()}
               </p>
-              <p className={(getPredictionStatus(prediction.date) === 'open') ? styles.statusOpen : styles.statusClosed}>
+              <p
+                className={
+                  getPredictionStatus(prediction.date) === 'open'
+                    ? styles.statusOpen
+                    : styles.statusClosed
+                }
+              >
                 Status: {getPredictionStatus(prediction.date)}
               </p>
             </div>
-            <img src={prediction.awayLogo} alt="Away Team Logo" className={styles.teamLogo} />
+            <img
+              src={prediction.awayLogo}
+              alt="Away Team Logo"
+              className={styles.teamLogo}
+            />
           </div>
         ))}
       </div>
