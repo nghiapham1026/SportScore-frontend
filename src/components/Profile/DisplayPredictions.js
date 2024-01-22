@@ -1,5 +1,6 @@
 // DisplayPredictions.js
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { db } from '../../firebase'; // Adjust this import based on your file structure
 import { collection, getDocs } from 'firebase/firestore';
 import PropTypes from 'prop-types';
@@ -15,7 +16,7 @@ const DisplayPredictions = ({ userId }) => {
         const querySnapshot = await getDocs(predictionsRef);
         const predictions = [];
         querySnapshot.forEach((doc) => {
-          predictions.push(doc.data());
+            predictions.push({ fixtureId: doc.id, ...doc.data() });
         });
         setUserPredictions(predictions);
       }
@@ -64,6 +65,10 @@ const DisplayPredictions = ({ userId }) => {
               alt="Away Team Logo"
               className={styles.teamLogo}
             />
+
+<Link to={`/predictions/${prediction.fixtureId}`} className={styles.editButton}>
+      Edit Prediction
+    </Link>
           </div>
         ))}
       </div>

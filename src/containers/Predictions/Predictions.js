@@ -6,6 +6,7 @@ import ScorePredictor from './ScorePredictor';
 import { AuthContext } from '../../context/AuthContext';
 import { doc, setDoc, getDoc } from 'firebase/firestore';
 import { db } from '../../firebase';
+import styles from './Predictions.module.css';
 
 function Predictions() {
   const { fixtureId } = useParams();
@@ -103,30 +104,44 @@ function Predictions() {
   };
 
   return (
-    <div>
-      {error && <p>Error: {error}</p>}
+    <div className={`container ${styles.container}`}>
+      {error && (
+        <p className={`alert alert-danger ${styles.error}`}>Error: {error}</p>
+      )}
       {predictions && <RenderPredictions predictions={predictions} />}
 
       {!isPredictionLocked ? (
         <ScorePredictor onPredictionSubmit={handlePredictionSubmit} />
       ) : (
-        <p>
+        <p className={styles.lockedPrediction}>
           Prediction is locked as the match is about to start, in progress, or
           has ended.
         </p>
       )}
 
       {userPredictionDisplay && (
-        <div>
+        <div className={styles.yourPrediction}>
           <h3>Your Prediction:</h3>
-          <p>
-            {userPredictionDisplay.homeLogo} Home Score:{' '}
-            {userPredictionDisplay.homeScore}
-          </p>
-          <p>
-            {userPredictionDisplay.awayLogo} Away Score:{' '}
-            {userPredictionDisplay.awayScore}
-          </p>
+          <div className={styles.teamPrediction}>
+            <img
+              src={userPredictionDisplay.homeLogo}
+              alt="Home Team Logo"
+              className={styles.teamLogo}
+            />
+            <p>
+              Home Score: <b>{userPredictionDisplay.homeScore}</b>
+            </p>
+          </div>
+          <div className={styles.teamPrediction}>
+            <img
+              src={userPredictionDisplay.awayLogo}
+              alt="Away Team Logo"
+              className={styles.teamLogo}
+            />
+            <p>
+              Away Score: <b>{userPredictionDisplay.awayScore}</b>
+            </p>
+          </div>
         </div>
       )}
     </div>

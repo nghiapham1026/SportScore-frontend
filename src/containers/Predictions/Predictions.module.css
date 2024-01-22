@@ -1,0 +1,38 @@
+/* Predictions.module.css */
+.teamPrediction {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  
+  .teamLogo {
+    width: 50px; /* Or any size you prefer */
+    height: auto; /* To maintain aspect ratio */
+    margin-right: 10px;
+  }
+
+.container {
+    padding: 20px;
+  }
+  
+  .error {
+    color: red;
+  }
+  
+  .yourPrediction {
+    background-color: #f8f9fa;
+    border: 1px solid #dee2e6;
+    padding: 15px;
+    margin-top: 20px;
+    border-radius: 5px;
+  }
+  
+  .yourPrediction h3 {
+    margin-bottom: 15px;
+  }
+  
+  .lockedPrediction {
+    color: #6c757d;
+    font-style: italic;
+  }
+  
