@@ -3,7 +3,11 @@ import { useParams } from 'react-router-dom';
 import { getMatchPredictions, fetchFixtures } from '../../utils/dataController';
 import RenderPredictions from './RenderPredictions';
 import ScorePredictor from './ScorePredictor';
-import { getUserPredictions } from '../../utils/userDataController';
+import {
+  getUserPredictions,
+  getUserData,
+  updateUserData,
+} from '../../utils/userDataController';
 import { AuthContext } from '../../context/AuthContext';
 import { doc, setDoc } from 'firebase/firestore';
 import { db } from '../../firebase';
@@ -14,6 +18,7 @@ function Predictions() {
   const [predictions, setPredictions] = useState(null);
   const [fixtureDetails, setFixtureDetails] = useState(null);
   const [userPredictionDisplay, setUserPredictionDisplay] = useState(null);
+  const [userPoints, setUserPoints] = useState(null);
   const [isPredictionLocked, setIsPredictionLocked] = useState(false);
   const [error, setError] = useState('');
   const { user } = useContext(AuthContext);
@@ -48,14 +53,28 @@ function Predictions() {
 
   useEffect(() => {
     const fetchUserPrediction = async () => {
-      if (user && !userPredictionDisplay) {
-        const userPrediction = await getUserPredictions(user.uid, fixtureId);
-        setUserPredictionDisplay(userPrediction);
+      if (user) {
+        const predictions = await getUserPredictions(user.uid);
+        const predictionForFixture = predictions.find(
+          (pred) => pred.fixtureId === fixtureId
+        );
+        setUserPredictionDisplay(predictionForFixture);
       }
     };
 
     fetchUserPrediction();
-  }, [user, fixtureId, userPredictionDisplay]);
+  }, [user, fixtureId]);
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      if (user) {
+        const userData = await getUserData(user.uid);
+        setUserPoints(userData?.points || 0); // Fetch and set user points
+      }
+    };
+
+    fetchUserData();
+  }, [user]);
 
   const handlePredictionSubmit = async (userPrediction) => {
     if (!user) {
@@ -88,6 +107,10 @@ function Predictions() {
         });
         setUserPredictionDisplay(userPrediction);
         console.log('Prediction saved successfully');
+
+        const updatedPoints = (userPoints || 0) - 1;
+        await updateUserData(user.uid, { points: updatedPoints });
+
         window.location.reload();
       } catch (error) {
         console.error('Error saving prediction:', error);
@@ -102,12 +125,20 @@ function Predictions() {
       )}
       {predictions && <RenderPredictions predictions={predictions} />}
 
-      {!isPredictionLocked ? (
-        <ScorePredictor onPredictionSubmit={handlePredictionSubmit} />
+      {!isPredictionLocked || userPoints === 0 ? (
+        <>
+          <div>
+            <p>Your Current Points: {userPoints}</p>
+            <p className="text-warning">
+              Submitting or changing a prediction will cost 1 point.
+            </p>
+          </div>
+          <ScorePredictor onPredictionSubmit={handlePredictionSubmit} />
+        </>
       ) : (
         <p className={styles.lockedPrediction}>
-          Prediction is locked as the match is about to start, in progress, or
-          has ended.
+          Prediction is unavailable, either the match has started or you are out
+          of points.
         </p>
       )}
 

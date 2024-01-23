@@ -1,5 +1,5 @@
 import { db } from '../firebase'; // Adjust the import path as needed
-import { collection, doc, getDocs, getDoc } from 'firebase/firestore';
+import { collection, doc, getDocs, getDoc, setDoc } from 'firebase/firestore';
 
 export const getUserPredictions = async (userId) => {
   if (!userId) return [];
@@ -14,9 +14,16 @@ export const getUserPredictions = async (userId) => {
 };
 
 export const getUserData = async (userId) => {
-    if (!userId) return null;
-  
-    const userRef = doc(db, 'users', userId);
-    const userDoc = await getDoc(userRef);
-    return userDoc.exists() ? userDoc.data() : null;
-  };
+  if (!userId) return null;
+
+  const userRef = doc(db, 'users', userId);
+  const userDoc = await getDoc(userRef);
+  return userDoc.exists() ? userDoc.data() : null;
+};
+
+export const updateUserData = async (userId, data) => {
+  if (!userId) return;
+
+  const userRef = doc(db, 'users', userId);
+  await setDoc(userRef, data, { merge: true });
+};

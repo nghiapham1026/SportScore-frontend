@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { getUserData, getUserPredictions } from '../../utils/userDataController';
+import {
+  getUserData,
+  getUserPredictions,
+} from '../../utils/userDataController';
 import styles from './DisplayPredictions.module.css'; // Your CSS module for styling
 
 const DisplayPredictions = ({ userId }) => {
@@ -63,7 +66,10 @@ const DisplayPredictions = ({ userId }) => {
               alt="Away Team Logo"
               className={styles.teamLogo}
             />
-            <Link to={`/predictions/${prediction.fixtureId}`} className={styles.editButton}>
+            <Link
+              to={`/predictions/${prediction.fixtureId}`}
+              className={styles.editButton}
+            >
               Edit Prediction
             </Link>
           </div>
