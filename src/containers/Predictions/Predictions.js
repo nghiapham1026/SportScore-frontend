@@ -3,8 +3,9 @@ import { useParams } from 'react-router-dom';
 import { getMatchPredictions, fetchFixtures } from '../../utils/dataController';
 import RenderPredictions from './RenderPredictions';
 import ScorePredictor from './ScorePredictor';
+import { getUserPredictions } from '../../utils/userDataController';
 import { AuthContext } from '../../context/AuthContext';
-import { doc, setDoc, getDoc } from 'firebase/firestore';
+import { doc, setDoc } from 'firebase/firestore';
 import { db } from '../../firebase';
 import styles from './Predictions.module.css';
 
@@ -46,23 +47,14 @@ function Predictions() {
   }, [fixtureId]);
 
   useEffect(() => {
-    if (user && !userPredictionDisplay) {
-      async function fetchUserPrediction() {
-        const predictionRef = doc(
-          db,
-          'users',
-          user.uid,
-          'predictions',
-          fixtureId
-        );
-        const docSnap = await getDoc(predictionRef);
-        if (docSnap.exists()) {
-          setUserPredictionDisplay(docSnap.data());
-        }
+    const fetchUserPrediction = async () => {
+      if (user && !userPredictionDisplay) {
+        const userPrediction = await getUserPredictions(user.uid, fixtureId);
+        setUserPredictionDisplay(userPrediction);
       }
+    };
 
-      fetchUserPrediction();
-    }
+    fetchUserPrediction();
   }, [user, fixtureId, userPredictionDisplay]);
 
   const handlePredictionSubmit = async (userPrediction) => {

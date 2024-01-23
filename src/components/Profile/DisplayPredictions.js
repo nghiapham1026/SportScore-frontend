@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { db } from '../../firebase'; // Adjust this import based on your file structure
-import { collection, getDocs, doc, getDoc } from 'firebase/firestore';
 import PropTypes from 'prop-types';
+import { getUserData, getUserPredictions } from '../../utils/userDataController';
 import styles from './DisplayPredictions.module.css'; // Your CSS module for styling
 
 const DisplayPredictions = ({ userId }) => {
@@ -10,31 +9,17 @@ const DisplayPredictions = ({ userId }) => {
   const [userPoints, setUserPoints] = useState(0); // State to hold user's points
 
   useEffect(() => {
-    const fetchUserPredictions = async () => {
+    const fetchData = async () => {
       if (userId) {
-        const predictionsRef = collection(db, 'users', userId, 'predictions');
-        const querySnapshot = await getDocs(predictionsRef);
-        const predictions = [];
-        querySnapshot.forEach((doc) => {
-          predictions.push({ fixtureId: doc.id, ...doc.data() });
-        });
+        const predictions = await getUserPredictions(userId);
         setUserPredictions(predictions);
+
+        const userData = await getUserData(userId);
+        setUserPoints(userData?.points || 0); // Set points or default to 0
       }
     };
 
-    const fetchUserPoints = async () => {
-      if (userId) {
-        const userRef = doc(db, 'users', userId);
-        const userDoc = await getDoc(userRef);
-        if (userDoc.exists()) {
-          const userData = userDoc.data();
-          setUserPoints(userData.points || 0); // Set points or default to 0
-        }
-      }
-    };
-
-    fetchUserPredictions();
-    fetchUserPoints();
+    fetchData();
   }, [userId]);
 
   const getPredictionStatus = (date) => {

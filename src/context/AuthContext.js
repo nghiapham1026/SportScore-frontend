@@ -10,6 +10,7 @@ import {
   signOut as firebaseSignOut,
 } from 'firebase/auth';
 import { doc, setDoc, getDoc } from 'firebase/firestore';
+import { getUserData } from '../utils/userDataController';
 
 export const AuthContext = createContext();
 
@@ -43,28 +44,12 @@ export const AuthProvider = ({ children }) => {
     }
   }, [user, autoSignOut]);
 
-  const fetchAndUpdateUserData = async (uid) => {
-    if (!uid) return;
-
-    try {
-      const userRef = doc(db, 'users', uid);
-      const docSnap = await getDoc(userRef);
-
-      if (docSnap.exists()) {
-        setUserData(docSnap.data());
-      } else {
-        setUserData({});
-      }
-    } catch (error) {
-      console.error('Error fetching user data:', error);
-    }
-  };
-
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (authUser) => {
+    const unsubscribe = onAuthStateChanged(auth, async (authUser) => {
       console.log('Auth state changed:', authUser);
       if (authUser) {
-        fetchAndUpdateUserData(authUser.uid);
+        const data = await getUserData(authUser.uid);
+        setUserData(data || {});
         setUser(authUser);
       } else {
         console.log('User signed out');
@@ -145,7 +130,6 @@ export const AuthProvider = ({ children }) => {
       value={{
         user,
         userData,
-        fetchAndUpdateUserData,
         signUpWithEmail,
         signInWithEmail,
         signInWithGoogle,
