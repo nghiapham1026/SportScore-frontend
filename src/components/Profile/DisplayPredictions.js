@@ -1,13 +1,13 @@
-// DisplayPredictions.js
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { db } from '../../firebase'; // Adjust this import based on your file structure
-import { collection, getDocs } from 'firebase/firestore';
+import { collection, getDocs, doc, getDoc } from 'firebase/firestore';
 import PropTypes from 'prop-types';
-import styles from './DisplayPredictions.module.css'; // Create and use a separate CSS module for this component
+import styles from './DisplayPredictions.module.css'; // Your CSS module for styling
 
 const DisplayPredictions = ({ userId }) => {
   const [userPredictions, setUserPredictions] = useState([]);
+  const [userPoints, setUserPoints] = useState(0); // State to hold user's points
 
   useEffect(() => {
     const fetchUserPredictions = async () => {
@@ -16,13 +16,25 @@ const DisplayPredictions = ({ userId }) => {
         const querySnapshot = await getDocs(predictionsRef);
         const predictions = [];
         querySnapshot.forEach((doc) => {
-            predictions.push({ fixtureId: doc.id, ...doc.data() });
+          predictions.push({ fixtureId: doc.id, ...doc.data() });
         });
         setUserPredictions(predictions);
       }
     };
 
+    const fetchUserPoints = async () => {
+      if (userId) {
+        const userRef = doc(db, 'users', userId);
+        const userDoc = await getDoc(userRef);
+        if (userDoc.exists()) {
+          const userData = userDoc.data();
+          setUserPoints(userData.points || 0); // Set points or default to 0
+        }
+      }
+    };
+
     fetchUserPredictions();
+    fetchUserPoints();
   }, [userId]);
 
   const getPredictionStatus = (date) => {
@@ -35,6 +47,7 @@ const DisplayPredictions = ({ userId }) => {
   return (
     <div>
       <h3>Fixture Predictions</h3>
+      <p>User Points: {userPoints}</p> {/* Display user points */}
       <div>
         {userPredictions.map((prediction, index) => (
           <div key={index} className={styles.predictionBox}>
@@ -65,10 +78,9 @@ const DisplayPredictions = ({ userId }) => {
               alt="Away Team Logo"
               className={styles.teamLogo}
             />
-
-<Link to={`/predictions/${prediction.fixtureId}`} className={styles.editButton}>
-      Edit Prediction
-    </Link>
+            <Link to={`/predictions/${prediction.fixtureId}`} className={styles.editButton}>
+              Edit Prediction
+            </Link>
           </div>
         ))}
       </div>
