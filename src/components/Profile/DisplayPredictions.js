@@ -16,7 +16,15 @@ const DisplayPredictions = ({ userId }) => {
     const fetchData = async () => {
       if (userId) {
         await processPredictions(userId);
-        const predictions = await getUserPredictions(userId);
+        let predictions = await getUserPredictions(userId);
+
+        // Sort predictions by date, most recent first
+        predictions = predictions.sort((a, b) => {
+          const dateA = new Date(a.date);
+          const dateB = new Date(b.date);
+          return dateB - dateA; // Sort in descending order
+        });
+
         setUserPredictions(predictions);
 
         const userData = await getUserData(userId);
@@ -28,10 +36,9 @@ const DisplayPredictions = ({ userId }) => {
   }, [userId]);
 
   const getPredictionStatus = (date) => {
-    const oneHour = 60 * 60 * 1000; // One hour in milliseconds
     const kickoffTime = new Date(date);
     const currentTime = new Date();
-    return kickoffTime - currentTime > oneHour ? 'open' : 'closed';
+    return currentTime >= kickoffTime ? 'closed' : 'open';
   };
 
   return (

@@ -108,8 +108,14 @@ function Predictions() {
         setUserPredictionDisplay(userPrediction);
         console.log('Prediction saved successfully');
 
-        const updatedPoints = (userPoints || 0) - 1;
-        await updateUserData(user.uid, { points: updatedPoints });
+        if (userPoints > 0) {
+          const updatedPoints = userPoints - 1;
+          await updateUserData(user.uid, { points: updatedPoints });
+          setUserPoints(updatedPoints); // Update the local state as well
+          alert('1 point has been deducted for your prediction.'); // Inform the user
+        } else {
+          alert('You do not have enough points to make a prediction.');
+        }
 
         window.location.reload();
       } catch (error) {
@@ -166,11 +172,15 @@ function Predictions() {
             </p>
           </div>
           <div className={styles.predictionStatus}>
-          {userPredictionDisplay.won !== undefined && (
-                <p className={userPredictionDisplay.won ? "text-success" : "text-danger"}>
-                  {userPredictionDisplay.won ? "Won" : "Lost"}
-                </p>
-              )}
+            {userPredictionDisplay.won !== undefined && (
+              <p
+                className={
+                  userPredictionDisplay.won ? 'text-success' : 'text-danger'
+                }
+              >
+                {userPredictionDisplay.won ? 'Won' : 'Lost'}
+              </p>
+            )}
           </div>
         </div>
       )}

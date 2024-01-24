@@ -26,6 +26,18 @@ const checkPoints = async (userId) => {
 const updatePredictionResult = async (userId, fixtureId, won) => {
   const predictionRef = doc(db, 'users', userId, 'predictions', fixtureId);
   await updateDoc(predictionRef, { won });
+
+  if (won) {
+    // If the prediction is correct, add 3 points to the user's points
+    const userRef = doc(db, 'users', userId);
+    const userDoc = await getDoc(userRef);
+    const userData = userDoc.exists() ? userDoc.data() : null;
+
+    if (userData) {
+      const updatedPoints = (userData.points || 0) + 3;
+      await updateDoc(userRef, { points: updatedPoints });
+    }
+  }
 };
 
 export const processPredictions = async (userId) => {
