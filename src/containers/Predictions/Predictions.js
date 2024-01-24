@@ -165,6 +165,13 @@ function Predictions() {
               Away Score: <b>{userPredictionDisplay.awayScore}</b>
             </p>
           </div>
+          <div className={styles.predictionStatus}>
+          {userPredictionDisplay.won !== undefined && (
+                <p className={userPredictionDisplay.won ? "text-success" : "text-danger"}>
+                  {userPredictionDisplay.won ? "Won" : "Lost"}
+                </p>
+              )}
+          </div>
         </div>
       )}
     </div>
