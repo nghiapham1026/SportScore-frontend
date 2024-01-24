@@ -1,39 +1,50 @@
-// DisplayPredictions.js
 import React, { useEffect, useState } from 'react';
-import { db } from '../../firebase'; // Adjust this import based on your file structure
-import { collection, getDocs } from 'firebase/firestore';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import styles from './DisplayPredictions.module.css'; // Create and use a separate CSS module for this component
+import {
+  getUserData,
+  getUserPredictions,
+} from '../../utils/userDataController';
+import { processPredictions } from './utils/CheckPredictions';
+import styles from './DisplayPredictions.module.css'; // Your CSS module for styling
 
 const DisplayPredictions = ({ userId }) => {
   const [userPredictions, setUserPredictions] = useState([]);
+  const [userPoints, setUserPoints] = useState(0); // State to hold user's points
 
   useEffect(() => {
-    const fetchUserPredictions = async () => {
+    const fetchData = async () => {
       if (userId) {
-        const predictionsRef = collection(db, 'users', userId, 'predictions');
-        const querySnapshot = await getDocs(predictionsRef);
-        const predictions = [];
-        querySnapshot.forEach((doc) => {
-          predictions.push(doc.data());
+        await processPredictions(userId);
+        let predictions = await getUserPredictions(userId);
+
+        // Sort predictions by date, most recent first
+        predictions = predictions.sort((a, b) => {
+          const dateA = new Date(a.date);
+          const dateB = new Date(b.date);
+          return dateB - dateA; // Sort in descending order
         });
+
         setUserPredictions(predictions);
+
+        const userData = await getUserData(userId);
+        setUserPoints(userData?.points || 0); // Set points or default to 0
       }
     };
 
-    fetchUserPredictions();
+    fetchData();
   }, [userId]);
 
   const getPredictionStatus = (date) => {
-    const oneHour = 60 * 60 * 1000; // One hour in milliseconds
     const kickoffTime = new Date(date);
     const currentTime = new Date();
-    return kickoffTime - currentTime > oneHour ? 'open' : 'closed';
+    return currentTime >= kickoffTime ? 'closed' : 'open';
   };
 
   return (
     <div>
       <h3>Fixture Predictions</h3>
+      <p>User Points: {userPoints}</p> {/* Display user points */}
       <div>
         {userPredictions.map((prediction, index) => (
           <div key={index} className={styles.predictionBox}>
@@ -64,6 +75,19 @@ const DisplayPredictions = ({ userId }) => {
               alt="Away Team Logo"
               className={styles.teamLogo}
             />
+            <div>
+              {prediction.won !== undefined && (
+                <p className={prediction.won ? 'text-success' : 'text-danger'}>
+                  {prediction.won ? 'Won' : 'Lost'}
+                </p>
+              )}
+            </div>
+            <Link
+              to={`/predictions/${prediction.fixtureId}`}
+              className={styles.editButton}
+            >
+              Edit Prediction
+            </Link>
           </div>
         ))}
       </div>

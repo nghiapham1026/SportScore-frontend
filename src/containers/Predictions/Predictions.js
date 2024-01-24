@@ -3,15 +3,22 @@ import { useParams } from 'react-router-dom';
 import { getMatchPredictions, fetchFixtures } from '../../utils/dataController';
 import RenderPredictions from './RenderPredictions';
 import ScorePredictor from './ScorePredictor';
+import {
+  getUserPredictions,
+  getUserData,
+  updateUserData,
+} from '../../utils/userDataController';
 import { AuthContext } from '../../context/AuthContext';
-import { doc, setDoc, getDoc } from 'firebase/firestore';
+import { doc, setDoc } from 'firebase/firestore';
 import { db } from '../../firebase';
+import styles from './Predictions.module.css';
 
 function Predictions() {
   const { fixtureId } = useParams();
   const [predictions, setPredictions] = useState(null);
   const [fixtureDetails, setFixtureDetails] = useState(null);
   const [userPredictionDisplay, setUserPredictionDisplay] = useState(null);
+  const [userPoints, setUserPoints] = useState(null);
   const [isPredictionLocked, setIsPredictionLocked] = useState(false);
   const [error, setError] = useState('');
   const { user } = useContext(AuthContext);
@@ -45,24 +52,29 @@ function Predictions() {
   }, [fixtureId]);
 
   useEffect(() => {
-    if (user && !userPredictionDisplay) {
-      async function fetchUserPrediction() {
-        const predictionRef = doc(
-          db,
-          'users',
-          user.uid,
-          'predictions',
-          fixtureId
+    const fetchUserPrediction = async () => {
+      if (user) {
+        const predictions = await getUserPredictions(user.uid);
+        const predictionForFixture = predictions.find(
+          (pred) => pred.fixtureId === fixtureId
         );
-        const docSnap = await getDoc(predictionRef);
-        if (docSnap.exists()) {
-          setUserPredictionDisplay(docSnap.data());
-        }
+        setUserPredictionDisplay(predictionForFixture);
       }
+    };
 
-      fetchUserPrediction();
-    }
-  }, [user, fixtureId, userPredictionDisplay]);
+    fetchUserPrediction();
+  }, [user, fixtureId]);
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      if (user) {
+        const userData = await getUserData(user.uid);
+        setUserPoints(userData?.points || 0); // Fetch and set user points
+      }
+    };
+
+    fetchUserData();
+  }, [user]);
 
   const handlePredictionSubmit = async (userPrediction) => {
     if (!user) {
@@ -95,6 +107,16 @@ function Predictions() {
         });
         setUserPredictionDisplay(userPrediction);
         console.log('Prediction saved successfully');
+
+        if (userPoints > 0) {
+          const updatedPoints = userPoints - 1;
+          await updateUserData(user.uid, { points: updatedPoints });
+          setUserPoints(updatedPoints); // Update the local state as well
+          alert('1 point has been deducted for your prediction.'); // Inform the user
+        } else {
+          alert('You do not have enough points to make a prediction.');
+        }
+
         window.location.reload();
       } catch (error) {
         console.error('Error saving prediction:', error);
@@ -103,30 +125,63 @@ function Predictions() {
   };
 
   return (
-    <div>
-      {error && <p>Error: {error}</p>}
+    <div className={`container ${styles.container}`}>
+      {error && (
+        <p className={`alert alert-danger ${styles.error}`}>Error: {error}</p>
+      )}
       {predictions && <RenderPredictions predictions={predictions} />}
 
-      {!isPredictionLocked ? (
-        <ScorePredictor onPredictionSubmit={handlePredictionSubmit} />
+      {!isPredictionLocked || userPoints === 0 ? (
+        <>
+          <div>
+            <p>Your Current Points: {userPoints}</p>
+            <p className="text-warning">
+              Submitting or changing a prediction will cost 1 point.
+            </p>
+          </div>
+          <ScorePredictor onPredictionSubmit={handlePredictionSubmit} />
+        </>
       ) : (
-        <p>
-          Prediction is locked as the match is about to start, in progress, or
-          has ended.
+        <p className={styles.lockedPrediction}>
+          Prediction is unavailable, either the match has started or you are out
+          of points.
         </p>
       )}
 
       {userPredictionDisplay && (
-        <div>
+        <div className={styles.yourPrediction}>
           <h3>Your Prediction:</h3>
-          <p>
-            {userPredictionDisplay.homeLogo} Home Score:{' '}
-            {userPredictionDisplay.homeScore}
-          </p>
-          <p>
-            {userPredictionDisplay.awayLogo} Away Score:{' '}
-            {userPredictionDisplay.awayScore}
-          </p>
+          <div className={styles.teamPrediction}>
+            <img
+              src={userPredictionDisplay.homeLogo}
+              alt="Home Team Logo"
+              className={styles.teamLogo}
+            />
+            <p>
+              Home Score: <b>{userPredictionDisplay.homeScore}</b>
+            </p>
+          </div>
+          <div className={styles.teamPrediction}>
+            <img
+              src={userPredictionDisplay.awayLogo}
+              alt="Away Team Logo"
+              className={styles.teamLogo}
+            />
+            <p>
+              Away Score: <b>{userPredictionDisplay.awayScore}</b>
+            </p>
+          </div>
+          <div className={styles.predictionStatus}>
+            {userPredictionDisplay.won !== undefined && (
+              <p
+                className={
+                  userPredictionDisplay.won ? 'text-success' : 'text-danger'
+                }
+              >
+                {userPredictionDisplay.won ? 'Won' : 'Lost'}
+              </p>
+            )}
+          </div>
         </div>
       )}
     </div>
