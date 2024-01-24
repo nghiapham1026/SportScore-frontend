@@ -1,16 +1,18 @@
 import { db } from '../firebase'; // Adjust the import path as needed
 import { collection, doc, getDocs, getDoc, setDoc } from 'firebase/firestore';
 
-export const getUserPredictions = async (userId) => {
+export const getUserPredictions = async (userId, fixtureId = null) => {
   if (!userId) return [];
 
   const predictionsRef = collection(db, 'users', userId, 'predictions');
   const querySnapshot = await getDocs(predictionsRef);
   const predictions = [];
   querySnapshot.forEach((doc) => {
-    predictions.push({ fixtureId: doc.id, ...doc.data() });
+    if (!fixtureId || doc.id === fixtureId) {
+      predictions.push({ fixtureId: doc.id, ...doc.data() });
+    }
   });
-  return predictions;
+  return fixtureId ? predictions[0] : predictions;
 };
 
 export const getUserData = async (userId) => {

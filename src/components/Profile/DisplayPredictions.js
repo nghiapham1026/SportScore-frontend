@@ -5,6 +5,7 @@ import {
   getUserData,
   getUserPredictions,
 } from '../../utils/userDataController';
+import { processPredictions } from './CheckPredictions';
 import styles from './DisplayPredictions.module.css'; // Your CSS module for styling
 
 const DisplayPredictions = ({ userId }) => {
@@ -14,6 +15,7 @@ const DisplayPredictions = ({ userId }) => {
   useEffect(() => {
     const fetchData = async () => {
       if (userId) {
+        await processPredictions(userId);
         const predictions = await getUserPredictions(userId);
         setUserPredictions(predictions);
 
@@ -66,6 +68,13 @@ const DisplayPredictions = ({ userId }) => {
               alt="Away Team Logo"
               className={styles.teamLogo}
             />
+            <div>
+              {prediction.won !== undefined && (
+                <p className={prediction.won ? 'text-success' : 'text-danger'}>
+                  {prediction.won ? 'Won' : 'Lost'}
+                </p>
+              )}
+            </div>
             <Link
               to={`/predictions/${prediction.fixtureId}`}
               className={styles.editButton}
