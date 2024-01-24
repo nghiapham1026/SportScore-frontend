@@ -1,7 +1,7 @@
-import { db } from '../../firebase'; // Adjust the import path as needed
+import { db } from '../../../firebase'; // Adjust the import path as needed
 import { collection, doc, getDocs, updateDoc } from 'firebase/firestore';
-import { getUserPredictions } from '../../utils/userDataController';
-import { fetchFixtures } from '../../utils/dataController';
+import { getUserPredictions } from '../../../utils/userDataController';
+import { fetchFixtures } from '../../../utils/dataController';
 
 const checkPoints = async (userId) => {
   if (!userId) return [];
