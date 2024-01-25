@@ -5,7 +5,7 @@ import {
   getUserData,
   getUserPredictions,
 } from '../../utils/userDataController';
-import { processPredictions } from './utils/CheckPredictions';
+import { processPredictions } from './utils/checkPredictions';
 import styles from './DisplayPredictions.module.css'; // Your CSS module for styling
 
 const DisplayPredictions = ({ userId }) => {
